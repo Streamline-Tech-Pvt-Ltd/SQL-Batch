@@ -206,4 +206,4 @@ Referential integrity prevents invalid or orphan records and keeps relationships
 Remember:
 Primary Key → Parent table
 Foreign Key → Child table
-Referential Integrity → Keeps their relationship valid
+Referential Integrity → Keeps their relationship valid.

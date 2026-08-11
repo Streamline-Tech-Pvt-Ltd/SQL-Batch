@@ -1,0 +1,106 @@
+# SQL = Structured Query Language
+  SQL is a language used to store, manage, retrieve, and manipulate data in a database.
+
+Using SQL, we can:
+
+Create a database
+Create tables
+Insert data
+Display data
+Update data
+Delete data
+Search/filter data
+Sort data
+Calculate totals/averages
+Join multiple tables
+
+# Database: A database is an organized collection of data.
+Examples of databases:
+MySQL
+PostgreSQL
+Oracle
+Microsoft SQL Server
+SQLite
+MongoDB (NoSQL database)
+
+# DBMS = Database Management System
+A DBMS is software that helps us create, store, manage, and access data.
+Examples:
+MySQL
+PostgreSQL
+Oracle
+SQL Server
+
+# Simple Difference Database & DBMS
+Database → Collection of data
+DBMS → Software used to manage the database
+
+# RDBMS = Relational Database Management System
+  It stores data in the form of tables.
+Examples of RDBMS:
+MySQL
+PostgreSQL
+Oracle
+SQL Server
+
+# SQL Table
+A table contains:
+Rows
+Columns
+Syntax:create table table_name(Col_name data type constraints);
+       CREATE TABLE Students(StudentID INT Primary key);
+
+# SQL Commands Categories:
+Category	               Meaning
+DDL	                    Data Definition Language
+DML	                    Data Manipulation Language
+DQL	                    Data Query Language
+DCL	                    Data Control Language
+TCL	                    Transaction Control Language
+
+
+# CREATE
+Used to create a database or table.
+CREATE DATABASE database name;
+use database;
+CREATE TABLE table_name(Col_name data type constraints);
+
+# SQL Data Types
+A data type tells SQL what kind of data a column can store.
+
+1.INT: Stores whole numbers.
+
+2.TINYINT: TINYINT is used when you need to store small whole numbers.
+
+3.BIGINT: BIGINT is used for very large whole numbers.
+
+4.DECIMAL: Stores decimal numbers.
+
+5.FLOAT: Stores floating-point numbers.
+
+6.CHAR: Fixed-length text.
+
+7.VARCHAR: Variable-length text.
+
+8.TEXT: Used for large amounts of text.
+
+9.DATE: Stores date.
+      Ex:.YYYY-MM-DD 
+
+10.Boolean: Used for true/false values.
+
+11.BLOB: Store in Files,Aud,Vid,Img etc.
+
+# Difference CHAR & VARCHAR.
+| Feature            | `CHAR`                            | `VARCHAR`                                            |
+| ------------------ | --------------------------------- | ---------------------------------------------------- |
+| Full form          | Character                         | Variable Character                                   |
+| Length             | Fixed                             | Variable                                             |
+| Storage            | Always reserves defined length    | Uses space based on actual data                      |
+| Example            | `CHAR(10)`                        | `VARCHAR(10)`                                        |
+| If value is `"Hi"` | Stores as fixed-length value      | Stores only required characters + length information |
+| Best for           | Fixed-length data                 | Variable-length data                                 |
+| Examples           | Gender, country code, fixed codes | Name, email, address                                 |
+
+
+
