@@ -1,0 +1,209 @@
+What is SQL?
+
+SQL = Structured Query Language
+SQL is used to communicate with and manage data stored in a relational database.
+With SQL, we can:
+Create databases
+Create tables
+Insert data
+Read data
+Update data
+Delete data
+Search/filter data
+
+
+What is a Database?
+A database is an organized collection of data.
+
+DBMS = Database Management System
+A DBMS is software used to create, store, manage and retrieve data.
+Examples:
+PostgreSQL
+MySQL
+Oracle Database
+Microsoft SQL Server
+SQLite
+
+RDBMS
+RDBMS = Relational Database Management System
+It stores data in the form of tables and allows relationships between tables
+
+| Relational                           | Non-Relational                                          |
+| ------------------------------------ | ------------------------------------------------------- |
+| Data stored in tables                | Data can be documents, key-value, graphs, etc.          |
+| Uses rows and columns                | Flexible structure                                      |
+| Fixed/schema-based structure         | Usually more flexible schema                            |
+| Uses SQL                             | Often uses database-specific query methods              |
+| Primary & Foreign Keys commonly used | Relationships handled differently                       |
+| Good for structured data             | Good for flexible/unstructured or rapidly changing data |
+| MySQL, PostgreSQL, Oracle            | MongoDB, Redis, Cassandra                               |
+
+
+***Table***
+#A table contains rows and columns.
+Example:
+CREATE TABLE students (
+    id INT,
+    name VARCHAR(100),
+    age INT,
+    city VARCHAR(50)
+);
+
+# To insert valuse in table syntax or format is :
+INSERT INTO student (id, name, age, course)
+VALUES (1, 'Pallavi', 20, 'Python');
+
+# Check the data:
+SELECT * FROM student;
+
+# SQL Data Types
+A data type defines what kind of value a column can store in a database.
+
+1. Numeric Data Types
+
+| Data Type      | Use                          | Example      |
+| -------------- | ---------------------------- | ------------ |
+| `INT`          | Whole numbers                | `25`         |
+| `BIGINT`       | Very large whole numbers     | `9876543210` |
+| `FLOAT`        | Decimal numbers              | `25.5`       |
+| `DOUBLE`       | More precise decimal numbers | `25.5678`    |
+| `DECIMAL(p,s)` | Exact decimal values         | `9999.99`    |
+
+2. String / Character Data Types
+
+| Data Type    | Use                  | Example                 |
+| ------------ | -------------------- | ----------------------- |
+| `CHAR(n)`    | Fixed-length text    | `'ABC'`                 |
+| `VARCHAR(n)` | Variable-length text | `'Pallavi'`             |
+| `TEXT`       | Large amount of text | `'Long description...'` |
+
+3. Date and Time
+
+| Data Type   | Use                                       | Example                 |
+| ----------- | ----------------------------------------- | ----------------------- |
+| `DATE`      | Date                                      | `'2026-08-11'`          |
+| `TIME`      | Time                                      | `'14:30:00'`            |
+| `DATETIME`  | Date + time                               | `'2026-08-11 14:30:00'` |
+| `TIMESTAMP` | Date + time, commonly used for timestamps | `'2026-08-11 14:30:00'` |
+
+4. Boolean
+BOOLEAN stores a true/false value.
+is_active BOOLEAN
+
+Example:
+INSERT INTO student
+VALUES (1, 'Pallavi', TRUE);
+
+#importent to remember:
+INT          → Whole number
+VARCHAR      → Text
+CHAR         → Fixed-length text
+DECIMAL      → Exact decimal number
+FLOAT        → Decimal number
+DATE         → Date
+TIME         → Time
+DATETIME     → Date + time
+BOOLEAN      → TRUE / FALSE
+TEXT         → Large text
+
+************************* Constraints ***********************
+# Constraints are rules defined on columns in a database table to ensure data accuracy, validity, and integrity.
+# The main constraints are PRIMARY KEY, FOREIGN KEY, NOT NULL, UNIQUE, DEFAULT, and CHECK.
+| Constraint    | Purpose                               |
+| ------------- | ------------------------------------- |
+| `PRIMARY KEY` | Uniquely identifies each row          |
+| `FOREIGN KEY` | Creates a relationship between tables |
+| `NOT NULL`    | Prevents empty/NULL values            |
+| `UNIQUE`      | Prevents duplicate values             |
+| `DEFAULT`     | Provides a default value              |
+| `CHECK`       | Restricts values based on a condition |
+
+1. PRIMARY KEY
+Uniquely identifies every record.id cannot be duplicate or NULL.
+
+CREATE TABLE student (
+    id INT PRIMARY KEY,
+    name VARCHAR(30)
+);
+
+2. FOREIGN KEY
+Connects one table to another table.Here, employee.d_id is the Foreign Key.
+
+CREATE TABLE department (
+    d_id INT PRIMARY KEY,
+    d_name VARCHAR(30)
+);
+
+CREATE TABLE employee (
+    e_id INT PRIMARY KEY,
+    e_name VARCHAR(30),
+    d_id INT,
+    FOREIGN KEY (d_id) REFERENCES department(d_id)
+);
+
+
+3. NOT NULL
+Does not allow NULL.
+
+CREATE TABLE student (
+    id INT PRIMARY KEY,
+    name VARCHAR(30) NOT NULL
+);
+
+This is invalid:
+INSERT INTO student VALUES (1, NULL);
+
+
+4. UNIQUE
+Does not allow duplicate values.Two students cannot have the same email.
+
+CREATE TABLE student (
+    id INT PRIMARY KEY,
+    email VARCHAR(50) UNIQUE
+);
+
+5. DEFAULT
+Automatically gives a value if you don't provide one.
+
+CREATE TABLE employee (
+    id INT PRIMARY KEY,
+    name VARCHAR(30),
+    city VARCHAR(20) DEFAULT 'Nashik'
+);
+
+If you insert:
+
+INSERT INTO employee (id, name)
+VALUES (1, 'Pallavi');
+
+city automatically becomes:
+Nashik
+
+
+6. CHECK
+Allows only values that satisfy a condition.
+
+CREATE TABLE student (
+    id INT PRIMARY KEY,
+    name VARCHAR(30),
+    age INT CHECK (age >= 18)
+);
+
+This is invalid:because age must be 18 or above.
+
+INSERT INTO student
+VALUES (1, 'Pallavi', 15);
+
+
+****************  Referential integrity  *************************
+Referential integrity
+Definition
+Referential integrity is a rule that ensures relationships between tables remain valid and consistent.
+It means a Foreign Key value must either match an existing value in the referenced 
+table or be NULL (if NULL is allowed).
+Referential integrity prevents invalid or orphan records and keeps relationships between tables consistent.
+
+Remember:
+Primary Key → Parent table
+Foreign Key → Child table
+Referential Integrity → Keeps their relationship valid
