@@ -1,0 +1,90 @@
+Download MySQL 8.0
+
+Use the official MySQL Installer page:
+Download MySQL Installer 8.0
+You will see two installers:
+
+Web Installer — small download; downloads selected components during installation.
+Full Installer — much larger; contains the installation packages.
+For your normal internet-connected PC, Web Installer is fine.
+
+Step 2 — Run the installer
+Right-click the downloaded .msi file → Run as administrator.
+When it asks for setup type, select:
+
+✅ Developer Default
+This is best for you because you're learning SQL and doing development. It can install MySQL Server along with development tools such as MySQL Workbench.
+
+Click:
+Next → Execute
+Wait for all components to install.
+
+Step 3 — MySQL Server Configuration
+When you reach Type and Networking:
+
+Config Type
+Select:
+
+Development Computer
+This is suitable for a personal development/learning computer.
+Connectivity
+Keep:
+TCP/IP
+Port: 3306
+Keep the default unless another application is already using port 3306.
+Click Next.
+
+Step 4 — Authentication Method
+You may see two choices.
+
+Select:
+✅ Use Strong Password Encryption for Authentication
+This is the recommended modern authentication option.
+Click Next.
+
+
+Step 6 — Set ROOT Password ⭐
+This is very important because you forgot your previous password.
+Set a new password that you will remember.
+For example, for practice:
+
+root
+
+⚠️ Don't use that exact password for an important/production database. Use your own strong password.
+Enter it twice.
+Write this password somewhere safe.
+
+Step 7 — Windows Service
+You'll see something similar to:
+Configure MySQL Server as a Windows Service
+Keep it enabled.
+Service name:
+MySQL80
+
+Also keep:
+Start the MySQL Server at System Startup
+enabled.
+
+This means MySQL will automatically start when Windows starts.
+Click Next → Execute.
+
+Step 8 — Finish Installation
+Wait until every item shows
+Complete
+Then click:
+Finish
+
+Step 9 — Test MySQL Command Line ⭐
+Open Command Prompt.
+Type:
+mysql -u root -p
+
+It will ask:
+Enter password:
+
+Enter the password you created during installation.
+If successful, you'll see something like:
+Welcome to the MySQL monitor.
+mysql>
+
+🎉 Your MySQL installation is working.

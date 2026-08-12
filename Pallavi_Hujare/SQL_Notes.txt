@@ -1,5 +1,4 @@
-What is SQL?
-
+SQL
 SQL = Structured Query Language
 SQL is used to communicate with and manage data stored in a relational database.
 With SQL, we can:
@@ -12,7 +11,7 @@ Delete data
 Search/filter data
 
 
-What is a Database?
+What is a Database
 A database is an organized collection of data.
 
 DBMS = Database Management System
@@ -105,8 +104,97 @@ TIME         → Time
 DATETIME     → Date + time
 BOOLEAN      → TRUE / FALSE
 TEXT         → Large text
+________________________________________________________________________________________________________________________
+
+**********************oeratores in Sql *********************************
+
+SQL Operators – Notes
+
+Operators are symbols or keywords used to perform operations or comparisons in SQL.
+
+1. Arithmetic Operators
+
+Used for mathematical calculations.
+
+| Operator | Meaning             | Example     |
+| -------- | ------------------- | ----------- |
+| `+`      | Addition            | `marks + 5` |
+| `-`      | Subtraction         | `marks - 5` |
+| `*`      | Multiplication      | `fees * 2`  |
+| `/`      | Division            | `fees / 2`  |
+| `%`      | Modulus / remainder | `marks % 2` |
+
+Example:
+SELECT marks + 5 FROM student;
+___________________________________
+
+2. Comparison Operators
+Used to compare two values.
+
+| Operator | Meaning                  |
+| -------- | ------------------------ |
+| `=`      | Equal to                 |
+| `<>`     | Not equal to             |
+| `!=`     | Not equal to             |
+| `>`      | Greater than             |
+| `<`      | Less than                |
+| `>=`     | Greater than or equal to |
+| `<=`     | Less than or equal to    |
+
+
+Examples:
+SELECT * FROM student WHERE marks > 80;
+SELECT * FROM student WHERE city = 'Pune';
+SELECT * FROM student WHERE age >= 20;
+SELECT * FROM student WHERE city <> 'Pune';
+_________________________________________________________________________
+
+3. Logical Operators
+Used to combine or reverse conditions.
+
+AND
+Both conditions must be true.
+SELECT * FROM student WHERE city = 'Pune' AND marks > 80;
+
+OR
+At least one condition must be true.
+SELECT * FROM student WHERE city = 'Pune' OR city = 'Nashik';
+
+NOT
+Reverses the condition.
+SELECT * FROM student WHERE NOT city = 'Pune';
+
+4. Special Operators
+BETWEEN
+Checks whether a value is within a range.
+SELECT * FROM student WHERE marks BETWEEN 60 AND 90;
+
+IN
+Checks whether a value matches any value in a list.
+SELECT * FROM student WHERE city IN ('Pune','Nashik','Mumbai');
+
+NOT IN
+Excludes specified values.
+SELECT * FROM student WHERE city NOT IN ('Pune','Nashik');
+
+LIKE
+Used for pattern matching.
+SELECT * FROM student WHERE name LIKE 'R%';
+R% → starts with R.
+
+SELECT * FROM student WHERE name LIKE '%a';
+%a → ends with a.
+
+IS NULL
+Checks for NULL values.
+SELECT * FROM student WHERE city IS NULL;
+
+IS NOT NULL
+Checks for non-NULL values.
+SELECT * FROM student WHERE city IS NOT NULL;
 
 ************************* Constraints ***********************
+
 # Constraints are rules defined on columns in a database table to ensure data accuracy, validity, and integrity.
 # The main constraints are PRIMARY KEY, FOREIGN KEY, NOT NULL, UNIQUE, DEFAULT, and CHECK.
 | Constraint    | Purpose                               |
@@ -207,3 +295,58 @@ Remember:
 Primary Key → Parent table
 Foreign Key → Child table
 Referential Integrity → Keeps their relationship valid.
+________________________________________________________________________________________________________________________
+******** SQL Clauses *********
+A clause is a part of an SQL query that performs a specific operation, such as filtering, grouping, or sorting data.
+
+1. WHERE Clause
+Used to filter rows based on a condition.
+
+SELECT * FROM student WHERE city = 'Pune';
+
+Other examples:
+
+SELECT * FROM student WHERE marks > 80;
+SELECT * FROM student WHERE age >= 20;
+SELECT * FROM student WHERE city <> 'Pune';
+
+Interview definition:
+WHERE filters individual rows before grouping.
+_______________________________________________________________________________________________________________________________
+2. DISTINCT Clause
+Used to return unique values and remove duplicates.
+
+Syntax : SELECT DISTINCT column_name FROM table_name;
+SELECT DISTINCT city FROM student;
+________________________________________________________________________________________________________________________________
+3. ORDER BY Clause
+Used to sort the result.
+
+Syntax : SELECT * FROM table_name ORDER BY column_name ASC;
+
+Ascending
+SELECT * FROM student ORDER BY marks ASC;
+
+Descending
+SELECT * FROM student ORDER BY marks DESC;
+
+ASC = Ascending
+DESC = Descending
+_______________________________________________________________________________________________________________________________
+
+4. GROUP BY Clause
+Used to group rows having the same values.
+Usually used with aggregate functions like COUNT(), SUM(), AVG(), MAX(), and MIN().
+
+Syntax : SELECT column_name, COUNT(*)
+FROM table_name
+GROUP BY column_name;
+
+SELECT city, COUNT(city)
+FROM student
+GROUP BY city;
+
+Example:-
+Pune     3
+Nashik   2
+Mumbai   1

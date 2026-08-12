@@ -1,0 +1,154 @@
+1. What is SQL?
+Answer: SQL (Structured Query Language) is a language used to create, manage, retrieve, and manipulate data in relational databases.
+
+2. What is a database?
+Answer: A database is an organized collection of data that can be easily stored, accessed, and managed.
+
+3. What is DBMS?
+Answer: DBMS (Database Management System) is software used to create, store, manage, and retrieve data from a database.
+Examples: MySQL, PostgreSQL, Oracle.
+
+4. What is RDBMS?
+Answer: RDBMS (Relational Database Management System) stores data in tables with rows and columns and allows relationships between tables.
+Examples: MySQL, PostgreSQL, Oracle.
+
+5. What is a table?
+Answer: A table is a collection of related data organized into rows and columns.
+Example:
+
+student
+--------------------------------
+id | name   | city  | marks
+1  | Rahul  | Pune  | 86
+2  | Amit   | Delhi | 78
+
+6. What is a primary key?
+Answer: A primary key is a column or combination of columns that uniquely identifies each row in a table.
+
+Properties:
+Cannot contain NULL
+Must be unique
+A table can have only one primary key constraint
+CREATE TABLE student(
+    id INT PRIMARY KEY,
+    name VARCHAR(50)
+);
+
+7. What is a foreign key?
+Answer: A foreign key is a column that creates a relationship between two tables by referencing a primary key or unique key in another table.
+
+CREATE TABLE marks(
+    id INT,
+    marks INT,
+    FOREIGN KEY(id) REFERENCES student(id)
+);
+
+8. What is the difference between Primary Key and Foreign Key?
+| Primary Key                          | Foreign Key                                |
+| ------------------------------------ | ------------------------------------------ |
+| Uniquely identifies a row            | Creates a relationship between tables      |
+| Cannot be NULL                       | Can contain NULL unless restricted         |
+| Unique                               | Duplicates can be allowed                  |
+| One primary-key constraint per table | Multiple foreign-key constraints can exist |
+
+What are SQL commands?
+
+| Category | Commands                              |
+| -------- | ------------------------------------- |
+| DDL      | `CREATE`, `ALTER`, `DROP`, `TRUNCATE` |
+| DML      | `INSERT`, `UPDATE`, `DELETE`          |
+| DQL      | `SELECT`                              |
+| DCL      | `GRANT`, `REVOKE`                     |
+| TCL      | `COMMIT`, `ROLLBACK`, `SAVEPOINT`     |
+
+
+9. What is SELECT?
+Answer: SELECT is used to retrieve data from a table.
+SELECT * FROM student;
+
+10. What is WHERE?
+Answer: WHERE is used to filter rows based on a condition.
+SELECT * FROM student WHERE marks > 80;
+
+11. What is DISTINCT?
+Answer: DISTINCT removes duplicate values from the result.
+SELECT DISTINCT city FROM student;
+
+12. What is GROUP BY?
+Answer: GROUP BY groups rows having the same values and is commonly used with aggregate functions.
+SELECT city, COUNT(*)
+FROM student
+GROUP BY city;
+
+13. What is HAVING?
+Answer: HAVING is used to filter groups after GROUP BY.
+SELECT city, COUNT(*)
+FROM student
+GROUP BY city
+HAVING COUNT(*) > 2;
+
+14. Difference between WHERE and HAVING?
+Answer:
+WHERE filters individual rows.
+HAVING filters groups.
+WHERE is generally used before GROUP BY.
+HAVING is used after GROUP BY.
+
+15. What is ORDER BY?
+Answer: ORDER BY is used to sort query results.
+SELECT * FROM student
+ORDER BY marks DESC;
+
+ASC → ascending
+DESC → descending
+
+16. What are aggregate functions?
+Answer: Aggregate functions perform calculations on multiple rows and return a single result.
+Common aggregate functions:
+COUNT() → counts rows
+SUM() → calculates total
+AVG() → calculates average
+MAX() → highest value
+MIN() → lowest value
+
+Example:
+SELECT AVG(marks) FROM student;
+
+17. What is AND?
+Answer: AND is a logical operator. Both conditions must be true.
+SELECT * FROM student
+WHERE city = 'Pune' AND marks > 80;
+
+18. What is OR?
+Answer: OR is a logical operator. At least one condition must be true.
+SELECT * FROM student
+WHERE city = 'Pune' OR city = 'Delhi';
+
+19. What is BETWEEN?
+Answer: BETWEEN checks whether a value falls within a specified range.
+SELECT * FROM student
+WHERE marks BETWEEN 60 AND 90;
+
+20. What is IN?
+Answer: IN checks whether a value matches any value from a specified list.
+SELECT * FROM student
+WHERE city IN ('Pune', 'Delhi', 'Mumbai');
+
+21. What is LIKE?
+Answer: LIKE is used for pattern matching.
+SELECT * FROM student
+WHERE name LIKE 'R%';
+R% → starts with R.
+SELECT * FROM student
+WHERE name LIKE '%a';
+%a → ends with a.
+
+22. What is NULL?
+Answer: NULL represents a missing or unknown value. It is not the same as 0 or an empty string.
+Check NULL:
+SELECT * FROM student WHERE city IS NULL;
+
+25. What is a constraint?
+Answer: Constraints are rules applied to table columns to maintain data accuracy and integrity.
+Common constraints:
+PRIMARY KEY, FOREIGN KEY, NOT NULL, UNIQUE, CHECK, DEFAULT
