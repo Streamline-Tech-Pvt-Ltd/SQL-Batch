@@ -1,0 +1,324 @@
+# SQL = Structured Query Language
+  SQL is a language used to store, manage, retrieve, and manipulate data in a database.
+
+Using SQL, we can:
+
+Create a database
+Create tables
+Insert data
+Display data
+Update data
+Delete data
+Search/filter data
+Sort data
+Calculate total/average
+Join multiple tables
+
+# Database: A database is an organized collection of data.
+Examples of databases:
+MySQL
+PostgreSQL
+Oracle
+Microsoft SQL Server
+SQLite
+MongoDB (NoSQL database)
+
+# DBMS = Database Management System
+A DBMS is software that helps us create, store, manage and access data.
+Examples:
+MySQL
+PostgreSQL
+Oracle
+SQL Server
+
+# Simple Difference Database & DBMS
+Database → Collection of data
+DBMS → Software used to manage the database
+
+# RDBMS = Relational Database Management System
+  It stores data in the form of tables.
+Examples of RDBMS:
+MySQL
+PostgreSQL
+Oracle
+SQL Server
+
+# Difference DBMS AND RDBMS
+| Relational                           | Non-Relational                                          |
+| ------------------------------------ | ------------------------------------------------------- |
+| Data stored in tables                | Data can be documents, key-value, graphs, etc.          |
+| Uses rows and columns                | Flexible structure                                      |
+| Fixed/schema-based structure         | Usually more flexible schema                            |
+| Uses SQL                             | Often uses database-specific query methods              |
+| Primary & Foreign Keys commonly used | Relationships handled differently                       |
+| Good for structured data             | Good for flexible/unstructured or rapidly changing data |
+| MySQL, PostgreSQL, Oracle            | MongoDB, Redis, Cassandra                               |
+
+____________________________________________________________________________________________________________
+
+# SQL Table
+# CREATE
+Used to create a database
+CREATE DATABASE database name;
+use database;
+EX:create database College;
+   use College;
+
+# A table contains:
+Rows & column
+
+Syntax:create table table_name(Col_name data type constraints);
+       
+EX:create table student(
+    -> Id int primary key,
+    -> Name varchar(20) not null,
+    -> course varchar(20),
+    -> gender char(1),
+    -> age int,
+    -> marks decimal(5,2));
+
+* Insert data:
+mysql> insert into student(Id,Name,course,gender,age,marks)
+    -> values
+    -> (1,'Urmila','Python','F',21,80.90);
+
+*Show Data:
+mysql> select * from student;
++----+--------+--------+--------+------+-------+
+| Id | Name   | course | gender | age  | marks |
++----+--------+--------+--------+------+-------+
+|  1 | Urmila | Python | F      |   21 | 80.90 |
++----+--------+--------+--------+------+-------+
+
+________________________________________________________________________________________________________________
+
+# SQL Commands Categories:
+Category	               Meaning
+DDL	                    Data Definition Language
+DML	                    Data Manipulation Language
+DQL	                    Data Query Language
+DCL	                    Data Control Language
+TCL	                    Transaction Control Language
+
+________________________________________________________________________________________________________________
+
+# SQL Data Types
+A data type tells SQL what kind of data a column can store.
+
+1.INT: Stores whole numbers.
+For Ex:21,345 etc
+
+2.TINYINT: TINYINT is used when you need to store small whole numbers.
+For Ex:100
+
+3.BIGINT: BIGINT is used for very large whole numbers.
+For Ex:9876543210
+
+4.DECIMAL: Stores decimal numbers.
+For Ex: 87.40
+
+5.FLOAT: Stores floating-point numbers.
+For Ex: 12.3456
+
+6.CHAR: Fixed-length text.
+For Ex:'ABC'
+
+7.VARCHAR: Variable-length text.
+For Ex:'Urmila'
+
+8.TEXT: Used for large amounts of text.
+For Ex:Paragraph
+
+9.DATE: Stores date.
+Ex:.YYYY-MM-DD 
+
+10.Boolean: Used for true/false values.
+For Ex:True,False
+
+11.BLOB: Store in Files,Aud,Vid,Img etc.
+
+
+# Difference CHAR & VARCHAR.
+| Feature            | `CHAR`                            | `VARCHAR`                                            |
+| ------------------ | --------------------------------- | ---------------------------------------------------- |
+| Full form          | Character                         | Variable Character                                   |
+| Length             | Fixed                             | Variable                                             |
+| Storage            | Always reserves defined length    | Uses space based on actual data                      |
+| Example            | `CHAR(10)`                        | `VARCHAR(10)`                                        |
+| If value is `"Hi"` | Stores as fixed-length value      | Stores only required characters + length information |
+| Best for           | Fixed-length data                 | Variable-length data                                 |
+| Examples           | Gender, country code, fixed codes | Name, email, address                                 |
+
+______________________________________________________________________________________________________________
+
+
+#Operators
+1. Arithmetic Operators
+Used for mathematical calculations. 
+| Operator | Meaning             | Example     |
+| -------- | ------------------- | ----------- |
+| `+`      | Addition            | `Marks + 5` |
+| `-`      | Subtraction         | `Marks - 5` |
+| `*`      | Multiplication      | `Marks * 2` |
+| `/`      | Division            | `Marks / 2` |
+| `%`      | Modulus / Remainder | `Marks % 2` |
+
+EX:select Name Marks % 10 AS NewMarks
+from Student;
+
+
+2. Comparison Operators
+Used to compare two values.
+| Operator | Meaning               |
+| -------- | --------------------- |
+| `=`      | Equal to              |
+| `<>`     | Not equal to          |
+| `!=`     | Not equal to          |
+| `>`      | Greater than          |
+| `<`      | Less than             |
+| `>=`     | Greater than or equal |
+| `<=`     | Less than or equal    |
+
+EX:select * from Student
+where Marks = 80;
+
+3. Logical Operators
+Used to combine multiple conditions.
+
+1.AND: Both conditions must be TRUE.
+Query: select * from student1 where age > 18 and marks > 70;
+
+
+2.OR :At least one condition must be TRUE.
+Query: select * from student1 where city='Pune' or city='Mumbai';
+
+
+3.NOT : Reverses the condition.
+Query: select * from student1 where not city='Pune';
+
+
+4.BETWEEN :Checks whether a value is within a range.
+Query: select * from student1 where marks between 50 and 80;
+
+
+____________________________________________________________________________________________________________
+
+# Constraints:
+Constraints are rules applied to table columns to control what data can be inserted or stored in a database.
+
+| Constraint    | Purpose                          |
+| ------------- | -------------------------------- |
+| `NOT NULL`    | Column cannot contain NULL       |
+| `UNIQUE`      | Values must be unique            |
+| `PRIMARY KEY` | Uniquely identifies each row     |
+| `FOREIGN KEY` | Connects two tables              |
+| `CHECK`       | Ensures a condition is satisfied |
+| `DEFAULT`     | Provides a default value         |
+
+
+1. NOT NULL: Prevents a column from having NULL values.
+Query: CREATE TABLE Student (
+      ID INT NOT NULL,
+      Name VARCHAR(50) NOT NULL,
+);
+
+2. UNIQUE: Ensures that every value in a column is different.
+Query:
+CREATE TABLE Student (
+    ID INT,
+    Email VARCHAR(100) UNIQUE
+);
+
+3. PRIMARY KEY: Uniquely identifies each row AND Must contain unique values.
+Query:
+CREATE TABLE Student (
+    ID INT PRIMARY KEY,
+    Name VARCHAR(50)
+);
+
+4. FOREIGN KEY: A FOREIGN KEY creates a relationship between two tables.
+Query:
+CREATE TABLE Domain (
+    D_ID INT PRIMARY KEY,
+    D_Name VARCHAR(50)
+);
+
+* Domain table D_ID primary key use Intern table as a Foreign key
+
+    CREATE TABLE Intern (
+    I_ID INT PRIMARY KEY,
+    Name VARCHAR(50),
+    D_ID INT,
+    FOREIGN KEY (D_ID) REFERENCES Domain(D_ID)
+);
+
+
+5. CHECK: Used to ensure that data satisfies a condition.
+Query:
+CREATE TABLE Student (
+    ID INT PRIMARY KEY,
+    Name VARCHAR(50),
+    Age INT CHECK (Age >= 18)
+);
+
+6. DEFAULT: Automatically inserts a value when you don't provide one.
+Query:
+CREATE TABLE Student (
+    ID INT PRIMARY KEY,
+    Name VARCHAR(50),
+    City VARCHAR(30) DEFAULT 'Pune'
+);
+
+_____________________________________________________________________________________________________________
+
+# Referential integrity :
+Referential integrity is a database rule that ensures every foreign key value refers to an existing primary key 
+value in the parent table, thereby maintaining valid relationships between tables.
+Referential integrity prevents invalid or orphan records and keeps relationships between tables consistent.
+
+Remember:
+Primary Key → Parent table
+Foreign Key → Child table
+Referential Integrity → Keeps their relationship valid.
+
+______________________________________________________________________________________________________________
+
+# Clauses
+SQL Clauses are keywords used with SQL statements to filter, group, sort, and limit data.
+
+1. FROM Clause: Specifies which table you want to retrieve data from.
+Syntax: SELECT * FROM Student;
+
+2. WHERE Clause: Used to filter rows according to a condition.
+Syntax: SELECT * FROM Student WHERE Marks > 80;
+using AND: SELECT * FROM Student WHERE Marks > 70 AND City = 'Pune';
+
+3. DISTINCT Clause: Used to return unique values and remove duplicates.
+Syntax : SELECT DISTINCT column_name FROM table_name;
+EX : SELECT DISTINCT city FROM student;
+
+4.ORDER BY Clause :Used to sort the result.
+Syntax: SELECT * FROM Table_Name ORDER BY Col_Name ASC;
+
+Ascending :ASC = smallest → largest.
+Syntax: SELECT * FROM Table_Name ORDER BY Col_Name ASC;
+
+Descending : DESC = largest → smallest.
+Syntax: SELECT * FROM Table_Name ORDER BY Col_Name DESC;
+
+
+4. GROUP BY Clause :Used to group rows having the same value.
+Usually used with aggregate functions such as:
+COUNT()
+SUM()
+AVG()
+MAX()
+MIN()
+
+Syantax: SELECT Col_name, COUNT(*) AS New_col_name
+FROM Table_Name
+GROUP BY Col_Name;
+
+Ex:SELECT City, COUNT(*) AS TotalStudents
+FROM Student
+GROUP BY City;

@@ -1,0 +1,58 @@
+# Steps:
+
+1.Create a database 
+  Right-click: Databases
+  Select: Create → Database
+  Enter: database name for ex: Hospital_DB
+
+2.Open Query Tool
+  Click your database: Hospital_DB
+  Right-click → Query Tool
+  Then, A SQL editor will open.
+
+3.Create a Table
+  In the query tool write the all table query in query tool.
+
+In PostgreSQL, it is recommended to use lowercase table names because PostgreSQL
+automatically converts unquoted table and column names to lowercase.
+For example:
+
+create table Patient (
+    ID INT,
+    Name VARCHAR(10)
+);
+
+PostgreSQL actually stores the table name as: patient
+
+So this query works:
+Select * from patient;
+
+But if you create the table using double quotes:
+
+CREATE TABLE "Patient" (
+    "ID" INT,
+    "Name" VARCHAR(100)
+);
+PostgreSQL preserves the capital P. Therefore, you must use double quotes every time.
+
+# RULE:
+1.Lowercase name → No problem 
+2.Capital letter with quotes → Must use quotes in every query 
+
+# it is better to use small letters for table names in pgAdmin to avoid 
+  unnecessary errors and make SQL queries easier to write.
+
+4.Insert Data
+  Insert into Table_Name values;
+
+5.View Data
+select * from table_name;
+
+# Not Show this data types in pgAdmin we use alter data types.
+
+1.TYNYINT - smallint
+2.decimal - numeric
+3.float - real or double precious
+4.binary - bytes
+5.year - int or date
+
