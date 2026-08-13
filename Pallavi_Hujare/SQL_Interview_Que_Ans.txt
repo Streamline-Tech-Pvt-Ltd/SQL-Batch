@@ -152,3 +152,75 @@ SELECT * FROM student WHERE city IS NULL;
 Answer: Constraints are rules applied to table columns to maintain data accuracy and integrity.
 Common constraints:
 PRIMARY KEY, FOREIGN KEY, NOT NULL, UNIQUE, CHECK, DEFAULT
+
+26.What is the WHERE clause?
+WHERE is used to filter records based on a condition.
+SELECT * FROM employee
+WHERE salary > 30000;
+
+
+27.What is the BETWEEN operator?
+BETWEEN is used to select values within a specific range.
+SELECT * FROM employee
+WHERE salary BETWEEN 30000 AND 50000;
+
+28.Does BETWEEN include both boundary values?
+Yes. BETWEEN includes both the starting and ending values.
+
+29.What is the IN operator?
+IN is used to check whether a value matches any value from a given list.
+
+30.SELECT * FROM employee
+WHERE city IN ('Pune', 'Nashik');
+
+31.What is the difference between IN and BETWEEN?
+IN is used for multiple specific values, while BETWEEN is used for a range of values.
+
+32.What is the difference between IN and OR?
+Both can check multiple values. IN provides a shorter and cleaner way.
+WHERE city IN ('Pune', 'Nashik');
+is equivalent to:
+WHERE city = 'Pune' OR city = 'Nashik';
+
+33.What is the LIKE operator?
+LIKE is used for pattern matching in string/text data.
+SELECT * FROM employee
+WHERE name LIKE 'P%';
+What does % mean in LIKE?
+% represents zero or more characters.
+
+LIKE 'P%'       -- starts with P
+LIKE '%a'       -- ends with a
+LIKE '%all%'    -- contains all
+
+34.What does _ mean in LIKE?
+_ represents exactly one character.
+
+LIKE 'P_llavi'
+
+35.What is the difference between % and _?
+% represents zero or more characters, while _ represents exactly one character.
+
+36.What is the AND operator?
+AND returns records only when all specified conditions are true.
+WHERE salary > 30000
+AND city = 'Pune';
+
+37.What is the OR operator?
+OR returns records when at least one condition is true.
+WHERE city = 'Pune'
+OR city = 'Nashik';
+
+38.What is the NOT operator?
+NOT reverses a condition.
+WHERE NOT city = 'Pune';
+What is the UPDATE statement?
+UPDATE is used to modify existing records.
+UPDATE employee
+SET salary = 40000
+WHERE id = 1;
+
+39.What happens if UPDATE is used without WHERE?
+It updates all records in the table.
+
+

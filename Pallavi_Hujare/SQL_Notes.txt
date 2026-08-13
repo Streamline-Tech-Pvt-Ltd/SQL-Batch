@@ -295,10 +295,117 @@ Remember:
 Primary Key → Parent table
 Foreign Key → Child table
 Referential Integrity → Keeps their relationship valid.
+________________________________________________________________________________________________________________________________
+# Aggregate functions
+
+Aggregate functions are built-in SQL functions that perform calculations on multiple rows and return one result.
+| Function  | Meaning             | Example       |
+| --------- | ------------------- | ------------- |
+| `COUNT()` | Counts rows/values  | `COUNT(*)`    |
+| `SUM()`   | Calculates total    | `SUM(salary)` |
+| `AVG()`   | Calculates average  | `AVG(salary)` |
+| `MIN()`   | Finds minimum value | `MIN(salary)` |
+| `MAX()`   | Finds maximum value | `MAX(salary)` |
+
+2. COUNT()
+COUNT() is used to count rows or non-NULL values.
+
+Syntax
+SELECT COUNT(column_name)
+FROM table_name;
+
+Example
+SELECT COUNT(*)
+FROM employees;
+
+--------------------------------------------------------------
+3. SUM()
+SUM() calculates the total of a numeric column.
+
+Syntax
+SELECT SUM(column_name)
+FROM table_name;
+
+Example
+SELECT SUM(salary)
+FROM employees;
+
+--------------------------------------------------------------
+
+4. AVG()
+AVG() calculates the average of numeric values.
+
+Syntax
+SELECT AVG(column_name)
+FROM table_name;
+
+Example
+SELECT AVG(salary)
+FROM employees;
+
+--------------------------------------------------------------
+
+5. MIN()
+MIN() returns the smallest value.
+
+Syntax
+SELECT MIN(column_name)
+FROM table_name;
+
+Example
+SELECT MIN(salary)
+FROM employees;
+
+---------------------------------------------------------------
+
+6. MAX()
+MAX() returns the largest value.
+
+Syntax
+SELECT MAX(column_name)
+FROM table_name;
+
+Example
+SELECT MAX(salary)
+FROM employees;
+----------------------------------------------------------------
+6. Aggregate Functions with GROUP BY
+GROUP BY creates groups, and aggregate functions calculate a result for each group.
+
+Example
+Find total salary department-wise:
+
+SELECT department, SUM(salary)
+FROM employees
+GROUP BY department;
+----------------------------------------------------------------
+11. GROUP BY with MIN()
+Find minimum salary in each department:
+
+SELECT department, MIN(salary)
+FROM employees
+GROUP BY department;
+----------------------------------------------------------------
+12. GROUP BY with MAX()
+Find maximum salary in each department:
+
+SELECT department, MAX(salary)
+FROM employees
+GROUP BY department;
+----------------------------------------------------------------
+13. WHERE + GROUP BY + HAVING
+These can be used together.
+
+SELECT department, AVG(salary)
+FROM employees
+WHERE salary > 30000
+GROUP BY department
+HAVING AVG(salary) > 40000;
+
 ________________________________________________________________________________________________________________________
 ******** SQL Clauses *********
 A clause is a part of an SQL query that performs a specific operation, such as filtering, grouping, or sorting data.
-
+-----------------------------------------------------------------------------------------------------------------------
 1. WHERE Clause
 Used to filter rows based on a condition.
 
@@ -312,7 +419,7 @@ SELECT * FROM student WHERE city <> 'Pune';
 
 Interview definition:
 WHERE filters individual rows before grouping.
-_______________________________________________________________________________________________________________________________
+___________________________________________________________________________________________________________________________
 2. DISTINCT Clause
 Used to return unique values and remove duplicates.
 
@@ -350,3 +457,142 @@ Example:-
 Pune     3
 Nashik   2
 Mumbai   1
+_______________________________________________________________________________________________________________________________
+5 . LIMIT Clause
+The LIMIT clause is used to restrict the number of rows returned by a query.
+It is commonly used with SELECT.
+LIMIT is useful when you don't want to retrieve the entire table.
+
+Syntax
+SELECT column_name     
+FROM table_name
+WHERE condition
+ORDER BY column DESC
+LIMIT number;
+
+Restricts the number of records.
+
+SELECT *
+FROM employees
+LIMIT 3;
+Together
+SELECT *
+FROM employees
+ORDER BY salary DESC
+LIMIT 3;
+
+Meaning:
+Sort employees from highest salary to lowest and return only the top 3.
+_______________________________________________________________________________________________________________________________
+6 . OFFSET Clause 
+OFFSET is used to skip a specified number of rows before returning the remaining rows.
+It is commonly used with LIMIT.
+
+Simple meaning
+LIMIT = How many rows to take
+OFFSET = How many rows to skip
+
+Syntax:
+SELECT *
+FROM table_name
+LIMIT number_of_rows OFFSET number_of_rows_to_skip;
+
+Example:
+SELECT *
+FROM employees
+LIMIT 3 OFFSET 2;
+
+Meaning:
+Skip the first 2 rows
+Return the next 3 rows
+_______________________________________________________________________________________________________________________________
+7. WHERE Clause
+Used to filter records based on a condition.
+
+Syntax:
+SELECT * FROM table_name
+WHERE condition;
+
+Example:
+SELECT * FROM employee
+WHERE salary > 30000;
+_______________________________________________________________________________________________________________________________
+8. BETWEEN Operator
+Used to select values within a range, including both boundary values.
+
+Syntax:
+SELECT * FROM table_name
+WHERE column_name BETWEEN value1 AND value2;
+
+Example:
+SELECT * FROM employee
+WHERE salary BETWEEN 30000 AND 50000;
+
+This includes 30000 and 50000.
+_______________________________________________________________________________________________________________________________
+9. IN Operator
+Used to match a column with multiple possible values.
+
+We can write:
+SELECT * FROM employee
+WHERE city IN ('Pune', 'Nashik', 'Mumbai');
+NOT IN
+SELECT * FROM employee
+WHERE city NOT IN ('Pune', 'Nashik');
+_______________________________________________________________________________________________________________________________
+10. LIKE Operator
+Used for pattern matching with text.
+
+% — Zero or more characters
+SELECT * FROM employee
+WHERE name LIKE 'P%';
+
+Means name starts with P.
+
+Examples:
+
+LIKE 'P%'     -- starts with P
+LIKE '%a'     -- ends with a
+LIKE '%all%'  -- contains "all"
+_ — Exactly one character
+SELECT * FROM employee
+WHERE name LIKE 'P_llavi';
+
+_ represents one character.
+_______________________________________________________________________________________________________________________________
+11. UPDATE Statement
+Used to modify existing records.
+
+Syntax:
+UPDATE table_name
+SET column_name = new_value
+WHERE condition;
+
+Example:
+UPDATE employee
+SET salary = 40000
+WHERE id = 101;
+
+⚠️ Important: Always use WHERE unless you intentionally want to update every row.
+
+UPDATE employee
+SET salary = 40000;
+
+This updates the salary of all employees.
+_______________________________________________________________________________________________________________________________
+12. DELETE Statement
+Used to delete existing records.
+
+Syntax:
+DELETE FROM table_name
+WHERE condition;
+
+Example:
+DELETE FROM employee
+WHERE id = 101;
+
+⚠️ Without WHERE:
+DELETE FROM employee;
+This deletes all rows from the table.
+_______________________________________________________________________________________________________________________________
+
