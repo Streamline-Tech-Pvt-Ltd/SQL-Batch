@@ -20,7 +20,7 @@ During MySQL installation, we can use:
 3. MySQL Command Line Client
 
 
-# MySQL Server:
+# MySQL Server
 It stores and manages databases and data.
 
 # MySQL Workbench:
