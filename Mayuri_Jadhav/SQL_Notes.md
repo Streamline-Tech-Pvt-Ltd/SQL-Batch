@@ -8,7 +8,7 @@ For learning SQL, we can use different tools:
 2. MySQL Command Line Client
 3. PostgreSQL pgAdmin
 
-2. MYSQL INSTALLATION
+###. MYSQL INSTALLATION
 
 MySQL is a database management system used to store,
 manage and retrieve data.
