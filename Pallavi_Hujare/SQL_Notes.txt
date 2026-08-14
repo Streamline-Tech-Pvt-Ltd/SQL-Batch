@@ -594,5 +594,106 @@ WHERE id = 101;
 ⚠️ Without WHERE:
 DELETE FROM employee;
 This deletes all rows from the table.
-_______________________________________________________________________________________________________________________________
+__________________________________________________________________________________________________________________________________________________________________________________
+JOIN in SQL
+A JOIN is used to combine data from two or more tables using a related column.
 
+For example, if we have:
+department
+
+d_id	d_name
+1	Computer
+2	Electrical
+3	Mechanical
+
+employee
+
+e_id	e_name	salary	d_id
+101	Rahul	30000	1
+102	Priya	35000	2
+103	Amit	28000	1
+
+Here, d_id is the common/related column.
+-----------------------------------------------------------------------------------------------------------------------------
+1 ] INNER JOIN in SQL
+
+INNER JOIN is used to combine rows from two or more tables based on a related column.
+
+👉 It returns only the matching records from both tables.
+
+Syntax
+SELECT columns
+FROM table1
+INNER JOIN table2
+ON table1.column = table2.column;
+
+SELECT employee.e_id, employee.e_name, department.d_name
+FROM employee
+INNER JOIN department
+ON employee.d_id = department.d_id;
+------------------------------------------------------------------------------------------------------------------------------
+2 ] LEFT JOIN in SQL
+
+LEFT JOIN returns all records from the left table and the matching records from the right table.
+
+If there is no matching record in the right table, it returns NULL.
+
+Syntax
+SELECT columns
+FROM table1
+LEFT JOIN table2
+ON table1.column = table2.column;
+
+SELECT employee.e_name, department.d_name
+FROM employee
+LEFT JOIN department
+ON employee.d_id = department.d_id;
+------------------------------------------------------------------------------------------------------------------------------
+3 ] RIGHT JOIN 
+returns all records from the right table and only the matching records from the left table.
+
+If there is no matching record in the left table, it returns NULL.
+
+Syntax
+SELECT columns
+FROM table1
+RIGHT JOIN table2
+ON table1.column = table2.column;
+
+SELECT employee.e_name, department.d_name
+FROM employee
+RIGHT JOIN department
+ON employee.d_id = department.d_id;
+------------------------------------------------------------------------------------------------------------------------------
+4] FULL OUTER JOIN
+
+Returns:
+All matching records
+All non-matching records from the left table
+All non-matching records from the right table
+
+SELECT *
+FROM employee
+FULL OUTER JOIN department
+ON employee.d_id = department.d_id;
+--------------------------------------------
+SELECT *
+FROM table1
+LEFT JOIN table2
+ON table1.column = table2.column
+UNION
+SELECT *
+FROM table1
+RIGHT JOIN table2
+ON table1.column = table2.column;
+-------------------------------------------
+Example :
+SELECT employee.e_name, department.d_name
+FROM employee
+LEFT JOIN department
+ON employee.d_id = department.d_id
+UNION
+SELECT employee.e_name, department.d_name
+FROM employee
+RIGHT JOIN department
+ON employee.d_id = department.d_id;
