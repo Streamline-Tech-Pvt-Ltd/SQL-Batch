@@ -217,27 +217,27 @@ Constraints are rules applied to table columns to control what data can be inser
 
 
 1. NOT NULL: Prevents a column from having NULL values.
-Query: CREATE TABLE Student (
+Synatx: CREATE TABLE Student (
       ID INT NOT NULL,
       Name VARCHAR(50) NOT NULL,
 );
 
 2. UNIQUE: Ensures that every value in a column is different.
-Query:
+Syntax:
 CREATE TABLE Student (
     ID INT,
     Email VARCHAR(100) UNIQUE
 );
 
 3. PRIMARY KEY: Uniquely identifies each row AND Must contain unique values.
-Query:
+Syntax:
 CREATE TABLE Student (
     ID INT PRIMARY KEY,
     Name VARCHAR(50)
 );
 
 4. FOREIGN KEY: A FOREIGN KEY creates a relationship between two tables.
-Query:
+Syntax:
 CREATE TABLE Domain (
     D_ID INT PRIMARY KEY,
     D_Name VARCHAR(50)
@@ -253,8 +253,8 @@ CREATE TABLE Domain (
 );
 
 
-5. CHECK: Used to ensure that data satisfies a condition.
-Query:
+5. CHECK: Allows only values that satisfy a condition
+Syntax:
 CREATE TABLE Student (
     ID INT PRIMARY KEY,
     Name VARCHAR(50),
@@ -262,7 +262,7 @@ CREATE TABLE Student (
 );
 
 6. DEFAULT: Automatically inserts a value when you don't provide one.
-Query:
+Syntax:
 CREATE TABLE Student (
     ID INT PRIMARY KEY,
     Name VARCHAR(50),
@@ -307,14 +307,21 @@ Descending : DESC = largest → smallest.
 Syntax: SELECT * FROM Table_Name ORDER BY Col_Name DESC;
 
 
-4. GROUP BY Clause :Used to group rows having the same value.
+5. GROUP BY Clause :Used to group rows having the same value.
 Usually used with aggregate functions such as:
+
+Syntax:SELECT column_name, aggregate_function(column_name)
+FROM table_name
+GROUP BY column_name;
+
+* aggregate_function:
 COUNT()
 SUM()
 AVG()
 MAX()
 MIN()
 
+1:Count:
 Syantax: SELECT Col_name, COUNT(*) AS New_col_name
 FROM Table_Name
 GROUP BY Col_Name;
@@ -322,3 +329,104 @@ GROUP BY Col_Name;
 Ex:SELECT City, COUNT(*) AS TotalStudents
 FROM Student
 GROUP BY City;
+
+6.Having: Used to filter groups created by GROUP BY.
+Syntax: SELECT column_name, aggregate_function(column_name)
+FROM table_name
+GROUP BY column_name
+HAVING condition;
+
+Ex:SELECT Gender, COUNT(*)
+FROM Patient
+GROUP BY Gender
+HAVING COUNT(*) > 2;
+
+# Important:
+WHERE → filters individual rows
+HAVING → filters groups
+
+7.Limit :Used to restrict the number of records returned.
+Syntax: SELECT *
+FROM table_name
+LIMIT number;
+
+Ex: SELECT * FROM Patient
+LIMIT 5;
+
+8.OFFSET: Used to skip a specific number of records & Print the next records.
+Syntax: SELECT *
+FROM table_name
+LIMIT number OFFSET number;
+
+Ex: SELECT * FROM Patient
+LIMIT 5 OFFSET 2;
+
+9.Between: Used to find values within a range, including the boundary values.
+Syntax: SELECT *
+FROM table_name
+WHERE column_name BETWEEN value1 AND value2;
+
+Ex: SELECT * FROM Patient
+WHERE Age BETWEEN 18 AND 30;
+
+10.In :Used to check whether a value matches any value in a given list.
+Syntax: SELECT *
+FROM table_name
+WHERE column_name IN (value1, value2, value3);
+
+Ex: SELECT * FROM Patient
+WHERE Gender IN ('M', 'F');
+
+11.Like :Used for pattern matching.
+     1: If % is on the right side it prints the words that start with the given letter.
+     2: If % is on the left side it prints the words that end with the given letter.
+
+Syntax: SELECT *
+FROM table_name
+WHERE column_name LIKE 'pattern';
+
+Ex: Starts with U:
+SELECT * FROM Patient
+WHERE Name LIKE 'U%';
+
+Ex: Ends with a:
+SELECT * FROM Patient
+WHERE Name LIKE '%a';
+
+12. Update :The UPDATE statement is used to modify existing records in a table.
+Syntax : UPDATE table_name
+SET column_name = new_value
+WHERE condition;
+
+   1.One Column:
+Ex : UPDATE Patient
+SET Name = 'Pallavi Kapale'
+WHERE ID = 6;
+
+  2. Multiple coloumn :
+Ex: UPDATE Patient
+SET Name = 'Pallavi Kapale',
+    Age = 22
+WHERE ID = 6;
+
+# Important
+Always use WHERE when you want to update a specific record.
+
+13. DELETE: The DELETE statement is used to remove existing records from a table.
+Syntax : DELETE FROM table_name
+WHERE condition;
+
+Delete one record
+Ex: DELETE FROM Patient
+WHERE ID = 6;
+
+Delete records based on a condition
+EX: DELETE FROM Patient
+WHERE Age < 18;
+
+# Important
+If you don't use WHERE: DELETE FROM Patient;
+It will delete all records from the table. The table structure will still exist.
+
+
+

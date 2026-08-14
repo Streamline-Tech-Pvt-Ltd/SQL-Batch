@@ -1,0 +1,333 @@
+1.Create Table:
+Syntax:
+ mysql> create table Patient(
+    -> Id int,
+    -> Name varchar(20),
+    -> Age int,
+    -> City varchar(10),
+    -> Gender char(1),
+    -> Appoimentdate date,
+    -> Appoimentyear year,
+    -> Isadmitted boolean,
+    -> Bill decimal(5,5));
+
+* Constraint And Data Types Use:
+mysql> create table Patient(
+    -> Id int primary key,
+    -> Name varchar(20) not null,
+    -> Age int check(Age>18),
+    -> City varchar(10),
+    -> Gender char(1),
+    -> Appoimentdate date,
+    -> Appoimentyear year,
+    -> Isadmitted boolean default FALSE,
+    -> Bill decimal(5,5));
+Query OK, 0 rows affected (0.08 sec)
+
+* Store the value :
+mysql> insert into Patient(Id,Name,Age,City,Gender,Appoimentdate,Appoimentyear,Isadmitted,Bill)
+    -> values
+    -> (1,'Urmila Said',21,'Nashik','F','2026-08-13',2026,True,2200.00);
+
+* Show table content :
+mysql> select * from Patient;
++----+-----------------+------+--------+--------+---------------+---------------+------------+---------+
+| Id | Name            | Age  | City   | Gender | Appoimentdate | Appoimentyear | Isadmitted | Bill    |
++----+-----------------+------+--------+--------+---------------+---------------+------------+---------+
+|  1 | Urmila Said     |   21 | Nashik | F      | 2026-08-13    |          2026 |          1 | 2200.00 |
+|  2 | Pallavi Hujare  |   22 | Pune   | F      | 2026-09-23    |          2026 |          1 | 3400.00 |
+|  3 | Tejas Said      |   19 | Mumbai | M      | 2026-10-14    |          2025 |          1 | 8700.00 |
+|  4 | Sneha Muthal    |   24 | Pune   | F      | 2026-11-20    |          2024 |          1 | 9500.00 |
+|  5 | Adesh Rote      |   25 | Mumbai | M      | 2026-12-05    |          2025 |          1 | 7500.00 |
+|  6 | Shreyash Kotame |   28 | Nashik | F      | 2026-05-08    |          2024 |          1 | 6800.00 |
++----+-----------------+------+--------+--------+---------------+---------------+------------+---------+
+6 rows in set (0.00 sec)
+
+_______________________________________________________________________________________________________________________
+
+# Clouse 
+
+1.select : 
+mysql> select * from Patient;
++----+-----------------+------+--------+--------+---------------+---------------+------------+---------+
+| Id | Name            | Age  | City   | Gender | Appoimentdate | Appoimentyear | Isadmitted | Bill    |
++----+-----------------+------+--------+--------+---------------+---------------+------------+---------+
+|  1 | Urmila Said     |   21 | Nashik | F      | 2026-08-13    |          2026 |          1 | 2200.00 |
+|  2 | Pallavi Hujare  |   22 | Pune   | F      | 2026-09-23    |          2026 |          1 | 3400.00 |
+|  3 | Tejas Said      |   19 | Mumbai | M      | 2026-10-14    |          2025 |          1 | 8700.00 |
+|  4 | Sneha Muthal    |   24 | Pune   | F      | 2026-11-20    |          2024 |          1 | 9500.00 |
+|  5 | Adesh Rote      |   25 | Mumbai | M      | 2026-12-05    |          2025 |          1 | 7500.00 |
+|  6 | Shreyash Kotame |   28 | Nashik | F      | 2026-05-08    |          2024 |          1 | 6800.00 |
++----+-----------------+------+--------+--------+---------------+---------------+------------+---------+
+
+
+2.where : Used to filter records.
+mysql> select * from Patient where Age > 20;
++----+-----------------+------+--------+--------+---------------+---------------+------------+---------+
+| Id | Name            | Age  | City   | Gender | Appoimentdate | Appoimentyear | Isadmitted | Bill    |
++----+-----------------+------+--------+--------+---------------+---------------+------------+---------+
+|  1 | Urmila Said     |   21 | Nashik | F      | 2026-08-13    |          2026 |          1 | 2200.00 |
+|  2 | Pallavi Hujare  |   22 | Pune   | F      | 2026-09-23    |          2026 |          1 | 3400.00 |
+|  4 | Sneha Muthal    |   24 | Pune   | F      | 2026-11-20    |          2024 |          1 | 9500.00 |
+|  5 | Adesh Rote      |   25 | Mumbai | M      | 2026-12-05    |          2025 |          1 | 7500.00 |
+|  6 | Shreyash Kotame |   28 | Nashik | F      | 2026-05-08    |          2024 |          1 | 6800.00 |
++----+-----------------+------+--------+--------+---------------+---------------+------------+---------+
+
+
+3.DISTINCT : Used to remove duplicate values.
+mysql> select distinct city from Patient;
++--------+
+| city   |
++--------+
+| Nashik |
+| Pune   |
+| Mumbai |
++--------+
+
+4.ORDER BY : Used to sort records.
+mysql> select * from Patient order by Age Asc;
++----+-----------------+------+--------+--------+---------------+---------------+------------+---------+
+| Id | Name            | Age  | City   | Gender | Appoimentdate | Appoimentyear | Isadmitted | Bill    |
++----+-----------------+------+--------+--------+---------------+---------------+------------+---------+
+|  3 | Tejas Said      |   19 | Mumbai | M      | 2026-10-14    |          2025 |          1 | 8700.00 |
+|  1 | Urmila Said     |   21 | Nashik | F      | 2026-08-13    |          2026 |          1 | 2200.00 |
+|  2 | Pallavi Hujare  |   22 | Pune   | F      | 2026-09-23    |          2026 |          1 | 3400.00 |
+|  4 | Sneha Muthal    |   24 | Pune   | F      | 2026-11-20    |          2024 |          1 | 9500.00 |
+|  5 | Adesh Rote      |   25 | Mumbai | M      | 2026-12-05    |          2025 |          1 | 7500.00 |
+|  6 | Shreyash Kotame |   28 | Nashik | F      | 2026-05-08    |          2024 |          1 | 6800.00 |
++----+-----------------+------+--------+--------+---------------+---------------+------------+---------+
+
+mysql> select * from Patient order by Age Desc;
++----+-----------------+------+--------+--------+---------------+---------------+------------+---------+
+| Id | Name            | Age  | City   | Gender | Appoimentdate | Appoimentyear | Isadmitted | Bill    |
++----+-----------------+------+--------+--------+---------------+---------------+------------+---------+
+|  6 | Shreyash Kotame |   28 | Nashik | F      | 2026-05-08    |          2024 |          1 | 6800.00 |
+|  5 | Adesh Rote      |   25 | Mumbai | M      | 2026-12-05    |          2025 |          1 | 7500.00 |
+|  4 | Sneha Muthal    |   24 | Pune   | F      | 2026-11-20    |          2024 |          1 | 9500.00 |
+|  2 | Pallavi Hujare  |   22 | Pune   | F      | 2026-09-23    |          2026 |          1 | 3400.00 |
+|  1 | Urmila Said     |   21 | Nashik | F      | 2026-08-13    |          2026 |          1 | 2200.00 |
+|  3 | Tejas Said      |   19 | Mumbai | M      | 2026-10-14    |          2025 |          1 | 8700.00 |
++----+-----------------+------+--------+--------+---------------+---------------+------------+---------+
+
+5.GROUP BY : Used to group rows having the same values. It is commonly used with aggregate functions.
+  1. Count:
+  mysql> select city,count(city) as city_count from Patient group by city;
++--------+------------+
+| city   | city_count |
++--------+------------+
+| Nashik |          2 |
+| Pune   |          2 |
+| Mumbai |          2 |
++--------+------------+
+
+ 2.Sum :
+ mysql> select city,Sum(Bill) as Total_Bill from Patient group by city;
++--------+------------+
+| city   | Total_Bill |
++--------+------------+
+| Nashik |    9000.00 |
+| Pune   |   12900.00 |
+| Mumbai |   16200.00 |
++--------+------------+
+
+ 
+ 3. AVG :
+ mysql> select city,Avg(Bill) as Avg_Bill from Patient group by city;
++--------+-------------+
+| city   | Avg_Bill    |
++--------+-------------+
+| Nashik | 4500.000000 |
+| Pune   | 6450.000000 |
+| Mumbai | 8100.000000 |
++--------+-------------+
+
+ 4. Max:
+ mysql> select city,Max(Bill) as Max_Bill from Patient group by city;
++--------+----------+
+| city   | Max_Bill |
++--------+----------+
+| Nashik |  6800.00 |
+| Pune   |  9500.00 |
+| Mumbai |  8700.00 |
++--------+----------+
+
+5. Min:
+mysql> select city,Min(Bill) as Min_Bill from Patient group by city;
++--------+----------+
+| city   | Min_Bill |
++--------+----------+
+| Nashik |  2200.00 |
+| Pune   |  3400.00 |
+| Mumbai |  7500.00 |
++--------+----------+
+
+
+6. AND Clause \ Operator :Used when all conditions must be true.
+
+mysql> select * from Patient where Age >20 AND City='Pune';
++----+----------------+------+------+--------+---------------+---------------+------------+---------+
+| Id | Name           | Age  | City | Gender | Appoimentdate | Appoimentyear | Isadmitted | Bill    |
++----+----------------+------+------+--------+---------------+---------------+------------+---------+
+|  2 | Pallavi Hujare |   22 | Pune | F      | 2026-09-23    |          2026 |          1 | 3400.00 |
+|  4 | Sneha Muthal   |   24 | Pune | F      | 2026-11-20    |          2024 |          1 | 9500.00 |
++----+----------------+------+------+--------+---------------+---------------+------------+---------+
+2 rows in set (0.00 sec)
+
+
+7. OR Clause \ Operator :Used when at least one condition must be true.
+mysql> select * from Patient where city='Pune' OR city='Nashik';
++----+-----------------+------+--------+--------+---------------+---------------+------------+---------+
+| Id | Name            | Age  | City   | Gender | Appoimentdate | Appoimentyear | Isadmitted | Bill    |
++----+-----------------+------+--------+--------+---------------+---------------+------------+---------+
+|  1 | Urmila Said     |   21 | Nashik | F      | 2026-08-13    |          2026 |          1 | 2200.00 |
+|  2 | Pallavi Hujare  |   22 | Pune   | F      | 2026-09-23    |          2026 |          1 | 3400.00 |
+|  4 | Sneha Muthal    |   24 | Pune   | F      | 2026-11-20    |          2024 |          1 | 9500.00 |
+|  6 | Shreyash Kotame |   28 | Nashik | F      | 2026-05-08    |          2024 |          1 | 6800.00 |
++----+-----------------+------+--------+--------+---------------+---------------+------------+---------+
+
+8. Not :Used to reverse a condition.
+mysql> select * from Patient where not city='Nashik';
++----+----------------+------+--------+--------+---------------+---------------+------------+---------+
+| Id | Name           | Age  | City   | Gender | Appoimentdate | Appoimentyear | Isadmitted | Bill    |
++----+----------------+------+--------+--------+---------------+---------------+------------+---------+
+|  2 | Pallavi Hujare |   22 | Pune   | F      | 2026-09-23    |          2026 |          1 | 3400.00 |
+|  3 | Tejas Said     |   19 | Mumbai | M      | 2026-10-14    |          2025 |          1 | 8700.00 |
+|  4 | Sneha Muthal   |   24 | Pune   | F      | 2026-11-20    |          2024 |          1 | 9500.00 |
+|  5 | Adesh Rote     |   25 | Mumbai | M      | 2026-12-05    |          2025 |          1 | 7500.00 |
++----+----------------+------+--------+--------+---------------+---------------+------------+---------+
+
+9.BETWEEN :Used to select values within a range.
+mysql> select * from Patient where Age Between 22 And 28;
++----+-----------------+------+--------+--------+---------------+---------------+------------+---------+
+| Id | Name            | Age  | City   | Gender | Appoimentdate | Appoimentyear | Isadmitted | Bill    |
++----+-----------------+------+--------+--------+---------------+---------------+------------+---------+
+|  2 | Pallavi Hujare  |   22 | Pune   | F      | 2026-09-23    |          2026 |          1 | 3400.00 |
+|  4 | Sneha Muthal    |   24 | Pune   | F      | 2026-11-20    |          2024 |          1 | 9500.00 |
+|  5 | Adesh Rote      |   25 | Mumbai | M      | 2026-12-05    |          2025 |          1 | 7500.00 |
+|  6 | Shreyash Kotame |   28 | Nashik | F      | 2026-05-08    |          2024 |          1 | 6800.00 |
++----+-----------------+------+--------+--------+---------------+---------------+------------+---------+
+
+10. IN : Used to match multiple possible values.
+mysql> select * from Patient where city In ('Mumbai','Pune');
++----+----------------+------+--------+--------+---------------+---------------+------------+---------+
+| Id | Name           | Age  | City   | Gender | Appoimentdate | Appoimentyear | Isadmitted | Bill    |
++----+----------------+------+--------+--------+---------------+---------------+------------+---------+
+|  2 | Pallavi Hujare |   22 | Pune   | F      | 2026-09-23    |          2026 |          1 | 3400.00 |
+|  3 | Tejas Said     |   19 | Mumbai | M      | 2026-10-14    |          2025 |          1 | 8700.00 |
+|  4 | Sneha Muthal   |   24 | Pune   | F      | 2026-11-20    |          2024 |          1 | 9500.00 |
+|  5 | Adesh Rote     |   25 | Mumbai | M      | 2026-12-05    |          2025 |          1 | 7500.00 |
++----+----------------+------+--------+--------+---------------+---------------+------------+---------+
+
+11. Like : Used for pattern matching.
+  1: If % is on the right side it prints the words that start with the given letter.
+mysql> select * from Patient where Name Like 'U%';
++----+-------------+------+--------+--------+---------------+---------------+------------+---------+
+| Id | Name        | Age  | City   | Gender | Appoimentdate | Appoimentyear | Isadmitted | Bill    |
++----+-------------+------+--------+--------+---------------+---------------+------------+---------+
+|  1 | Urmila Said |   21 | Nashik | F      | 2026-08-13    |          2026 |          1 | 2200.00 |
++----+-------------+------+--------+--------+---------------+---------------+------------+---------+
+
+  2: If % is on the left side it prints the words that end with the given letter.
+mysql> select * from Patient where Name Like '%e';
++----+-----------------+------+--------+--------+---------------+---------------+------------+---------+
+| Id | Name            | Age  | City   | Gender | Appoimentdate | Appoimentyear | Isadmitted | Bill    |
++----+-----------------+------+--------+--------+---------------+---------------+------------+---------+
+|  2 | Pallavi Hujare  |   22 | Pune   | F      | 2026-09-23    |          2026 |          1 | 3400.00 |
+|  5 | Adesh Rote      |   25 | Mumbai | M      | 2026-12-05    |          2025 |          1 | 7500.00 |
+|  6 | Shreyash Kotame |   28 | Nashik | F      | 2026-05-08    |          2024 |          1 | 6800.00 |
++----+-----------------+------+--------+--------+---------------+---------------+------------+---------+
+
+
+12. Having:The HAVING clause is used to filter groups of records after using GROUP BY.
+mysql> select city,count(*) as City_Count from Patient group by city having count(*) >1;
++--------+------------+
+| city   | City_Count |
++--------+------------+
+| Nashik |          2 |
+| Pune   |          2 |
+| Mumbai |          2 |
++--------+------------+
+
+13. Limit: Used to restrict the number of records returned.
+mysql> select * from Patient limit 2;
++----+----------------+------+--------+--------+---------------+---------------+------------+---------+
+| Id | Name           | Age  | City   | Gender | Appoimentdate | Appoimentyear | Isadmitted | Bill    |
++----+----------------+------+--------+--------+---------------+---------------+------------+---------+
+|  1 | Urmila Said    |   21 | Nashik | F      | 2026-08-13    |          2026 |          1 | 2200.00 |
+|  2 | Pallavi Hujare |   22 | Pune   | F      | 2026-09-23    |          2026 |          1 | 3400.00 |
++----+----------------+------+--------+--------+---------------+---------------+------------+---------+
+
+mysql> select * from Patient where Age >22 limit 2;
++----+--------------+------+--------+--------+---------------+---------------+------------+---------+
+| Id | Name         | Age  | City   | Gender | Appoimentdate | Appoimentyear | Isadmitted | Bill    |
++----+--------------+------+--------+--------+---------------+---------------+------------+---------+
+|  4 | Sneha Muthal |   24 | Pune   | F      | 2026-11-20    |          2024 |          1 | 9500.00 |
+|  5 | Adesh Rote   |   25 | Mumbai | M      | 2026-12-05    |          2025 |          1 | 7500.00 |
++----+--------------+------+--------+--------+---------------+---------------+------------+---------+
+
+mysql> select * from Patient order by Age Asc limit 3;
++----+----------------+------+--------+--------+---------------+---------------+------------+---------+
+| Id | Name           | Age  | City   | Gender | Appoimentdate | Appoimentyear | Isadmitted | Bill    |
++----+----------------+------+--------+--------+---------------+---------------+------------+---------+
+|  3 | Tejas Said     |   19 | Mumbai | M      | 2026-10-14    |          2025 |          1 | 8700.00 |
+|  1 | Urmila Said    |   21 | Nashik | F      | 2026-08-13    |          2026 |          1 | 2200.00 |
+|  2 | Pallavi Hujare |   22 | Pune   | F      | 2026-09-23    |          2026 |          1 | 3400.00 |
++----+----------------+------+--------+--------+---------------+---------------+------------+---------+
+
+
+mysql> select * from Patient order by Age Desc limit 3;
++----+-----------------+------+--------+--------+---------------+---------------+------------+---------+
+| Id | Name            | Age  | City   | Gender | Appoimentdate | Appoimentyear | Isadmitted | Bill    |
++----+-----------------+------+--------+--------+---------------+---------------+------------+---------+
+|  6 | Shreyash Kotame |   28 | Nashik | F      | 2026-05-08    |          2024 |          1 | 6800.00 |
+|  5 | Adesh Rote      |   25 | Mumbai | M      | 2026-12-05    |          2025 |          1 | 7500.00 |
+|  4 | Sneha Muthal    |   24 | Pune   | F      | 2026-11-20    |          2024 |          1 | 9500.00 |
++----+-----------------+------+--------+--------+---------------+---------------+------------+---------+
+
+
+14. OFFSET :Used to skip records.
+mysql> select * from Patient limit 2 offset 1;
++----+----------------+------+--------+--------+---------------+---------------+------------+---------+
+| Id | Name           | Age  | City   | Gender | Appoimentdate | Appoimentyear | Isadmitted | Bill    |
++----+----------------+------+--------+--------+---------------+---------------+------------+---------+
+|  2 | Pallavi Hujare |   22 | Pune   | F      | 2026-09-23    |          2026 |          1 | 3400.00 |
+|  3 | Tejas Said     |   19 | Mumbai | M      | 2026-10-14    |          2025 |          1 | 8700.00 |
++----+----------------+------+--------+--------+---------------+---------------+------------+---------+
+
+mysql> select * from Patient limit 2 offset 4;
++----+-----------------+------+--------+--------+---------------+---------------+------------+---------+
+| Id | Name            | Age  | City   | Gender | Appoimentdate | Appoimentyear | Isadmitted | Bill    |
++----+-----------------+------+--------+--------+---------------+---------------+------------+---------+
+|  5 | Adesh Rote      |   25 | Mumbai | M      | 2026-12-05    |          2025 |          1 | 7500.00 |
+|  6 | Shreyash Kotame |   28 | Nashik | F      | 2026-05-08    |          2024 |          1 | 6800.00 |
++----+-----------------+------+--------+--------+---------------+---------------+------------+---------+
+
+15 .Update: UPDATE is used to change existing data in a table.
+mysql> update Patient set Name = 'Pallavi kapale' where Id=6;
+mysql> select * from Patient;
++----+----------------+------+--------+--------+---------------+---------------+------------+---------+
+| Id | Name           | Age  | City   | Gender | Appoimentdate | Appoimentyear | Isadmitted | Bill    |
++----+----------------+------+--------+--------+---------------+---------------+------------+---------+
+|  1 | Urmila Said    |   21 | Nashik | F      | 2026-08-13    |          2026 |          1 | 2200.00 |
+|  2 | Pallavi Hujare |   22 | Pune   | F      | 2026-09-23    |          2026 |          1 | 3400.00 |
+|  3 | Tejas Said     |   19 | Mumbai | M      | 2026-10-14    |          2025 |          1 | 8700.00 |
+|  4 | Sneha Muthal   |   24 | Pune   | F      | 2026-11-20    |          2024 |          1 | 9500.00 |
+|  5 | Adesh Rote     |   25 | Mumbai | M      | 2026-12-05    |          2025 |          1 | 7500.00 |
+|  6 | Pallavi kapale |   28 | Nashik | F      | 2026-05-08    |          2024 |          1 | 6800.00 |
++----+----------------+------+--------+--------+---------------+---------------+------------+---------+
+
+
+16. Delete: DELETE is used to remove records/rows from a table.
+mysql> delete from Patient where ID = 1;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from Patient;
++----+----------------+------+--------+--------+---------------+---------------+------------+---------+
+| Id | Name           | Age  | City   | Gender | Appoimentdate | Appoimentyear | Isadmitted | Bill    |
++----+----------------+------+--------+--------+---------------+---------------+------------+---------+
+|  2 | Pallavi Hujare |   22 | Pune   | F      | 2026-09-23    |          2026 |          1 | 3400.00 |
+|  3 | Tejas Said     |   19 | Mumbai | M      | 2026-10-14    |          2025 |          1 | 8700.00 |
+|  4 | Sneha Muthal   |   24 | Pune   | F      | 2026-11-20    |          2024 |          1 | 9500.00 |
+|  5 | Adesh Rote     |   25 | Mumbai | M      | 2026-12-05    |          2025 |          1 | 7500.00 |
+|  6 | Pallavi kapale |   28 | Nashik | F      | 2026-05-08    |          2024 |          1 | 6800.00 |
++----+----------------+------+--------+--------+---------------+---------------+------------+---------+
