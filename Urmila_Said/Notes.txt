@@ -428,5 +428,113 @@ WHERE Age < 18;
 If you don't use WHERE: DELETE FROM Patient;
 It will delete all records from the table. The table structure will still exist.
 
+__________________________________________________________________________________________________________________________
+
+# Join in SQL
+
+* Join: JOIN in SQL is used to combine rows from two or more tables based on a related column between them.
+For example, suppose we have created two tables:
+1) table department
+2) table employee
+
+d_id	d_name
+1	   Computer
+2	   Electrical
+3	   Mechanical
+
+employee
+e_id	e_name	salary	  d_id
+101	   Rahul	30000	   1
+102	   Priya	35000	   2
+103	   Amit	    28000	   1
+
+Here, d_id is the common/related column.
+
+---------------------------------------------------------------------------------------------------------------
+
+1. Inner Join: INNER JOIN returns only the matching records from both tables.
+
+Syntax:
+SELECT columns
+FROM table1
+INNER JOIN table2
+ON table1.column = table2.column;
+
+EX: select employee.emp_id,employee.emp_name,employee.salary,employee.d_id
+    from employee
+    inner join department
+    on department.d_id = employee.d_id;
+
+-----------------------------------------------------------------------------------------------------------------
+
+2. Right Join: RIGHT JOIN returns all records from the RIGHT table and matching records from the LEFT table.
+
+Syntax:
+SELECT columns
+FROM table1
+RIGHT JOIN table2
+ON table1.column = table2.column;
+
+EX: select employee.emp_id,employee.emp_name,employee.salary,employee.d_id
+    from employee
+    Right Join department
+    on department.d_id = employee.d_id;
+
+------------------------------------------------------------------------------------------------------------------
+
+3.Left Join: LEFT JOIN returns all records from the left table and matching records from the right table.
+             If there is no match, SQL returns NULL.
+
+Syntax:
+SELECT columns
+FROM table1
+LEFT JOIN table2
+ON table1.column = table2.column;
+
+Ex: select employee.emp_id,employee.emp_name,employee.salary,employee.d_id
+    from employee
+    Left Join department
+    on department.d_id = employee.d_id;
+
+-------------------------------------------------------------------------------------------------------------------
+
+4. Full Outer Join: FULL OUTER JOIN returns all records from both tables.
+It includes:
+Matching records
+Unmatched records from the left table
+Unmatched records from the right table
+
+Syntax: SELECT columns
+FROM table1
+FULL OUTER JOIN table2
+ON table1.column = table2.column;
+
+#Important :
+MySQL does not directly support FULL OUTER JOIN.
+We can achieve it using LEFT JOIN + UNION + RIGHT JOIN.
+
+FULL OUTER JOIN = Everything from both tables
+
+Syntax:
+SELECT columns
+FROM table1
+LEFT JOIN table2
+ON table1.column = table2.column;
+UNION
+SELECT columns
+FROM table1
+RIGHT JOIN table2
+ON table1.column = table2.column;
+
+EX: select employee.emp_id,employee.emp_name,employee.salary,employee.d_id
+    from employee
+    Left Join department
+    on department.d_id = employee.d_id;
+    UNION
+    select employee.emp_id,employee.emp_name,employee.salary,employee.d_id
+    from employee
+    Right Join department
+    on department.d_id = employee.d_id;
+
 
 
