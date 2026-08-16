@@ -1,0 +1,523 @@
+1. What is SQL?
+Ans: SQL stands for Structured Query Language. It is a language used to communicate with a relational database.
+Using SQL, we can:
+Create databases and tables
+Insert data
+Retrieve data
+Update data
+Delete data
+Control access to data
+EX: SQL is a language used to store, manage, retrieve, and manipulate data in relational databases.
+
+2.What is a Data Type in SQL?
+Ans: A data type tells the database what kind of value a column can store.
+For example:
+INT → numbers
+VARCHAR → text
+DATE → date
+DECIMAL → exact decimal numbers
+
+short answer:
+A data type defines what type of data can be stored in a particular column.
+
+3. What are the main categories of SQL Data Types?
+Ans: SQL data types can be broadly divided into:
+Numeric Data Types
+String/Character Data Types
+Date and Time Data Types
+Boolean Data Type
+Binary Data Types
+
+# Numeric Data Types
+1. What is INT?
+Ans: INT is used to store whole numbers, meaning numbers without decimal points.
+Ex:Age INT
+INT is used when I need to store whole numbers, such as age, quantity, or ID.
+
+2. What is BIGINT?
+Ans: BIGINT is used to store very large whole numbers when the range of INT is not enough.
+Ex: Population BIGINT
+Short Answer: BIGINT is similar to INT, but it can store much larger integer values.
+
+3. What is SMALLINT?
+Ans: SMALLINT is used for whole numbers when a smaller range is sufficient.
+Ex: Age SMALLINT
+
+4. What is TINYINT?
+Ans: TINYINT stores small integer values.
+In MySQL, it is commonly used for small numeric values and sometimes for boolean-style values.
+Ex: IsActive TINYINT
+
+5.What is DECIMAL?
+Ans: DECIMAL is used when we need exact decimal values.
+It is commonly used for:
+Salary
+Price
+Fees
+Bank amounts
+EX: Salary DECIMAL(10,2)
+
+Short Ans :I use DECIMAL when exact precision is important, especially for money and financial values.
+
+6. What is FLOAT?
+Ans: FLOAT is used to store approximate decimal numbers.
+EX: Temperature FLOAT
+It is useful when exact decimal precision is not critical.
+
+7.What is DOUBLE?
+Ans: DOUBLE is also used for approximate decimal values, but it generally provides more precision than FLOAT.
+Simple difference:
+FLOAT uses less storage and provides less precision, while DOUBLE generally provides greater precision.
+
+# String Data Types
+1. What is VARCHAR?
+Ans: VARCHAR is used to store variable-length text.
+Ex: Name VARCHAR(50)
+Commonly used for:
+Name
+Email
+Address
+City
+Phone stored as text
+
+2.What is CHAR?
+Ans: CHAR is used for fixed-length strings.
+Ex: Gender CHAR(1)
+
+“CHAR is suitable for fixed-length values, while VARCHAR is suitable when the length can vary.”
+
+4.Difference between CHAR and VARCHAR?
+| CHAR                             | VARCHAR                               |
+| -------------------------------- | ------------------------------------- |
+| Fixed-length                     | Variable-length                       |
+| Good for fixed-size values       | Good for varying-size text            |
+| Can be useful for codes          | Commonly used for names, emails, etc. |
+| Storage behavior differs by DBMS | Storage behavior differs by DBMS      |
+
+Easy interview answer:
+CHAR is used when the data length is fixed, while VARCHAR is used when the data length can change.
+
+3.What is TEXT?
+Ans: TEXT is used to store relatively large amounts of text.
+Ex: Description TEXT
+It can be useful for:
+Descriptions
+Comments
+Articles
+Long messages
+
+4. Difference between VARCHAR and TEXT?
+Ans: VARCHAR is generally used for normal variable-length text with a defined maximum length.
+TEXT is intended for larger text values.
+Interview answer:
+I would normally use VARCHAR for names, emails, and similar fields, and TEXT when I need to store larger blocks of text.
+
+# Date & Time Data Types
+5. What is DATE?
+Ans: DATE stores only the date.
+Ex: Birth_Date DATE
+Format is generally: YYYY-MM-DD
+
+6.What is TIME?
+Ans: TIME stores only the time.
+Ex: Created_At DATETIME
+
+#Boolean
+1.What is BOOLEAN?
+Ans: Boolean is used for values that represent true/false
+Important: The actual implementation of Boolean values depends on the database system. 
+For example, MySQL treats BOOLEAN/BOOL as a synonym for TINYINT(1).
+
+# Binary Data Types
+1.What is BLOB?
+Ans: BLOB stands for Binary Large Object.
+It is used to store binary data such as:
+Images
+Files
+Binary documents
+
+
+
+8.What is a Database?
+Ans: A database is an organized collection of data. It helps us store large amounts of information in a structured 
+     way so that we can easily access and manage it.
+For example, a college database can contain:
+Student information
+Course information
+Marks
+Attendance
+
+9.What is DBMS?
+Ans: DBMS stands for Database Management System. It is software used to create, store, manage, and retrieve data 
+     from databases.
+Examples:
+MySQL
+Oracle
+PostgreSQL
+SQL Server
+
+10. What is RDBMS?
+Ans: RDBMS stands for Relational Database Management System.
+It stores data in the form of tables, where tables contain rows and columns. Tables can also be connected using 
+relationships.
+Examples:
+MySQL
+PostgreSQL
+Oracle
+SQL Server
+
+11. Difference between DBMS and RDBMS?
+| DBMS                                     | RDBMS                             |
+| ---------------------------------------- | --------------------------------- |
+| May not use relationships between tables | Uses relationships between tables |
+| Data can be stored in different forms    | Data is mainly stored in tables   |
+| Less strict relationship rules           | Supports keys and relationships   |
+| Example: some file-based DBMS            | MySQL, Oracle, PostgreSQL         |
+
+RDBMS is an advanced form of DBMS where data is stored in related tables and relationships
+are maintained using keys.
+
+12. What are the different types of SQL commands?
+ANS: SQL commands are generally divided into:
+DDL – Data Definition Language
+Used to define database structure.
+Commands:
+CREATE
+ALTER
+DROP
+TRUNCATE
+
+DML – Data Manipulation Language
+Used to manipulate data.
+Commands:
+INSERT
+UPDATE
+DELETE
+
+DQL – Data Query Language
+Used to retrieve data.
+SELECT
+
+DCL – Data Control Language
+Used to control permissions.
+GRANT
+REVOKE
+
+TCL – Transaction Control Language
+Used to manage transactions.
+COMMIT
+ROLLBACK
+SAVEPOINT
+
+
+13. What is CREATE?
+Ans: CREATE is used to create database objects such as databases and tables.
+Syntax: CREATE DATABASE database_name;
+CREATE TABLE table_name (Coloum name data type Constraint);
+
+14. What is ALTER?
+Ans: ALTER is used when we want to change the structure of an existing table.
+EX: ALTER TABLE Table_Name
+ADD Col_Name datatype;
+
+15. What is DROP?
+Ans: DROP removes the database object completely.
+Syntax: DROP TABLE Student;
+The table structure and its data are removed.
+
+16. What is TRUNCATE?
+Ans: TRUNCATE removes all records from a table, but the table structure remains.
+Syntax: TRUNCATE TABLE Table_Name;
+
+
+17. Difference between DELETE, TRUNCATE and DROP?
+| DELETE          | TRUNCATE           | DROP                   |
+| --------------- | ------------------ | ---------------------- |
+| Deletes rows    | Removes all rows   | Removes complete table |
+|                 |                    |                        |
+| Can use `WHERE` | Cannot use `WHERE` | No `WHERE`             |
+|                 |                    |                        |
+| Table remains   | Table remains      | Table is removed       |
+|                 |                    |                        |
+| DML             | DDL                | DDL                    |
+
+Easy way to remember:
+DELETE → Remove selected/all rows
+TRUNCATE → Empty the table
+DROP → Remove the table itself
+
+18. What is SELECT?
+Ans: SELECT is used to retrieve data from a table.
+Syntax: SELECT * FROM table_name;
+To retrieve specific columns:
+SELECT column_name1 ,column_name2
+FROM table_name;
+
+19. What are constraints in SQL?
+Ans: Constraints are rules applied to columns to control what type of data can be stored.
+Common constraints:
+PRIMARY KEY
+FOREIGN KEY
+NOT NULL
+UNIQUE
+DEFAULT
+CHECK
+
+20.What is a Primary Key?
+Ans: A primary key uniquely identifies every record in a table.
+Ex: CREATE TABLE Student (
+    ID INT PRIMARY KEY,
+    Name VARCHAR(50)
+);
+Important points:
+Cannot contain NULL
+Must be unique
+A table normally has one primary key constraint
+
+21.What is a Foreign Key?
+Ans : A foreign key is used to create a relationship between two tables.
+Ex: CREATE TABLE Department (
+    Dept_ID INT PRIMARY KEY,
+    Dept_Name VARCHAR(50)
+);
+CREATE TABLE Student (
+    ID INT PRIMARY KEY,
+    Name VARCHAR(50),
+    Dept_ID INT,
+    FOREIGN KEY (Dept_ID)
+    REFERENCES Department(Dept_ID)
+);
+Here, Dept_ID in Student refers to Dept_ID in Department.
+
+22. What is UNIQUE?
+Ans: UNIQUE ensures that duplicate values are not stored in a column.
+Ex: Email VARCHAR(100) UNIQUE
+For example, two students cannot have the same email value.
+
+23.What is NOT NULL?
+Ans: NOT NULL means a column must have a value.
+EX: Name VARCHAR(50) NOT NULL
+The name cannot be left as NULL.
+
+24.What is DEFAULT?
+Ans: DEFAULT automatically provides a value when the user doesn't provide one.
+EX:City VARCHAR(50) DEFAULT 'Pune'
+
+25.What is CHECK?
+Answer: CHECK ensures that inserted or updated values satisfy a condition.
+Ex: Age INT CHECK (Age >= 18)
+
+26.What is NULL in SQL?
+Ans: NULL means the value is missing, unknown, or not available.
+It does not mean:
+0
+Empty string
+False
+To check NULL:
+SELECT *
+FROM Student
+WHERE Email IS NULL;
+
+27. What are aggregate functions?
+Ans: Aggregate functions perform calculations on multiple rows and return a single result.
+Common functions:
+COUNT()
+SUM()
+AVG()
+MAX()
+MIN()
+EX: SELECT MAX(Marks)
+FROM Student;
+
+28. Difference between COUNT(*) and COUNT(column)?
+Ans: COUNT(*) :Counts rows.
+COUNT(column): Counts non-NULL values in that column.
+
+29. What is Referential Integrity?
+Ans:
+Answer in simple own words:
+Referential integrity is a rule in a relational database that makes sure the relationship between two tables 
+remains valid. It ensures that a foreign key value in a child table refers to an existing key in the parent table.
+In simple words:Referential integrity means a foreign key value in a child table should refer to a valid existing 
+                value in the parent table.
+
+30.What is a Clause in SQL?
+Ans: A clause is a part of an SQL query that is used to perform a specific operation on the data.
+In Simple word:
+A clause is a part of an SQL statement that helps us filter, group, sort, or limit the data according to 
+our requirement.
+
+31.What is WHERE Clause?
+Ans: WHERE is used to filter individual records based on a condition.
+Ex: SELECT *
+FROM Student
+WHERE Marks > 60;
+
+32.Can we use multiple conditions with WHERE?
+Ans: Yes.
+We can use:
+AND
+OR
+NOT
+EX: SELECT *
+FROM Student
+WHERE Marks > 60
+AND Age > 18;
+
+33. What is GROUP BY Clause?
+Ans: GROUP BY is used to group similar records together, usually so that we can apply aggregate 
+    functions to each group.”
+It is commonly used with aggregate functions such as:
+COUNT()
+SUM()
+AVG()
+MAX()
+MIN()
+
+EX: SELECT Department, AVG(Marks)
+FROM Student
+GROUP BY Department;
+
+34.What is HAVING Clause?
+Ans: HAVING is used to filter grouped results, especially when we want to apply conditions on aggregate functions.
+Ex: SELECT Department, AVG(Marks)
+FROM Student
+GROUP BY Department
+HAVING AVG(Marks) > 70;
+
+34.Difference between WHERE and HAVING?
+| WHERE                             | HAVING                                 |
+| --------------------------------- | -------------------------------------- |
+| Filters individual rows           | Filters groups                         |
+| Used before grouping              | Used after grouping                    |
+| Mainly used for normal conditions | Commonly used with aggregate functions |
+| Can be used without GROUP BY      | Usually used with GROUP BY             |
+
+
+EX: SELECT Department, AVG(Marks)
+FROM Student
+GROUP BY Department
+HAVING AVG(Marks) > 60;
+
+WHERE filters individual rows before grouping, while HAVING filters groups after GROUP BY. HAVING is especially
+useful with aggregate functions.
+
+35.What is ORDER BY Clause?
+Ans: ORDER BY is used to arrange the query result in ascending or descending order.
+
+We can sort in:
+ASC → Ascending
+DESC → Descending
+
+EX: SELECT *
+FROM Student
+ORDER BY Marks ASC;
+EX: SELECT *
+FROM Student
+ORDER BY Marks DESC;
+
+36. What is LIMIT Clause?
+Ans:LIMIT is used to control how many rows are returned by a query. It is commonly used in MySQL for top-N queries.
+EX: SELECT *
+FROM Employee
+ORDER BY Salary DESC
+LIMIT 1;
+
+37. What is DISTINCT?
+Ans: DISTINCT is used to return only unique values and remove duplicate rows from the result.
+EX: SELECT DISTINCT City
+FROM Student;
+
+38. What is FROM Clause?
+Ans: FROM clause specifies the table or tables from which we want to retrieve data.
+EX:SELECT *
+FROM Student;
+
+39. Diiferent type of Clauses ?
+Ans: 
+| Clause     | Purpose                                |
+| ---------- | -------------------------------------- |
+| `SELECT`   | Specifies the columns/data to retrieve |
+| `FROM`     | Specifies the table/data source        |
+| `WHERE`    | Filters individual rows                |
+| `JOIN`     | Combines data from multiple tables     |
+| `ON`       | Specifies the JOIN condition           |
+| `GROUP BY` | Groups rows with similar values        |
+| `HAVING`   | Filters groups                         |
+| `ORDER BY` | Sorts the result                       |
+| `DISTINCT` | Removes duplicate results              |
+| `LIMIT`    | Restricts the number of rows           |
+
+40.What is JOIN in SQL?
+Ans: JOIN is used to combine related data from multiple tables using a common or related column.
+
+41.Why do we use JOIN?
+Ans: We use JOIN when the required information is stored in different tables and we need to combine that related 
+data in one result.
+For example:
+Student information → Student
+Department information → Department
+
+41.What are the different types of JOIN?
+Ans: The important JOIN types are:
+INNER JOIN
+LEFT JOIN
+RIGHT JOIN
+FULL OUTER JOIN
+CROSS JOIN
+SELF JOIN
+
+42.What is INNER JOIN?
+Ans: INNER JOIN returns only the records where a match exists in both tables.
+Ex: SELECT S.Name, D.Dept_Name
+FROM Student S
+INNER JOIN Department D
+ON S.Dept_ID = D.Dept_ID;
+
+43.What is LEFT JOIN?
+Ans: LEFT JOIN returns all records from the left table and the matching records from the right table. If there is
+ no match, NULL is returned for the right-side columns.
+Ex: SELECT S.Name, D.Dept_Name
+FROM Student S
+LEFT JOIN Department D
+ON S.Dept_ID = D.Dept_ID;
+
+44. What is RIGHT JOIN?
+Ans: RIGHT JOIN returns all records from the right table and matching records from the left table. If there is 
+no match, the left-side columns contain NULL.
+EX: SELECT S.Name, D.Dept_Name
+FROM Student S
+RIGHT JOIN Department D
+ON S.Dept_ID = D.Dept_ID;
+
+45.What is FULL OUTER JOIN?
+Ans: FULL OUTER JOIN returns matching and unmatched records from both tables. MySQL doesn't provide a direct FULL
+ OUTER JOIN, so we can achieve similar behavior using LEFT JOIN and RIGHT JOIN with UNION.
+*MySQL does not support direct: FULL OUTER JOIN
+EX: SELECT S.Name, D.Dept_Name
+FROM Student S
+LEFT JOIN Department D
+ON S.Dept_ID = D.Dept_ID
+UNION
+SELECT S.Name, D.Dept_Name
+FROM Student S
+RIGHT JOIN Department D
+ON S.Dept_ID = D.Dept_ID;
+
+46.Difference between LEFT JOIN and RIGHT JOIN?
+Ans: LEFT JOIN preserves all rows from the left table, while RIGHT JOIN preserves all rows from the right table.
+
+47.What is the difference between JOIN and INNER JOIN?
+Ans: JOIN without a specified type generally means INNER JOIN.
+
+48.Can we JOIN more than two tables?
+Ans: Yes, we can join multiple tables as long as there are appropriate relationships or join conditions between them.
+
+49.What happens if there is no matching record in INNER JOIN?
+Ans: INNER JOIN returns only matching records, so unmatched records are excluded.
+
+50.What happens if there is no matching record in LEFT JOIN?
+Ans: LEFT JOIN keeps the unmatched left-side record and returns NULL for columns from the right table.
+
+
+
