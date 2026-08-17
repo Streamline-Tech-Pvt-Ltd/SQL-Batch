@@ -697,3 +697,12 @@ SELECT employee.e_name, department.d_name
 FROM employee
 RIGHT JOIN department
 ON employee.d_id = department.d_id;
+---------------------------------------------------
+Most important JOIN + Aggregate structure
+SELECT 
+r.restaurant_name,
+AGGREGATE_FUNCTION(o.column)
+FROM restaurants AS r
+JOIN orders AS o
+ON r.restaurant_id = o.restaurant_id
+GROUP BY r.restaurant_id, r.restaurant_name;
