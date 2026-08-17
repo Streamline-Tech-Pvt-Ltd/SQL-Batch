@@ -664,7 +664,7 @@ SELECT employee.e_name, department.d_name
 FROM employee
 RIGHT JOIN department
 ON employee.d_id = department.d_id;
-------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------
 4] FULL OUTER JOIN
 
 Returns:
@@ -676,7 +676,7 @@ SELECT *
 FROM employee
 FULL OUTER JOIN department
 ON employee.d_id = department.d_id;
---------------------------------------------
+
 SELECT *
 FROM table1
 LEFT JOIN table2
@@ -686,7 +686,7 @@ SELECT *
 FROM table1
 RIGHT JOIN table2
 ON table1.column = table2.column;
--------------------------------------------
+
 Example :
 SELECT employee.e_name, department.d_name
 FROM employee

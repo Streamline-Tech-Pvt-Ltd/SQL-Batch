@@ -302,7 +302,7 @@ mysql> select * from Patient limit 2 offset 4;
 |  6 | Shreyash Kotame |   28 | Nashik | F      | 2026-05-08    |          2024 |          1 | 6800.00 |
 +----+-----------------+------+--------+--------+---------------+---------------+------------+---------+
 
-15 .Update: UPDATE is used to change existing data in a table.
+15.Update: UPDATE is used to change existing data in a table.
 mysql> update Patient set Name = 'Pallavi kapale' where Id=6;
 mysql> select * from Patient;
 +----+----------------+------+--------+--------+---------------+---------------+------------+---------+
@@ -331,3 +331,141 @@ mysql> select * from Patient;
 |  5 | Adesh Rote     |   25 | Mumbai | M      | 2026-12-05    |          2025 |          1 | 7500.00 |
 |  6 | Pallavi kapale |   28 | Nashik | F      | 2026-05-08    |          2024 |          1 | 6800.00 |
 +----+----------------+------+--------+--------+---------------+---------------+------------+---------+
+
+
+_______________________________________________________________________________________________________________________
+
+# Join
+
+create two tables:
+1.Company: 
+mysql> create table Company(
+    -> ID int primary key,
+    -> Company_Name varchar(30),
+    -> Location varchar(20));
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> insert into company(ID,Company_Name,Location)
+    -> values
+    -> (1,'TCS','Pune');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select * from company;
++----+-----------------+-----------+
+| ID | Company_Name    | Location  |
++----+-----------------+-----------+
+|  1 | TCS             | Pune      |
+|  2 | Infosys         | Mumbai    |
+|  3 | Streamline Tech | Pune      |
+|  4 | Wipro           | Bangalore |
++----+-----------------+-----------+
+
+2. create table Interns :
+use Company table ID primary key as a foreign key Interns table.
+
+mysql> create table Interns(
+    -> Intern_Id int primary key,
+    -> Name varchar(30),
+    -> Domain varchar(20),
+    -> ID int,
+    -> foreign key (ID) references Company(ID));
+
+mysql> insert into Interns(Intern_Id,Name,Domain,ID)
+    -> values
+    -> (101,'Urmila','Python',1),
+    -> (102,'Pallavi','Java',2),
+    -> (103,'Mayuri','DA',1),
+    -> (104,'Shivani','DS',3),
+    -> (105,'Neha','JS',NULL);
+
+mysql> select * from Interns;
++-----------+---------+--------+------+
+| Intern_Id | Name    | Domain | ID   |
++-----------+---------+--------+------+
+|       101 | Urmila  | Python |    1 |
+|       102 | Pallavi | Java   |    2 |
+|       103 | Mayuri  | DA     |    1 |
+|       104 | Shivani | DS     |    3 |
+|       105 | Neha    | JS     | NULL |
++-----------+---------+--------+------+
+5 rows in set (0.00 sec)
+-------------------------------------------------------------------------------------------------------------------
+
+# USE JOIN:
+
+1. INNER JOIN: 
+mysql> select Company.ID,Company.Company_Name,Company.Location
+    -> from Company
+    -> INNER JOIN Interns
+    -> on Interns.ID = Company.ID;
++----+-----------------+----------+
+| ID | Company_Name    | Location |
++----+-----------------+----------+
+|  1 | TCS             | Pune     |
+|  1 | TCS             | Pune     |
+|  2 | Infosys         | Mumbai   |
+|  3 | Streamline Tech | Pune     |
++----+-----------------+----------+
+
+# INNER JOIN returns only records that have a matching value in both tables.
+ Neha has ID = NULL so she will not appear in the INNER JOIN result.
+
+
+2. LEFT JOIN:
+mysql> select Company.ID,Company.Company_Name,Company.Location
+    -> from Company
+    -> LEFT JOIN Interns
+    -> on Interns.ID = Company.ID;
++----+-----------------+-----------+
+| ID | Company_Name    | Location  |
++----+-----------------+-----------+
+|  1 | TCS             | Pune      |
+|  1 | TCS             | Pune      |
+|  2 | Infosys         | Mumbai    |
+|  3 | Streamline Tech | Pune      |
+|  4 | Wipro           | Bangalore |
++----+-----------------+-----------+
+
+# All records from the LEFT table + matching records from the RIGHT table.
+
+
+3. RIGHT JOIN:
+mysql> select C.ID,C.Company_Name,C.Location
+    -> from Company AS C
+    -> RIGHT JOIN Interns
+    -> on Interns.ID = C.ID;
++------+-----------------+----------+
+| ID   | Company_Name    | Location |
++------+-----------------+----------+
+| NULL | NULL            | NULL     |
+|    1 | TCS             | Pune     |
+|    1 | TCS             | Pune     |
+|    2 | Infosys         | Mumbai   |
+|    3 | Streamline Tech | Pune     |
++------+-----------------+----------+
+
+# All records from the RIGHT table + matching records from the LEFT table.
+
+4. FULL OUTER JOIN:
+mysql> select C.ID,C.Company_Name,C.Location
+    -> from Company AS C
+    -> LEFT JOIN Interns
+    -> on Interns.ID = C.ID
+    -> UNION
+    -> select C.ID,C.Company_Name,C.Location
+    -> from Company AS C
+    -> RIGHT JOIN Interns
+    -> on Interns.ID = C.ID;
++------+-----------------+-----------+
+| ID   | Company_Name    | Location  |
++------+-----------------+-----------+
+|    1 | TCS             | Pune      |
+|    2 | Infosys         | Mumbai    |
+|    3 | Streamline Tech | Pune      |
+|    4 | Wipro           | Bangalore |
+| NULL | NULL            | NULL      |
++------+-----------------+-----------+
+
+# UNION combines both results and removes duplicate rows.
+
+
