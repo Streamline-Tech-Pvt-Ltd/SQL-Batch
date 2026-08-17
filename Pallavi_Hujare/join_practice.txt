@@ -92,3 +92,630 @@ mysql> SELECT employe.e_name, department.department_name
 | Neha   | NULL            |
 +--------+-----------------+
 5 rows in set (0.02 sec)
+
+
+
+******************************************          Task **************************************
+mysql> CREATE DATABASE food_delivery;
+Query OK, 1 row affected (0.06 sec)
+
+mysql> USE food_delivery;
+Database changed
+
+mysql> CREATE TABLE restaurants (
+    ->     restaurant_id INT PRIMARY KEY,
+    ->     restaurant_name VARCHAR(50),
+    ->     cuisine VARCHAR(30),
+    ->     city VARCHAR(30)
+    -> );
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> INSERT INTO restaurants VALUES
+    -> (1, 'Spice Route', 'Indian', 'Nashik'),
+    -> (2, 'Urban Tadka', 'Punjabi', 'Pune'),
+    -> (3, 'Green Bowl', 'Healthy', 'Mumbai'),
+    -> (4, 'Pizza Planet', 'Italian', 'Nashik'),
+    -> (5, 'Sushi Story', 'Japanese', 'Pune'),
+    -> (6, 'Burger Hub', 'Fast Food', 'Mumbai'),
+    -> (7, 'Royal Biryani', 'Mughlai', 'Aurangabad'),
+    -> (8, 'Cafe Bloom', 'Cafe', 'Nashik');
+Query OK, 8 rows affected (0.03 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> CREATE TABLE orders (
+    ->     order_id INT PRIMARY KEY,
+    ->     customer_name VARCHAR(50),
+    ->     order_amount DECIMAL(10,2),
+    ->     order_status VARCHAR(20),
+    ->     restaurant_id INT,
+    ->     FOREIGN KEY (restaurant_id) REFERENCES restaurants(restaurant_id)
+    -> );
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> INSERT INTO orders VALUES
+    -> (101, 'Aarav', 450.00, 'Delivered', 1),
+    -> (102, 'Sneha', 720.00, 'Delivered', 1),
+    -> (103, 'Rohan', 350.00, 'Pending', 1),
+    -> (104, 'Priya', 890.00, 'Delivered', 1),
+    ->
+    -> (105, 'Aditya', 550.00, 'Delivered', 2),
+    -> (106, 'Neha', 780.00, 'Cancelled', 2),
+    -> (107, 'Om', 430.00, 'Delivered', 2),
+    -> (108, 'Kavya', 620.00, 'Pending', 2),
+    ->
+    -> (109, 'Yash', 390.00, 'Delivered', 3),
+    -> (110, 'Isha', 480.00, 'Delivered', 3),
+    -> (111, 'Tanvi', 650.00, 'Pending', 3),
+    ->
+    -> (112, 'Akash', 999.00, 'Delivered', 4),
+    -> (113, 'Meera', 750.00, 'Delivered', 4),
+    -> (114, 'Vivek', 520.00, 'Cancelled', 4),
+    ->
+    -> (115, 'Riya', 680.00, 'Pending', NULL),
+    ->
+    -> (116, 'Rahul', 1200.00, 'Delivered', 5),
+    -> (117, 'Anjali', 850.00, 'Delivered', 5),
+    -> (118, 'Nikhil', 950.00, 'Pending', 5),
+    ->
+    -> (119, 'Pooja', 420.00, 'Delivered', 6),
+    -> (120, 'Manish', 780.00, 'Delivered', 6),
+    -> (121, 'Snehal', 560.00, 'Cancelled', 6),
+    -> (122, 'Varun', 690.00, 'Delivered', 6),
+    ->
+    -> (123, 'Sakshi', 1100.00, 'Delivered', 7),
+    -> (124, 'Harsh', 850.00, 'Pending', 7),
+    ->
+    -> (125, 'Aditi', 920.00, 'Delivered', NULL),
+    ->
+    -> (126, 'Karan', 350.00, 'Delivered', 8),
+    -> (127, 'Mrunal', 480.00, 'Pending', 8),
+    -> (128, 'Tejas', 620.00, 'Delivered', 8),
+    ->
+    -> (129, 'Shreya', 540.00, 'Cancelled', NULL),
+    -> (130, 'Dev', 700.00, 'Delivered', 8);
+Query OK, 30 rows affected (0.01 sec)
+Records: 30  Duplicates: 0  Warnings: 0
+
+mysql> select * from restaurants;
++---------------+-----------------+-----------+------------+
+| restaurant_id | restaurant_name | cuisine   | city       |
++---------------+-----------------+-----------+------------+
+|             1 | Spice Route     | Indian    | Nashik     |
+|             2 | Urban Tadka     | Punjabi   | Pune       |
+|             3 | Green Bowl      | Healthy   | Mumbai     |
+|             4 | Pizza Planet    | Italian   | Nashik     |
+|             5 | Sushi Story     | Japanese  | Pune       |
+|             6 | Burger Hub      | Fast Food | Mumbai     |
+|             7 | Royal Biryani   | Mughlai   | Aurangabad |
+|             8 | Cafe Bloom      | Cafe      | Nashik     |
++---------------+-----------------+-----------+------------+
+8 rows in set (0.02 sec)
+
+mysql> select *  from orders;
++----------+---------------+--------------+--------------+---------------+
+| order_id | customer_name | order_amount | order_status | restaurant_id |
++----------+---------------+--------------+--------------+---------------+
+|      101 | Aarav         |       450.00 | Delivered    |             1 |
+|      102 | Sneha         |       720.00 | Delivered    |             1 |
+|      103 | Rohan         |       350.00 | Pending      |             1 |
+|      104 | Priya         |       890.00 | Delivered    |             1 |
+|      105 | Aditya        |       550.00 | Delivered    |             2 |
+|      106 | Neha          |       780.00 | Cancelled    |             2 |
+|      107 | Om            |       430.00 | Delivered    |             2 |
+|      108 | Kavya         |       620.00 | Pending      |             2 |
+|      109 | Yash          |       390.00 | Delivered    |             3 |
+|      110 | Isha          |       480.00 | Delivered    |             3 |
+|      111 | Tanvi         |       650.00 | Pending      |             3 |
+|      112 | Akash         |       999.00 | Delivered    |             4 |
+|      113 | Meera         |       750.00 | Delivered    |             4 |
+|      114 | Vivek         |       520.00 | Cancelled    |             4 |
+|      115 | Riya          |       680.00 | Pending      |          NULL |
+|      116 | Rahul         |      1200.00 | Delivered    |             5 |
+|      117 | Anjali        |       850.00 | Delivered    |             5 |
+|      118 | Nikhil        |       950.00 | Pending      |             5 |
+|      119 | Pooja         |       420.00 | Delivered    |             6 |
+|      120 | Manish        |       780.00 | Delivered    |             6 |
+|      121 | Snehal        |       560.00 | Cancelled    |             6 |
+|      122 | Varun         |       690.00 | Delivered    |             6 |
+|      123 | Sakshi        |      1100.00 | Delivered    |             7 |
+|      124 | Harsh         |       850.00 | Pending      |             7 |
+|      125 | Aditi         |       920.00 | Delivered    |          NULL |
+|      126 | Karan         |       350.00 | Delivered    |             8 |
+|      127 | Mrunal        |       480.00 | Pending      |             8 |
+|      128 | Tejas         |       620.00 | Delivered    |             8 |
+|      129 | Shreya        |       540.00 | Cancelled    |          NULL |
+|      130 | Dev           |       700.00 | Delivered    |             8 |
++----------+---------------+--------------+--------------+---------------+
+30 rows in set (0.02 sec)
+
+mysql> select customer_name,order_amount,restaurant_name,cuisine,city
+    -> from orders as o
+    -> inner join  restaurants as r
+    -> on o. restaurant_id = r. restaurant_id;
++---------------+--------------+-----------------+-----------+------------+
+| customer_name | order_amount | restaurant_name | cuisine   | city       |
++---------------+--------------+-----------------+-----------+------------+
+| Aarav         |       450.00 | Spice Route     | Indian    | Nashik     |
+| Sneha         |       720.00 | Spice Route     | Indian    | Nashik     |
+| Rohan         |       350.00 | Spice Route     | Indian    | Nashik     |
+| Priya         |       890.00 | Spice Route     | Indian    | Nashik     |
+| Aditya        |       550.00 | Urban Tadka     | Punjabi   | Pune       |
+| Neha          |       780.00 | Urban Tadka     | Punjabi   | Pune       |
+| Om            |       430.00 | Urban Tadka     | Punjabi   | Pune       |
+| Kavya         |       620.00 | Urban Tadka     | Punjabi   | Pune       |
+| Yash          |       390.00 | Green Bowl      | Healthy   | Mumbai     |
+| Isha          |       480.00 | Green Bowl      | Healthy   | Mumbai     |
+| Tanvi         |       650.00 | Green Bowl      | Healthy   | Mumbai     |
+| Akash         |       999.00 | Pizza Planet    | Italian   | Nashik     |
+| Meera         |       750.00 | Pizza Planet    | Italian   | Nashik     |
+| Vivek         |       520.00 | Pizza Planet    | Italian   | Nashik     |
+| Rahul         |      1200.00 | Sushi Story     | Japanese  | Pune       |
+| Anjali        |       850.00 | Sushi Story     | Japanese  | Pune       |
+| Nikhil        |       950.00 | Sushi Story     | Japanese  | Pune       |
+| Pooja         |       420.00 | Burger Hub      | Fast Food | Mumbai     |
+| Manish        |       780.00 | Burger Hub      | Fast Food | Mumbai     |
+| Snehal        |       560.00 | Burger Hub      | Fast Food | Mumbai     |
+| Varun         |       690.00 | Burger Hub      | Fast Food | Mumbai     |
+| Sakshi        |      1100.00 | Royal Biryani   | Mughlai   | Aurangabad |
+| Harsh         |       850.00 | Royal Biryani   | Mughlai   | Aurangabad |
+| Karan         |       350.00 | Cafe Bloom      | Cafe      | Nashik     |
+| Mrunal        |       480.00 | Cafe Bloom      | Cafe      | Nashik     |
+| Tejas         |       620.00 | Cafe Bloom      | Cafe      | Nashik     |
+| Dev           |       700.00 | Cafe Bloom      | Cafe      | Nashik     |
++---------------+--------------+-----------------+-----------+------------+
+27 rows in set (0.02 sec)
+
+mysql> select customer_name,order_amount,restaurant_name,cuisine,city
+    -> from orders as o
+    -> left join  restaurants as r
+    -> on o. restaurant_id = r. restaurant_id;
++---------------+--------------+-----------------+-----------+------------+
+| customer_name | order_amount | restaurant_name | cuisine   | city       |
++---------------+--------------+-----------------+-----------+------------+
+| Aarav         |       450.00 | Spice Route     | Indian    | Nashik     |
+| Sneha         |       720.00 | Spice Route     | Indian    | Nashik     |
+| Rohan         |       350.00 | Spice Route     | Indian    | Nashik     |
+| Priya         |       890.00 | Spice Route     | Indian    | Nashik     |
+| Aditya        |       550.00 | Urban Tadka     | Punjabi   | Pune       |
+| Neha          |       780.00 | Urban Tadka     | Punjabi   | Pune       |
+| Om            |       430.00 | Urban Tadka     | Punjabi   | Pune       |
+| Kavya         |       620.00 | Urban Tadka     | Punjabi   | Pune       |
+| Yash          |       390.00 | Green Bowl      | Healthy   | Mumbai     |
+| Isha          |       480.00 | Green Bowl      | Healthy   | Mumbai     |
+| Tanvi         |       650.00 | Green Bowl      | Healthy   | Mumbai     |
+| Akash         |       999.00 | Pizza Planet    | Italian   | Nashik     |
+| Meera         |       750.00 | Pizza Planet    | Italian   | Nashik     |
+| Vivek         |       520.00 | Pizza Planet    | Italian   | Nashik     |
+| Riya          |       680.00 | NULL            | NULL      | NULL       |
+| Rahul         |      1200.00 | Sushi Story     | Japanese  | Pune       |
+| Anjali        |       850.00 | Sushi Story     | Japanese  | Pune       |
+| Nikhil        |       950.00 | Sushi Story     | Japanese  | Pune       |
+| Pooja         |       420.00 | Burger Hub      | Fast Food | Mumbai     |
+| Manish        |       780.00 | Burger Hub      | Fast Food | Mumbai     |
+| Snehal        |       560.00 | Burger Hub      | Fast Food | Mumbai     |
+| Varun         |       690.00 | Burger Hub      | Fast Food | Mumbai     |
+| Sakshi        |      1100.00 | Royal Biryani   | Mughlai   | Aurangabad |
+| Harsh         |       850.00 | Royal Biryani   | Mughlai   | Aurangabad |
+| Aditi         |       920.00 | NULL            | NULL      | NULL       |
+| Karan         |       350.00 | Cafe Bloom      | Cafe      | Nashik     |
+| Mrunal        |       480.00 | Cafe Bloom      | Cafe      | Nashik     |
+| Tejas         |       620.00 | Cafe Bloom      | Cafe      | Nashik     |
+| Shreya        |       540.00 | NULL            | NULL      | NULL       |
+| Dev           |       700.00 | Cafe Bloom      | Cafe      | Nashik     |
++---------------+--------------+-----------------+-----------+------------+
+30 rows in set (0.00 sec)
+
+mysql> select customer_name,order_amount,restaurant_name,cuisine,city
+    -> from orders as o
+    -> right join  restaurants as r
+    -> on o. restaurant_id = r. restaurant_id;
++---------------+--------------+-----------------+-----------+------------+
+| customer_name | order_amount | restaurant_name | cuisine   | city       |
++---------------+--------------+-----------------+-----------+------------+
+| Aarav         |       450.00 | Spice Route     | Indian    | Nashik     |
+| Sneha         |       720.00 | Spice Route     | Indian    | Nashik     |
+| Rohan         |       350.00 | Spice Route     | Indian    | Nashik     |
+| Priya         |       890.00 | Spice Route     | Indian    | Nashik     |
+| Aditya        |       550.00 | Urban Tadka     | Punjabi   | Pune       |
+| Neha          |       780.00 | Urban Tadka     | Punjabi   | Pune       |
+| Om            |       430.00 | Urban Tadka     | Punjabi   | Pune       |
+| Kavya         |       620.00 | Urban Tadka     | Punjabi   | Pune       |
+| Yash          |       390.00 | Green Bowl      | Healthy   | Mumbai     |
+| Isha          |       480.00 | Green Bowl      | Healthy   | Mumbai     |
+| Tanvi         |       650.00 | Green Bowl      | Healthy   | Mumbai     |
+| Akash         |       999.00 | Pizza Planet    | Italian   | Nashik     |
+| Meera         |       750.00 | Pizza Planet    | Italian   | Nashik     |
+| Vivek         |       520.00 | Pizza Planet    | Italian   | Nashik     |
+| Rahul         |      1200.00 | Sushi Story     | Japanese  | Pune       |
+| Anjali        |       850.00 | Sushi Story     | Japanese  | Pune       |
+| Nikhil        |       950.00 | Sushi Story     | Japanese  | Pune       |
+| Pooja         |       420.00 | Burger Hub      | Fast Food | Mumbai     |
+| Manish        |       780.00 | Burger Hub      | Fast Food | Mumbai     |
+| Snehal        |       560.00 | Burger Hub      | Fast Food | Mumbai     |
+| Varun         |       690.00 | Burger Hub      | Fast Food | Mumbai     |
+| Sakshi        |      1100.00 | Royal Biryani   | Mughlai   | Aurangabad |
+| Harsh         |       850.00 | Royal Biryani   | Mughlai   | Aurangabad |
+| Karan         |       350.00 | Cafe Bloom      | Cafe      | Nashik     |
+| Mrunal        |       480.00 | Cafe Bloom      | Cafe      | Nashik     |
+| Tejas         |       620.00 | Cafe Bloom      | Cafe      | Nashik     |
+| Dev           |       700.00 | Cafe Bloom      | Cafe      | Nashik     |
++---------------+--------------+-----------------+-----------+------------+
+27 rows in set (0.00 sec)
+
+mysql> select customer_name,order_amount,restaurant_name,cuisine,city
+    -> from orders as o
+    -> left join  restaurants as r
+    -> on o. restaurant_id = r. restaurant_id
+    -> union
+    -> select customer_name,order_amount,restaurant_name,cuisine,city
+    -> from orders as o
+    -> right join  restaurants as r
+    -> on o. restaurant_id = r. restaurant_id;
++---------------+--------------+-----------------+-----------+------------+
+| customer_name | order_amount | restaurant_name | cuisine   | city       |
++---------------+--------------+-----------------+-----------+------------+
+| Aarav         |       450.00 | Spice Route     | Indian    | Nashik     |
+| Sneha         |       720.00 | Spice Route     | Indian    | Nashik     |
+| Rohan         |       350.00 | Spice Route     | Indian    | Nashik     |
+| Priya         |       890.00 | Spice Route     | Indian    | Nashik     |
+| Aditya        |       550.00 | Urban Tadka     | Punjabi   | Pune       |
+| Neha          |       780.00 | Urban Tadka     | Punjabi   | Pune       |
+| Om            |       430.00 | Urban Tadka     | Punjabi   | Pune       |
+| Kavya         |       620.00 | Urban Tadka     | Punjabi   | Pune       |
+| Yash          |       390.00 | Green Bowl      | Healthy   | Mumbai     |
+| Isha          |       480.00 | Green Bowl      | Healthy   | Mumbai     |
+| Tanvi         |       650.00 | Green Bowl      | Healthy   | Mumbai     |
+| Akash         |       999.00 | Pizza Planet    | Italian   | Nashik     |
+| Meera         |       750.00 | Pizza Planet    | Italian   | Nashik     |
+| Vivek         |       520.00 | Pizza Planet    | Italian   | Nashik     |
+| Riya          |       680.00 | NULL            | NULL      | NULL       |
+| Rahul         |      1200.00 | Sushi Story     | Japanese  | Pune       |
+| Anjali        |       850.00 | Sushi Story     | Japanese  | Pune       |
+| Nikhil        |       950.00 | Sushi Story     | Japanese  | Pune       |
+| Pooja         |       420.00 | Burger Hub      | Fast Food | Mumbai     |
+| Manish        |       780.00 | Burger Hub      | Fast Food | Mumbai     |
+| Snehal        |       560.00 | Burger Hub      | Fast Food | Mumbai     |
+| Varun         |       690.00 | Burger Hub      | Fast Food | Mumbai     |
+| Sakshi        |      1100.00 | Royal Biryani   | Mughlai   | Aurangabad |
+| Harsh         |       850.00 | Royal Biryani   | Mughlai   | Aurangabad |
+| Aditi         |       920.00 | NULL            | NULL      | NULL       |
+| Karan         |       350.00 | Cafe Bloom      | Cafe      | Nashik     |
+| Mrunal        |       480.00 | Cafe Bloom      | Cafe      | Nashik     |
+| Tejas         |       620.00 | Cafe Bloom      | Cafe      | Nashik     |
+| Shreya        |       540.00 | NULL            | NULL      | NULL       |
+| Dev           |       700.00 | Cafe Bloom      | Cafe      | Nashik     |
++---------------+--------------+-----------------+-----------+------------+
+30 rows in set (0.02 sec)
+mysql> CREATE DATABASE agritech;
+Query OK, 1 row affected (0.12 sec)
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+mysql> USE agritech;
+Database changed
+
+mysql> CREATE TABLE departments (
+    ->     dept_id INT PRIMARY KEY,
+    ->     dept_name VARCHAR(50),
+    ->     location VARCHAR(50),
+    ->     budget INT
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> INSERT INTO departments VALUES
+    -> (1, 'AI & Data Science', 'Pune', 1500000),
+    -> (2, 'Software Development', 'Nashik', 2000000),
+    -> (3, 'IoT & Sensors', 'Mumbai', 1800000),
+    -> (4, 'Agriculture Research', 'Nashik', 1200000),
+    -> (5, 'Cloud & DevOps', 'Pune', 1700000),
+    -> (6, 'Cyber Security', 'Mumbai', 1400000),
+    -> (7, 'Marketing', 'Pune', 900000),
+    -> (8, 'Drone Technology', 'Aurangabad', 1600000);
+Query OK, 8 rows affected (0.01 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> CREATE TABLE employees (
+    ->     emp_id INT PRIMARY KEY,
+    ->     emp_name VARCHAR(50),
+    ->     job_role VARCHAR(50),
+    ->     salary INT,
+    ->     dept_id INT,
+    ->     experience INT,
+    ->     FOREIGN KEY (dept_id) REFERENCES departments(dept_id)
+    -> );
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> INSERT INTO employees VALUES
+    -> (1, 'Aarav Patil', 'Data Analyst', 55000, 1, 2),
+    -> (2, 'Sneha Joshi', 'Data Scientist', 75000, 1, 3),
+    -> (3, 'Rohan Shinde', 'ML Engineer', 85000, 1, 4),
+    -> (4, 'Priya More', 'Data Engineer', 68000, 1, 2),
+    -> (5, 'Aditya Pawar', 'Python Developer', 60000, 2, 2),
+    -> (6, 'Neha Jadhav', 'Backend Developer', 72000, 2, 3),
+    -> (7, 'Om Kulkarni', 'Frontend Developer', 58000, 2, 2),
+    -> (8, 'Kavya Deshmukh', 'Full Stack Developer', 80000, 2, 4),
+    -> (9, 'Yash Gaikwad', 'Software Tester', 50000, 2, 1),
+    -> (10, 'Isha Patil', 'IoT Engineer', 65000, 3, 2),
+    -> (11, 'Siddharth More', 'Embedded Engineer', 70000, 3, 3),
+    -> (12, 'Tanvi Pawar', 'Sensor Engineer', 62000, 3, 2),
+    -> (13, 'Akash Chavan', 'IoT Developer', 68000, 3, 3),
+    -> (14, 'Meera Shinde', 'Research Scientist', 78000, 4, 5),
+    -> (15, 'Vivek Patil', 'Agronomist', 55000, 4, 3),
+    -> (16, 'Riya More', 'Research Assistant', 45000, 4, 1),
+    -> (17, 'Rahul Jadhav', 'DevOps Engineer', 85000, 5, 4),
+    -> (18, 'Anjali Joshi', 'Cloud Engineer', 90000, 5, 5),
+    -> (19, 'Nikhil Pawar', 'System Administrator', 65000, 5, 3),
+    -> (20, 'Pooja Shinde', 'Security Analyst', 70000, 6, 3),
+    -> (21, 'Manish Patil', 'Security Engineer', 82000, 6, 4),
+    -> (22, 'Snehal More', 'Ethical Hacker', 75000, 6, 3),
+    -> (23, 'Varun Jadhav', 'Marketing Executive', 45000, 7, 1),
+    -> (24, 'Sakshi Patil', 'Marketing Manager', 65000, 7, 4),
+    -> (25, 'Harsh Deshmukh', 'Content Strategist', 50000, 7, 2),
+    -> (26, 'Aditi Chavan', 'Drone Engineer', 80000, 8, 4),
+    -> (27, 'Karan Pawar', 'Drone Pilot', 55000, 8, 2),
+    -> (28, 'Mrunal Patil', 'Drone Developer', 75000, 8, 3),
+    -> (29, 'Tejas Joshi', 'Automation Engineer', 70000, 8, 2),
+    -> (30, 'Shreya More', 'Drone Tester', 58000, 8, 1);
+Query OK, 30 rows affected (0.02 sec)
+Records: 30  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee;
+ERROR 1146 (42S02): Table 'agritech.employee' doesn't exist
+mysql> select * from employees;
++--------+----------------+----------------------+--------+---------+------------+
+| emp_id | emp_name       | job_role             | salary | dept_id | experience |
++--------+----------------+----------------------+--------+---------+------------+
+|      1 | Aarav Patil    | Data Analyst         |  55000 |       1 |          2 |
+|      2 | Sneha Joshi    | Data Scientist       |  75000 |       1 |          3 |
+|      3 | Rohan Shinde   | ML Engineer          |  85000 |       1 |          4 |
+|      4 | Priya More     | Data Engineer        |  68000 |       1 |          2 |
+|      5 | Aditya Pawar   | Python Developer     |  60000 |       2 |          2 |
+|      6 | Neha Jadhav    | Backend Developer    |  72000 |       2 |          3 |
+|      7 | Om Kulkarni    | Frontend Developer   |  58000 |       2 |          2 |
+|      8 | Kavya Deshmukh | Full Stack Developer |  80000 |       2 |          4 |
+|      9 | Yash Gaikwad   | Software Tester      |  50000 |       2 |          1 |
+|     10 | Isha Patil     | IoT Engineer         |  65000 |       3 |          2 |
+|     11 | Siddharth More | Embedded Engineer    |  70000 |       3 |          3 |
+|     12 | Tanvi Pawar    | Sensor Engineer      |  62000 |       3 |          2 |
+|     13 | Akash Chavan   | IoT Developer        |  68000 |       3 |          3 |
+|     14 | Meera Shinde   | Research Scientist   |  78000 |       4 |          5 |
+|     15 | Vivek Patil    | Agronomist           |  55000 |       4 |          3 |
+|     16 | Riya More      | Research Assistant   |  45000 |       4 |          1 |
+|     17 | Rahul Jadhav   | DevOps Engineer      |  85000 |       5 |          4 |
+|     18 | Anjali Joshi   | Cloud Engineer       |  90000 |       5 |          5 |
+|     19 | Nikhil Pawar   | System Administrator |  65000 |       5 |          3 |
+|     20 | Pooja Shinde   | Security Analyst     |  70000 |       6 |          3 |
+|     21 | Manish Patil   | Security Engineer    |  82000 |       6 |          4 |
+|     22 | Snehal More    | Ethical Hacker       |  75000 |       6 |          3 |
+|     23 | Varun Jadhav   | Marketing Executive  |  45000 |       7 |          1 |
+|     24 | Sakshi Patil   | Marketing Manager    |  65000 |       7 |          4 |
+|     25 | Harsh Deshmukh | Content Strategist   |  50000 |       7 |          2 |
+|     26 | Aditi Chavan   | Drone Engineer       |  80000 |       8 |          4 |
+|     27 | Karan Pawar    | Drone Pilot          |  55000 |       8 |          2 |
+|     28 | Mrunal Patil   | Drone Developer      |  75000 |       8 |          3 |
+|     29 | Tejas Joshi    | Automation Engineer  |  70000 |       8 |          2 |
+|     30 | Shreya More    | Drone Tester         |  58000 |       8  |          1 |
++--------+----------------+----------------------+--------+---------+------------+
+30 rows in set (0.00 sec)
+
+mysql> select * from department;
+ERROR 1146 (42S02): Table 'agritech.department' doesn't exist
+mysql> select * from departments;
++---------+----------------------+------------+---------+
+| dept_id | dept_name            | location   | budget  |
++---------+----------------------+------------+---------+
+|       1 | AI & Data Science    | Pune       | 1500000 |
+|       2 | Software Development | Nashik     | 2000000 |
+|       3 | IoT & Sensors        | Mumbai     | 1800000 |
+|       4 | Agriculture Research | Nashik     | 1200000 |
+|       5 | Cloud & DevOps       | Pune       | 1700000 |
+|       6 | Cyber Security       | Mumbai     | 1400000 |
+|       7 | Marketing            | Pune       |  900000 |
+|       8 | Drone Technology     | Aurangabad | 1600000 |
++---------+----------------------+------------+---------+
+8 rows in set (0.00 sec)
+
+
+mysql> SELECT
+    -> e.emp_id,e.emp_name,d.dept_name
+    -> FROM employees e
+    -> INNER JOIN departments d
+    -> ON e.dept_id = d.dept_id;
++--------+----------------+----------------------+
+| emp_id | emp_name       | dept_name            |
++--------+----------------+----------------------+
+|      1 | Aarav Patil    | AI & Data Science    |
+|      2 | Sneha Joshi    | AI & Data Science    |
+|      3 | Rohan Shinde   | AI & Data Science    |
+|      4 | Priya More     | AI & Data Science    |
+|      5 | Aditya Pawar   | Software Development |
+|      6 | Neha Jadhav    | Software Development |
+|      7 | Om Kulkarni    | Software Development |
+|      8 | Kavya Deshmukh | Software Development |
+|      9 | Yash Gaikwad   | Software Development |
+|     10 | Isha Patil     | IoT & Sensors        |
+|     11 | Siddharth More | IoT & Sensors        |
+|     12 | Tanvi Pawar    | IoT & Sensors        |
+|     13 | Akash Chavan   | IoT & Sensors        |
+|     14 | Meera Shinde   | Agriculture Research |
+|     15 | Vivek Patil    | Agriculture Research |
+|     16 | Riya More      | Agriculture Research |
+|     17 | Rahul Jadhav   | Cloud & DevOps       |
+|     18 | Anjali Joshi   | Cloud & DevOps       |
+|     19 | Nikhil Pawar   | Cloud & DevOps       |
+|     20 | Pooja Shinde   | Cyber Security       |
+|     21 | Manish Patil   | Cyber Security       |
+|     22 | Snehal More    | Cyber Security       |
+|     23 | Varun Jadhav   | Marketing            |
+|     24 | Sakshi Patil   | Marketing            |
+|     25 | Harsh Deshmukh | Marketing            |
+|     26 | Aditi Chavan   | Drone Technology     |
+|     27 | Karan Pawar    | Drone Technology     |
+|     28 | Mrunal Patil   | Drone Technology     |
+|     29 | Tejas Joshi    | Drone Technology     |
+|     30 | Shreya More    | Drone Technology     |
++--------+----------------+----------------------+
+30 rows in set (0.01 sec)
+
+mysql> select emp_id , emp_name,dept_name
+    -> from employees as e
+    -> left join departments d
+    -> on e.dept_id = d.dept_id;
++--------+----------------+----------------------+
+| emp_id | emp_name       | dept_name            |
++--------+----------------+----------------------+
+|      1 | Aarav Patil    | AI & Data Science    |
+|      2 | Sneha Joshi    | AI & Data Science    |
+|      3 | Rohan Shinde   | AI & Data Science    |
+|      4 | Priya More     | AI & Data Science    |
+|      5 | Aditya Pawar   | Software Development |
+|      6 | Neha Jadhav    | Software Development |
+|      7 | Om Kulkarni    | Software Development |
+|      8 | Kavya Deshmukh | Software Development |
+|      9 | Yash Gaikwad   | Software Development |
+|     10 | Isha Patil     | IoT & Sensors        |
+|     11 | Siddharth More | IoT & Sensors        |
+|     12 | Tanvi Pawar    | IoT & Sensors        |
+|     13 | Akash Chavan   | IoT & Sensors        |
+|     14 | Meera Shinde   | Agriculture Research |
+|     15 | Vivek Patil    | Agriculture Research |
+|     16 | Riya More      | Agriculture Research |
+|     17 | Rahul Jadhav   | Cloud & DevOps       |
+|     18 | Anjali Joshi   | Cloud & DevOps       |
+|     19 | Nikhil Pawar   | Cloud & DevOps       |
+|     20 | Pooja Shinde   | Cyber Security       |
+|     21 | Manish Patil   | Cyber Security       |
+|     22 | Snehal More    | Cyber Security       |
+|     23 | Varun Jadhav   | Marketing            |
+|     24 | Sakshi Patil   | Marketing            |
+|     25 | Harsh Deshmukh | Marketing            |
+|     26 | Aditi Chavan   | Drone Technology     |
+|     27 | Karan Pawar    | Drone Technology     |
+|     28 | Mrunal Patil   | Drone Technology     |
+|     29 | Tejas Joshi    | Drone Technology     |
+|     30 | Shreya More    | Drone Technology     |
++--------+----------------+----------------------+
+30 rows in set (0.00 sec)
+
+mysql> select emp_id , emp_name,dept_name
+    -> FROM employees e
+    -> right join departments d
+    -> on e.dept_id = d.dept_id;
++--------+----------------+----------------------+
+| emp_id | emp_name       | dept_name            |
++--------+----------------+----------------------+
+|      1 | Aarav Patil    | AI & Data Science    |
+|      2 | Sneha Joshi    | AI & Data Science    |
+|      3 | Rohan Shinde   | AI & Data Science    |
+|      4 | Priya More     | AI & Data Science    |
+|      5 | Aditya Pawar   | Software Development |
+|      6 | Neha Jadhav    | Software Development |
+|      7 | Om Kulkarni    | Software Development |
+|      8 | Kavya Deshmukh | Software Development |
+|      9 | Yash Gaikwad   | Software Development |
+|     10 | Isha Patil     | IoT & Sensors        |
+|     11 | Siddharth More | IoT & Sensors        |
+|     12 | Tanvi Pawar    | IoT & Sensors        |
+|     13 | Akash Chavan   | IoT & Sensors        |
+|     14 | Meera Shinde   | Agriculture Research |
+|     15 | Vivek Patil    | Agriculture Research |
+|     16 | Riya More      | Agriculture Research |
+|     17 | Rahul Jadhav   | Cloud & DevOps       |
+|     18 | Anjali Joshi   | Cloud & DevOps       |
+|     19 | Nikhil Pawar   | Cloud & DevOps       |
+|     20 | Pooja Shinde   | Cyber Security       |
+|     21 | Manish Patil   | Cyber Security       |
+|     22 | Snehal More    | Cyber Security       |
+|     23 | Varun Jadhav   | Marketing            |
+|     24 | Sakshi Patil   | Marketing            |
+|     25 | Harsh Deshmukh | Marketing            |
+|     26 | Aditi Chavan   | Drone Technology     |
+|     27 | Karan Pawar    | Drone Technology     |
+|     28 | Mrunal Patil   | Drone Technology     |
+|     29 | Tejas Joshi    | Drone Technology     |
+|     30 | Shreya More    | Drone Technology     |
++--------+----------------+----------------------+
+30 rows in set (0.00 sec)
+
+mysql> select emp_id,emp_name,dept_name
+    -> FROM employees e
+    -> left join departments d
+    -> ON e.dept_id = d.dept_id;
++--------+----------------+----------------------+
+| emp_id | emp_name       | dept_name            |
++--------+----------------+----------------------+
+|      1 | Aarav Patil    | AI & Data Science    |
+|      2 | Sneha Joshi    | AI & Data Science    |
+|      3 | Rohan Shinde   | AI & Data Science    |
+|      4 | Priya More     | AI & Data Science    |
+|      5 | Aditya Pawar   | Software Development |
+|      6 | Neha Jadhav    | Software Development |
+|      7 | Om Kulkarni    | Software Development |
+|      8 | Kavya Deshmukh | Software Development |
+|      9 | Yash Gaikwad   | Software Development |
+|     10 | Isha Patil     | IoT & Sensors        |
+|     11 | Siddharth More | IoT & Sensors        |
+|     12 | Tanvi Pawar    | IoT & Sensors        |
+|     13 | Akash Chavan   | IoT & Sensors        |
+|     14 | Meera Shinde   | Agriculture Research |
+|     15 | Vivek Patil    | Agriculture Research |
+|     16 | Riya More      | Agriculture Research |
+|     17 | Rahul Jadhav   | Cloud & DevOps       |
+|     18 | Anjali Joshi   | Cloud & DevOps       |
+|     19 | Nikhil Pawar   | Cloud & DevOps       |
+|     20 | Pooja Shinde   | Cyber Security       |
+|     21 | Manish Patil   | Cyber Security       |
+|     22 | Snehal More    | Cyber Security       |
+|     23 | Varun Jadhav   | Marketing            |
+|     24 | Sakshi Patil   | Marketing            |
+|     25 | Harsh Deshmukh | Marketing            |
+|     26 | Aditi Chavan   | Drone Technology     |
+|     27 | Karan Pawar    | Drone Technology     |
+|     28 | Mrunal Patil   | Drone Technology     |
+|     29 | Tejas Joshi    | Drone Technology     |
+|     30 | Shreya More    | Drone Technology     |
++--------+----------------+----------------------+
+30 rows in set (0.00 sec)
+
+mysql> select emp_id,emp_name,dept_name
+    -> from employees as e
+    -> left join departments d
+    -> on e.dept_id = d.dept_id
+    -> union
+    -> select emp_id,emp_name,dept_name
+    -> from employees as e
+    -> right join departments d
+    -> on e.dept_id = d.dept_id;
++--------+----------------+----------------------+
+| emp_id | emp_name       | dept_name            |
++--------+----------------+----------------------+
+|      1 | Aarav Patil    | AI & Data Science    |
+|      2 | Sneha Joshi    | AI & Data Science    |
+|      3 | Rohan Shinde   | AI & Data Science    |
+|      4 | Priya More     | AI & Data Science    |
+|      5 | Aditya Pawar   | Software Development |
+|      6 | Neha Jadhav    | Software Development |
+|      7 | Om Kulkarni    | Software Development |
+|      8 | Kavya Deshmukh | Software Development |
+|      9 | Yash Gaikwad   | Software Development |
+|     10 | Isha Patil     | IoT & Sensors        |
+|     11 | Siddharth More | IoT & Sensors        |
+|     12 | Tanvi Pawar    | IoT & Sensors        |
+|     13 | Akash Chavan   | IoT & Sensors        |
+|     14 | Meera Shinde   | Agriculture Research |
+|     15 | Vivek Patil    | Agriculture Research |
+|     16 | Riya More      | Agriculture Research |
+|     17 | Rahul Jadhav   | Cloud & DevOps       |
+|     18 | Anjali Joshi   | Cloud & DevOps       |
+|     19 | Nikhil Pawar   | Cloud & DevOps       |
+|     20 | Pooja Shinde   | Cyber Security       |
+|     21 | Manish Patil   | Cyber Security       |
+|     22 | Snehal More    | Cyber Security       |
+|     23 | Varun Jadhav   | Marketing            |
+|     24 | Sakshi Patil   | Marketing            |
+|     25 | Harsh Deshmukh | Marketing            |
+|     26 | Aditi Chavan   | Drone Technology     |
+|     27 | Karan Pawar    | Drone Technology     |
+|     28 | Mrunal Patil   | Drone Technology     |
+|     29 | Tejas Joshi    | Drone Technology     |
+|     30 | Shreya More    | Drone Technology     |
++--------+----------------+----------------------+
+30 rows in set (0.03 sec)
