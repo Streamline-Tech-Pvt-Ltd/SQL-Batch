@@ -1,0 +1,116 @@
+
+mysql> show databases;
++--------------------------+
+| Database                 |
++--------------------------+
+| agritech                 |
+| demo                     |
+| demo1                    |
+| employees                |
+| exams                    |
+| flipkart                 |
+| food_delivery            |
+| information_schema       |
+| internship_applications  |
+| internship_applications1 |
+| mysql                    |
+| performance_schema       |
+| practice                 |
+| student1                 |
+| students                 |
+| sys                      |
++--------------------------+
+16 rows in set (0.11 sec)
+
+mysql> use practice;
+Database changed
+mysql> select * from employe;
++--------+----------------+------+---------+---------+
+| emp_id | emp_name       | age  | salary  | dept_id |
++--------+----------------+------+---------+---------+
+|      1 | Pallavi Hujare |   20 |  700000 |     102 |
+|      2 | Anvi Deore     |   23 |   57000 |     101 |
+|      3 | Omkar Hujare   |   19 | 1000000 |     103 |
+|      4 | Rahul Roi      |   18 |   23000 |    NULL |
++--------+----------------+------+---------+---------+
+4 rows in set (0.12 sec)
+
+mysql> select * from department;
++---------+------------+
+| dept_id | dept_name  |
++---------+------------+
+|     101 | IT         |
+|     102 | CS         |
+|     103 | Electrical |
++---------+------------+
+3 rows in set (0.01 sec)
+
+
+mysql> create view emp_details as select emp_id,emp_name,age from employe where age > 18;
+Query OK, 0 rows affected (0.28 sec)
+
+mysql> select * from emp_details;
++--------+----------------+------+
+| emp_id | emp_name       | age  |
++--------+----------------+------+
+|      1 | Pallavi Hujare |   20 |
+|      2 | Anvi Deore     |   23 |
+|      3 | Omkar Hujare   |   19 |
++--------+----------------+------+
+3 rows in set (0.06 sec)
+
+mysql> create index inx_emp_name on employe(emp_name);
+Query OK, 0 rows affected (0.27 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from employe where emp_name = 'Anvi Deore';
++--------+------------+------+--------+---------+
+| emp_id | emp_name   | age  | salary | dept_id |
++--------+------------+------+--------+---------+
+|      2 | Anvi Deore |   23 |  57000 |     101 |
++--------+------------+------+--------+---------+
+1 row in set (0.02 sec)
+
+mysql> drop index ind_emp_name on employe;
+ERROR 1091 (42000): Can't DROP 'ind_emp_name'; check that column/key exists
+mysql> drop index inx_emp_name on employe;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from employe where emp_name = 'Anvi Deore';
++--------+------------+------+--------+---------+
+| emp_id | emp_name   | age  | salary | dept_id |
++--------+------------+------+--------+---------+
+|      2 | Anvi Deore |   23 |  57000 |     101 |
++--------+------------+------+--------+---------+
+1 row in set (0.02 sec)
+
+mysql> select * from employe ;
++--------+----------------+------+---------+---------+
+| emp_id | emp_name       | age  | salary  | dept_id |
++--------+----------------+------+---------+---------+
+|      1 | Pallavi Hujare |   20 |  700000 |     102 |
+|      2 | Anvi Deore     |   23 |   57000 |     101 |
+|      3 | Omkar Hujare   |   19 | 1000000 |     103 |
+|      4 | Rahul Roi      |   18 |   23000 |    NULL |
++--------+----------------+------+---------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select * from ind_emp_name ;
+ERROR 1146 (42S02): Table 'practice.ind_emp_name' doesn't exist
+mysql> alter table add cast varchar(20);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'add cast varchar(20)' at line 1
+mysql> alter table employe add cast varchar(20);
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from employe ;
++--------+----------------+------+---------+---------+------+
+| emp_id | emp_name       | age  | salary  | dept_id | cast |
++--------+----------------+------+---------+---------+------+
+|      1 | Pallavi Hujare |   20 |  700000 |     102 | NULL |
+|      2 | Anvi Deore     |   23 |   57000 |     101 | NULL |
+|      3 | Omkar Hujare   |   19 | 1000000 |     103 | NULL |
+|      4 | Rahul Roi      |   18 |   23000 |    NULL | NULL |
++--------+----------------+------+---------+---------+------+
+4 rows in set (0.02 sec)
