@@ -469,3 +469,725 @@ mysql> select C.ID,C.Company_Name,C.Location
 # UNION combines both results and removes duplicate rows.
 
 
+_______________________________________________________________________________________________________________________
+
+# Join Practice :
+
+mysql> use e_commerce;
+Database changed
+
+mysql> create table customer(
+    -> customer_Id int primary key,
+    -> customer_Name varchar(40),
+    -> City varchar(40),
+    -> Email varchar(50));
+Query OK, 0 rows affected (0.17 sec)
+
+mysql> INSERT INTO Customer
+    -> (Customer_ID, Customer_Name, City, Email)
+    -> VALUES
+    -> (1, 'Rahul Patil', 'Pune', 'rahul@gmail.com'),
+    -> (2, 'Priya Sharma', 'Mumbai', 'priya@gmail.com'),
+    -> (3, 'Amit Joshi', 'Nashik', 'amit@gmail.com'),
+    -> (4, 'Sneha More', 'Nagpur', 'sneha@gmail.com'),
+    -> (5, 'Rohan Kulkarni', 'Pune', 'rohan@gmail.com'),
+    -> (6, 'Neha Deshmukh', 'Nashik', 'neha@gmail.com'),
+    -> (7, 'Akash Pawar', 'Mumbai', 'akash@gmail.com'),
+    -> (8, 'Pooja Shinde', 'Aurangabad', 'pooja@gmail.com'),
+    -> (9, 'Sagar Jadhav', 'Pune', 'sagar@gmail.com'),
+    -> (10, 'Kavita Patil', 'Nashik', 'kavita@gmail.com'),
+    -> (11, 'Vikas Chavan', 'Nagpur', 'vikas@gmail.com'),
+    -> (12, 'Anjali More', 'Mumbai', 'anjali@gmail.com'),
+    -> (13, 'Nikhil Gaikwad', 'Pune', 'nikhil@gmail.com'),
+    -> (14, 'Snehal Pawar', 'Nashik', 'snehal@gmail.com'),
+    -> (15, 'Tejas Shinde', 'Kolhapur', 'tejas@gmail.com'),
+    -> (16, 'Riya Joshi', 'Pune', 'riya@gmail.com'),
+    -> (17, 'Kunal Patil', 'Mumbai', 'kunal@gmail.com'),
+    -> (18, 'Aarti Deshmukh', 'Nashik', 'aarti@gmail.com'),
+    -> (19, 'Mayur More', 'Pune', 'mayur@gmail.com'),
+    -> (20, 'Swati Jadhav', 'Nagpur', 'swati@gmail.com'),
+    -> (21, 'Pratik Pawar', 'Mumbai', 'pratik@gmail.com'),
+    -> (22, 'Komal Shinde', 'Pune', 'komal@gmail.com'),
+    -> (23, 'Sachin Patil', 'Nashik', 'sachin@gmail.com'),
+    -> (24, 'Mansi Joshi', 'Pune', 'mansi@gmail.com'),
+    -> (25, 'Omkar More', 'Mumbai', 'omkar@gmail.com'),
+    -> (26, 'Isha Pawar', 'Nagpur', 'isha@gmail.com'),
+    -> (27, 'Aditya Shinde', 'Pune', 'aditya@gmail.com'),
+    -> (28, 'Meera Patil', 'Nashik', 'meera@gmail.com'),
+    -> (29, 'Yash Deshmukh', 'Mumbai', 'yash@gmail.com'),
+    -> (30, 'Simran More', 'Pune', 'simran@gmail.com');
+Query OK, 30 rows affected (0.03 sec)
+Records: 30  Duplicates: 0  Warnings: 0
+
+mysql> select * from customer;
++-------------+----------------+------------+------------------+
+| customer_Id | customer_Name  | City       | Email            |
++-------------+----------------+------------+------------------+
+|           1 | Rahul Patil    | Pune       | rahul@gmail.com  |
+|           2 | Priya Sharma   | Mumbai     | priya@gmail.com  |
+|           3 | Amit Joshi     | Nashik     | amit@gmail.com   |
+|           4 | Sneha More     | Nagpur     | sneha@gmail.com  |
+|           5 | Rohan Kulkarni | Pune       | rohan@gmail.com  |
+|           6 | Neha Deshmukh  | Nashik     | neha@gmail.com   |
+|           7 | Akash Pawar    | Mumbai     | akash@gmail.com  |
+|           8 | Pooja Shinde   | Aurangabad | pooja@gmail.com  |
+|           9 | Sagar Jadhav   | Pune       | sagar@gmail.com  |
+|          10 | Kavita Patil   | Nashik     | kavita@gmail.com |
+|          11 | Vikas Chavan   | Nagpur     | vikas@gmail.com  |
+|          12 | Anjali More    | Mumbai     | anjali@gmail.com |
+|          13 | Nikhil Gaikwad | Pune       | nikhil@gmail.com |
+|          14 | Snehal Pawar   | Nashik     | snehal@gmail.com |
+|          15 | Tejas Shinde   | Kolhapur   | tejas@gmail.com  |
+|          16 | Riya Joshi     | Pune       | riya@gmail.com   |
+|          17 | Kunal Patil    | Mumbai     | kunal@gmail.com  |
+|          18 | Aarti Deshmukh | Nashik     | aarti@gmail.com  |
+|          19 | Mayur More     | Pune       | mayur@gmail.com  |
+|          20 | Swati Jadhav   | Nagpur     | swati@gmail.com  |
+|          21 | Pratik Pawar   | Mumbai     | pratik@gmail.com |
+|          22 | Komal Shinde   | Pune       | komal@gmail.com  |
+|          23 | Sachin Patil   | Nashik     | sachin@gmail.com |
+|          24 | Mansi Joshi    | Pune       | mansi@gmail.com  |
+|          25 | Omkar More     | Mumbai     | omkar@gmail.com  |
+|          26 | Isha Pawar     | Nagpur     | isha@gmail.com   |
+|          27 | Aditya Shinde  | Pune       | aditya@gmail.com |
+|          28 | Meera Patil    | Nashik     | meera@gmail.com  |
+|          29 | Yash Deshmukh  | Mumbai     | yash@gmail.com   |
+|          30 | Simran More    | Pune       | simran@gmail.com |
++-------------+----------------+------------+------------------+
+30 rows in set (0.01 sec)
+
+mysql> create table orders(
+    -> Order_Id int primary key,
+    -> Product_Name varchar(50),
+    -> Quentity int,
+    -> Amount Decimal(10,2),
+    -> Order_Date Date,
+    -> customer_Id int,
+    -> foreign key(customer_Id) references customer(customer_Id));
+Query OK, 0 rows affected (0.14 sec)
+
+mysql> INSERT INTO Orders
+    -> (Order_Id, Product_Name, Quentity, Amount, Order_Date, Customer_Id)
+    -> VALUES
+    -> (101, 'Laptop', 1, 55000.00, '2026-01-05', 1),
+    -> (102, 'Mobile', 1, 25000.00, '2026-01-07', 2),
+    -> (103, 'Headphones', 2, 4000.00, '2026-01-10', 3),
+    -> (104, 'Mouse', 2, 1600.00, '2026-01-12', 1),
+    -> (105, 'Keyboard', 1, 2500.00, '2026-01-15', 5),
+    -> (106, 'Monitor', 1, 18000.00, '2026-01-18', 6),
+    -> (107, 'Laptop Bag', 2, 3000.00, '2026-01-20', 7),
+    -> (108, 'Smart Watch', 1, 7000.00, '2026-01-22', 8),
+    -> (109, 'Tablet', 1, 22000.00, '2026-01-25', 9),
+    -> (110, 'Power Bank', 2, 3000.00, '2026-01-28', 10),
+    -> (111, 'Keyboard', 1, 2500.00, '2026-02-02', 2),
+    -> (112, 'Mouse', 1, 800.00, '2026-02-05', 3),
+    -> (113, 'Mobile', 1, 28000.00, '2026-02-08', 11),
+    -> (114, 'Headphones', 1, 2000.00, '2026-02-10', 12),
+    -> (115, 'Laptop', 1, 60000.00, '2026-02-12', 13),
+    -> (116, 'Monitor', 2, 36000.00, '2026-02-15', 14),
+    -> (117, 'Smart Watch', 1, 8000.00, '2026-02-18', 15),
+    -> (118, 'Tablet', 1, 24000.00, '2026-02-20', 16),
+    -> (119, 'Mouse', 3, 2400.00, '2026-02-22', 17),
+    -> (120, 'Keyboard', 2, 5000.00, '2026-02-25', 18),
+    -> (121, 'Laptop Bag', 1, 1500.00, '2026-03-01', 19),
+    -> (122, 'Power Bank', 1, 1800.00, '2026-03-03', 20),
+    -> (123, 'Mobile', 1, 30000.00, '2026-03-05', 21),
+    -> (124, 'Headphones', 2, 4500.00, '2026-03-08', 22),
+    -> (125, 'Laptop', 1, 58000.00, '2026-03-10', 23),
+    -> (126, 'Smart Watch', 1, 7500.00, '2026-03-12', 24),
+    -> (127, 'Monitor', 1, 19000.00, '2026-03-15', 25),
+    -> (128, 'Tablet', 2, 46000.00, '2026-03-18', 26),
+    -> (129, 'Mobile', 1, 27000.00, '2026-03-20', 27),
+    -> (130, 'Laptop', 1, 62000.00, '2026-03-22', 28);
+Query OK, 30 rows affected (0.02 sec)
+Records: 30  Duplicates: 0  Warnings: 0
+
+mysql> select * from orders;
++----------+--------------+----------+----------+------------+-------------+
+| Order_Id | Product_Name | Quentity | Amount   | Order_Date | customer_Id |
++----------+--------------+----------+----------+------------+-------------+
+|      101 | Laptop       |        1 | 55000.00 | 2026-01-05 |           1 |
+|      102 | Mobile       |        1 | 25000.00 | 2026-01-07 |           2 |
+|      103 | Headphones   |        2 |  4000.00 | 2026-01-10 |           3 |
+|      104 | Mouse        |        2 |  1600.00 | 2026-01-12 |           1 |
+|      105 | Keyboard     |        1 |  2500.00 | 2026-01-15 |           5 |
+|      106 | Monitor      |        1 | 18000.00 | 2026-01-18 |           6 |
+|      107 | Laptop Bag   |        2 |  3000.00 | 2026-01-20 |           7 |
+|      108 | Smart Watch  |        1 |  7000.00 | 2026-01-22 |           8 |
+|      109 | Tablet       |        1 | 22000.00 | 2026-01-25 |           9 |
+|      110 | Power Bank   |        2 |  3000.00 | 2026-01-28 |          10 |
+|      111 | Keyboard     |        1 |  2500.00 | 2026-02-02 |           2 |
+|      112 | Mouse        |        1 |   800.00 | 2026-02-05 |           3 |
+|      113 | Mobile       |        1 | 28000.00 | 2026-02-08 |          11 |
+|      114 | Headphones   |        1 |  2000.00 | 2026-02-10 |          12 |
+|      115 | Laptop       |        1 | 60000.00 | 2026-02-12 |          13 |
+|      116 | Monitor      |        2 | 36000.00 | 2026-02-15 |          14 |
+|      117 | Smart Watch  |        1 |  8000.00 | 2026-02-18 |          15 |
+|      118 | Tablet       |        1 | 24000.00 | 2026-02-20 |          16 |
+|      119 | Mouse        |        3 |  2400.00 | 2026-02-22 |          17 |
+|      120 | Keyboard     |        2 |  5000.00 | 2026-02-25 |          18 |
+|      121 | Laptop Bag   |        1 |  1500.00 | 2026-03-01 |          19 |
+|      122 | Power Bank   |        1 |  1800.00 | 2026-03-03 |          20 |
+|      123 | Mobile       |        1 | 30000.00 | 2026-03-05 |          21 |
+|      124 | Headphones   |        2 |  4500.00 | 2026-03-08 |          22 |
+|      125 | Laptop       |        1 | 58000.00 | 2026-03-10 |          23 |
+|      126 | Smart Watch  |        1 |  7500.00 | 2026-03-12 |          24 |
+|      127 | Monitor      |        1 | 19000.00 | 2026-03-15 |          25 |
+|      128 | Tablet       |        2 | 46000.00 | 2026-03-18 |          26 |
+|      129 | Mobile       |        1 | 27000.00 | 2026-03-20 |          27 |
+|      130 | Laptop       |        1 | 62000.00 | 2026-03-22 |          28 |
++----------+--------------+----------+----------+------------+-------------+
+30 rows in set (0.00 sec)
+
+# Perform Join 
+
+1. Inner Join :
+
+mysql> select
+    -> c.customer_Id,c.customer_Name,
+    -> o.Order_Id,o.Product_Name,o.Amount
+    -> from customer as c
+    -> Inner Join orders as o
+    -> on c.customer_Id = o.customer_Id;
++-------------+----------------+----------+--------------+----------+
+| customer_Id | customer_Name  | Order_Id | Product_Name | Amount   |
++-------------+----------------+----------+--------------+----------+
+|           1 | Rahul Patil    |      101 | Laptop       | 55000.00 |
+|           1 | Rahul Patil    |      104 | Mouse        |  1600.00 |
+|           2 | Priya Sharma   |      102 | Mobile       | 25000.00 |
+|           2 | Priya Sharma   |      111 | Keyboard     |  2500.00 |
+|           3 | Amit Joshi     |      103 | Headphones   |  4000.00 |
+|           3 | Amit Joshi     |      112 | Mouse        |   800.00 |
+|           5 | Rohan Kulkarni |      105 | Keyboard     |  2500.00 |
+|           6 | Neha Deshmukh  |      106 | Monitor      | 18000.00 |
+|           7 | Akash Pawar    |      107 | Laptop Bag   |  3000.00 |
+|           8 | Pooja Shinde   |      108 | Smart Watch  |  7000.00 |
+|           9 | Sagar Jadhav   |      109 | Tablet       | 22000.00 |
+|          10 | Kavita Patil   |      110 | Power Bank   |  3000.00 |
+|          11 | Vikas Chavan   |      113 | Mobile       | 28000.00 |
+|          12 | Anjali More    |      114 | Headphones   |  2000.00 |
+|          13 | Nikhil Gaikwad |      115 | Laptop       | 60000.00 |
+|          14 | Snehal Pawar   |      116 | Monitor      | 36000.00 |
+|          15 | Tejas Shinde   |      117 | Smart Watch  |  8000.00 |
+|          16 | Riya Joshi     |      118 | Tablet       | 24000.00 |
+|          17 | Kunal Patil    |      119 | Mouse        |  2400.00 |
+|          18 | Aarti Deshmukh |      120 | Keyboard     |  5000.00 |
+|          19 | Mayur More     |      121 | Laptop Bag   |  1500.00 |
+|          20 | Swati Jadhav   |      122 | Power Bank   |  1800.00 |
+|          21 | Pratik Pawar   |      123 | Mobile       | 30000.00 |
+|          22 | Komal Shinde   |      124 | Headphones   |  4500.00 |
+|          23 | Sachin Patil   |      125 | Laptop       | 58000.00 |
+|          24 | Mansi Joshi    |      126 | Smart Watch  |  7500.00 |
+|          25 | Omkar More     |      127 | Monitor      | 19000.00 |
+|          26 | Isha Pawar     |      128 | Tablet       | 46000.00 |
+|          27 | Aditya Shinde  |      129 | Mobile       | 27000.00 |
+|          28 | Meera Patil    |      130 | Laptop       | 62000.00 |
++-------------+----------------+----------+--------------+----------+
+30 rows in set (0.01 sec)
+
+# Uses Clauses
+1.Where :
+mysql> select
+    -> c.customer_ID,c.customer_Name,
+    -> o.Order_Id,o.Product_Name,o.Amount
+    -> from customer as c
+    -> Inner Join orders as o
+    -> on c.customer_ID = o.customer_ID
+    -> where c.city = 'Pune';
++-------------+----------------+----------+--------------+----------+
+| customer_ID | customer_Name  | Order_Id | Product_Name | Amount   |
++-------------+----------------+----------+--------------+----------+
+|           1 | Rahul Patil    |      101 | Laptop       | 55000.00 |
+|           1 | Rahul Patil    |      104 | Mouse        |  1600.00 |
+|           5 | Rohan Kulkarni |      105 | Keyboard     |  2500.00 |
+|           9 | Sagar Jadhav   |      109 | Tablet       | 22000.00 |
+|          13 | Nikhil Gaikwad |      115 | Laptop       | 60000.00 |
+|          16 | Riya Joshi     |      118 | Tablet       | 24000.00 |
+|          19 | Mayur More     |      121 | Laptop Bag   |  1500.00 |
+|          22 | Komal Shinde   |      124 | Headphones   |  4500.00 |
+|          24 | Mansi Joshi    |      126 | Smart Watch  |  7500.00 |
+|          27 | Aditya Shinde  |      129 | Mobile       | 27000.00 |
++-------------+----------------+----------+--------------+----------+
+
+
+2.AND
+mysql> select
+    -> c.customer_ID,c.customer_Name,c.City,
+    -> o.Order_Id,o.Product_Name,o.Amount
+    -> from customer as c
+    -> Inner Join orders as o
+    -> on c.customer_ID = o.customer_ID
+    -> where c.city = 'Pune'
+    -> AND o.Amount > 40000.00;
++-------------+----------------+------+----------+--------------+----------+
+| customer_ID | customer_Name  | City | Order_Id | Product_Name | Amount   |
++-------------+----------------+------+----------+--------------+----------+
+|           1 | Rahul Patil    | Pune |      101 | Laptop       | 55000.00 |
+|          13 | Nikhil Gaikwad | Pune |      115 | Laptop       | 60000.00 |
++-------------+----------------+------+----------+--------------+----------+
+
+3.OR
+mysql> select
+    -> c.customer_ID,c.customer_Name,c.City,
+    -> o.Order_ID,o.Product_Name,o.Amount
+    -> from customer as c
+    -> Inner Join orders as o
+    -> on c.customer_ID = o.customer_ID
+    -> where c.City = 'Pune'
+    -> OR c.City = 'Mumbai';
++-------------+----------------+--------+----------+--------------+----------+
+| customer_ID | customer_Name  | City   | Order_ID | Product_Name | Amount   |
++-------------+----------------+--------+----------+--------------+----------+
+|           1 | Rahul Patil    | Pune   |      101 | Laptop       | 55000.00 |
+|           1 | Rahul Patil    | Pune   |      104 | Mouse        |  1600.00 |
+|           2 | Priya Sharma   | Mumbai |      102 | Mobile       | 25000.00 |
+|           2 | Priya Sharma   | Mumbai |      111 | Keyboard     |  2500.00 |
+|           5 | Rohan Kulkarni | Pune   |      105 | Keyboard     |  2500.00 |
+|           7 | Akash Pawar    | Mumbai |      107 | Laptop Bag   |  3000.00 |
+|           9 | Sagar Jadhav   | Pune   |      109 | Tablet       | 22000.00 |
+|          12 | Anjali More    | Mumbai |      114 | Headphones   |  2000.00 |
+|          13 | Nikhil Gaikwad | Pune   |      115 | Laptop       | 60000.00 |
+|          16 | Riya Joshi     | Pune   |      118 | Tablet       | 24000.00 |
+|          17 | Kunal Patil    | Mumbai |      119 | Mouse        |  2400.00 |
+|          19 | Mayur More     | Pune   |      121 | Laptop Bag   |  1500.00 |
+|          21 | Pratik Pawar   | Mumbai |      123 | Mobile       | 30000.00 |
+|          22 | Komal Shinde   | Pune   |      124 | Headphones   |  4500.00 |
+|          24 | Mansi Joshi    | Pune   |      126 | Smart Watch  |  7500.00 |
+|          25 | Omkar More     | Mumbai |      127 | Monitor      | 19000.00 |
+|          27 | Aditya Shinde  | Pune   |      129 | Mobile       | 27000.00 |
++-------------+----------------+--------+----------+--------------+----------+
+17 rows in set (0.00 sec)
+
+4.BETWEEN
+mysql> select
+    -> c.customer_ID,c.customer_Name,c.City,
+    -> o.Order_ID,o.Product_Name,o.Amount
+    -> from customer as c
+    -> Inner Join orders as o
+    -> on c.customer_ID = o.customer_ID
+    -> where o.Amount BETWEEN 10000.00 AND 20000.00;
++-------------+---------------+--------+----------+--------------+----------+
+| customer_ID | customer_Name | City   | Order_ID | Product_Name | Amount   |
++-------------+---------------+--------+----------+--------------+----------+
+|           6 | Neha Deshmukh | Nashik |      106 | Monitor      | 18000.00 |
+|          25 | Omkar More    | Mumbai |      127 | Monitor      | 19000.00 |
++-------------+---------------+--------+----------+--------------+----------+
+
+
+5.IN
+mysql> select
+    -> c.customer_ID,c.customer_Name,c.City,
+    -> o.Order_ID,o.Product_Name,o.Amount
+    -> from customer as c
+    -> Inner Join orders as o
+    -> on c.customer_ID = o.customer_ID
+    -> where c.City IN('Nashik','Pune','Mumbai');
++-------------+----------------+--------+----------+--------------+----------+
+| customer_ID | customer_Name  | City   | Order_ID | Product_Name | Amount   |
++-------------+----------------+--------+----------+--------------+----------+
+|           1 | Rahul Patil    | Pune   |      101 | Laptop       | 55000.00 |
+|           1 | Rahul Patil    | Pune   |      104 | Mouse        |  1600.00 |
+|           2 | Priya Sharma   | Mumbai |      102 | Mobile       | 25000.00 |
+|           2 | Priya Sharma   | Mumbai |      111 | Keyboard     |  2500.00 |
+|           3 | Amit Joshi     | Nashik |      103 | Headphones   |  4000.00 |
+|           3 | Amit Joshi     | Nashik |      112 | Mouse        |   800.00 |
+|           5 | Rohan Kulkarni | Pune   |      105 | Keyboard     |  2500.00 |
+|           6 | Neha Deshmukh  | Nashik |      106 | Monitor      | 18000.00 |
+|           7 | Akash Pawar    | Mumbai |      107 | Laptop Bag   |  3000.00 |
+|           9 | Sagar Jadhav   | Pune   |      109 | Tablet       | 22000.00 |
+|          10 | Kavita Patil   | Nashik |      110 | Power Bank   |  3000.00 |
+|          12 | Anjali More    | Mumbai |      114 | Headphones   |  2000.00 |
+|          13 | Nikhil Gaikwad | Pune   |      115 | Laptop       | 60000.00 |
+|          14 | Snehal Pawar   | Nashik |      116 | Monitor      | 36000.00 |
+|          16 | Riya Joshi     | Pune   |      118 | Tablet       | 24000.00 |
+|          17 | Kunal Patil    | Mumbai |      119 | Mouse        |  2400.00 |
+|          18 | Aarti Deshmukh | Nashik |      120 | Keyboard     |  5000.00 |
+|          19 | Mayur More     | Pune   |      121 | Laptop Bag   |  1500.00 |
+|          21 | Pratik Pawar   | Mumbai |      123 | Mobile       | 30000.00 |
+|          22 | Komal Shinde   | Pune   |      124 | Headphones   |  4500.00 |
+|          23 | Sachin Patil   | Nashik |      125 | Laptop       | 58000.00 |
+|          24 | Mansi Joshi    | Pune   |      126 | Smart Watch  |  7500.00 |
+|          25 | Omkar More     | Mumbai |      127 | Monitor      | 19000.00 |
+|          27 | Aditya Shinde  | Pune   |      129 | Mobile       | 27000.00 |
+|          28 | Meera Patil    | Nashik |      130 | Laptop       | 62000.00 |
++-------------+----------------+--------+----------+--------------+----------+
+
+
+
+6.LIKE
+mysql> select
+    -> c.customer_ID,c.customer_Name,c.City,
+    -> o.Order_ID,o.Product_Name,o.Amount
+    -> from customer as c
+    -> Inner Join orders as o
+    -> on c.customer_ID = o.customer_ID
+    -> where c.customer_Name LIKE 'S%';
++-------------+---------------+--------+----------+--------------+----------+
+| customer_ID | customer_Name | City   | Order_ID | Product_Name | Amount   |
++-------------+---------------+--------+----------+--------------+----------+
+|           9 | Sagar Jadhav  | Pune   |      109 | Tablet       | 22000.00 |
+|          14 | Snehal Pawar  | Nashik |      116 | Monitor      | 36000.00 |
+|          20 | Swati Jadhav  | Nagpur |      122 | Power Bank   |  1800.00 |
+|          23 | Sachin Patil  | Nashik |      125 | Laptop       | 58000.00 |
++-------------+---------------+--------+----------+--------------+----------+
+
+
+7.ORDER BY
+mysql> select
+    -> c.customer_ID,c.customer_Name,c.City,
+    -> o.Order_ID,o.Product_Name,o.Amount
+    -> from customer as c
+    -> Inner Join orders as o
+    -> on c.customer_ID = o.customer_ID
+    -> ORDER BY o.Amount DESC;
++-------------+----------------+------------+----------+--------------+----------+
+| customer_ID | customer_Name  | City       | Order_ID | Product_Name | Amount   |
++-------------+----------------+------------+----------+--------------+----------+
+|          28 | Meera Patil    | Nashik     |      130 | Laptop       | 62000.00 |
+|          13 | Nikhil Gaikwad | Pune       |      115 | Laptop       | 60000.00 |
+|          23 | Sachin Patil   | Nashik     |      125 | Laptop       | 58000.00 |
+|           1 | Rahul Patil    | Pune       |      101 | Laptop       | 55000.00 |
+|          26 | Isha Pawar     | Nagpur     |      128 | Tablet       | 46000.00 |
+|          14 | Snehal Pawar   | Nashik     |      116 | Monitor      | 36000.00 |
+|          21 | Pratik Pawar   | Mumbai     |      123 | Mobile       | 30000.00 |
+|          11 | Vikas Chavan   | Nagpur     |      113 | Mobile       | 28000.00 |
+|          27 | Aditya Shinde  | Pune       |      129 | Mobile       | 27000.00 |
+|           2 | Priya Sharma   | Mumbai     |      102 | Mobile       | 25000.00 |
+|          16 | Riya Joshi     | Pune       |      118 | Tablet       | 24000.00 |
+|           9 | Sagar Jadhav   | Pune       |      109 | Tablet       | 22000.00 |
+|          25 | Omkar More     | Mumbai     |      127 | Monitor      | 19000.00 |
+|           6 | Neha Deshmukh  | Nashik     |      106 | Monitor      | 18000.00 |
+|          15 | Tejas Shinde   | Kolhapur   |      117 | Smart Watch  |  8000.00 |
+|          24 | Mansi Joshi    | Pune       |      126 | Smart Watch  |  7500.00 |
+|           8 | Pooja Shinde   | Aurangabad |      108 | Smart Watch  |  7000.00 |
+|          18 | Aarti Deshmukh | Nashik     |      120 | Keyboard     |  5000.00 |
+|          22 | Komal Shinde   | Pune       |      124 | Headphones   |  4500.00 |
+|           3 | Amit Joshi     | Nashik     |      103 | Headphones   |  4000.00 |
+|           7 | Akash Pawar    | Mumbai     |      107 | Laptop Bag   |  3000.00 |
+|          10 | Kavita Patil   | Nashik     |      110 | Power Bank   |  3000.00 |
+|           2 | Priya Sharma   | Mumbai     |      111 | Keyboard     |  2500.00 |
+|           5 | Rohan Kulkarni | Pune       |      105 | Keyboard     |  2500.00 |
+|          17 | Kunal Patil    | Mumbai     |      119 | Mouse        |  2400.00 |
+|          12 | Anjali More    | Mumbai     |      114 | Headphones   |  2000.00 |
+|          20 | Swati Jadhav   | Nagpur     |      122 | Power Bank   |  1800.00 |
+|           1 | Rahul Patil    | Pune       |      104 | Mouse        |  1600.00 |
+|          19 | Mayur More     | Pune       |      121 | Laptop Bag   |  1500.00 |
+|           3 | Amit Joshi     | Nashik     |      112 | Mouse        |   800.00 |
++-------------+----------------+------------+----------+--------------+----------+
+
+
+8.LIMIT
+mysql> select
+    -> c.customer_ID,c.customer_Name,c.City,
+    -> o.Order_ID,o.Product_Name,o.Amount
+    -> from customer as c
+    -> Inner Join orders as o
+    -> on c.customer_ID = o.customer_ID
+    -> ORDER BY o.Amount ASC
+    -> LIMIT 5;
++-------------+---------------+--------+----------+--------------+---------+
+| customer_ID | customer_Name | City   | Order_ID | Product_Name | Amount  |
++-------------+---------------+--------+----------+--------------+---------+
+|           3 | Amit Joshi    | Nashik |      112 | Mouse        |  800.00 |
+|          19 | Mayur More    | Pune   |      121 | Laptop Bag   | 1500.00 |
+|           1 | Rahul Patil   | Pune   |      104 | Mouse        | 1600.00 |
+|          20 | Swati Jadhav  | Nagpur |      122 | Power Bank   | 1800.00 |
+|          12 | Anjali More   | Mumbai |      114 | Headphones   | 2000.00 |
++-------------+---------------+--------+----------+--------------+---------+
+5 rows in set (0.00 sec)
+
+
+9.DISTINCT
+mysql> select DISTINCT c.city
+    -> from customer as c
+    -> Inner Join orders as o
+    -> on c.customer_ID = o.customer_ID;
++------------+
+| city       |
++------------+
+| Pune       |
+| Mumbai     |
+| Nashik     |
+| Aurangabad |
+| Nagpur     |
+| Kolhapur   |
++------------+
+
+# aggregate Funtion use
+1.Count
+mysql> select
+    -> c.customer_ID,c.customer_Name,c.City,
+    -> count(o.order_ID) as Total_Orders
+    -> from customer as c
+    -> Inner Join orders as o
+    -> on c.customer_ID = o.customer_ID
+    -> GROUP BY
+    -> c.customer_ID,c.customer_Name;
++-------------+----------------+------------+--------------+
+| customer_ID | customer_Name  | City       | Total_Orders |
++-------------+----------------+------------+--------------+
+|           1 | Rahul Patil    | Pune       |            2 |
+|           2 | Priya Sharma   | Mumbai     |            2 |
+|           3 | Amit Joshi     | Nashik     |            2 |
+|           5 | Rohan Kulkarni | Pune       |            1 |
+|           6 | Neha Deshmukh  | Nashik     |            1 |
+|           7 | Akash Pawar    | Mumbai     |            1 |
+|           8 | Pooja Shinde   | Aurangabad |            1 |
+|           9 | Sagar Jadhav   | Pune       |            1 |
+|          10 | Kavita Patil   | Nashik     |            1 |
+|          11 | Vikas Chavan   | Nagpur     |            1 |
+|          12 | Anjali More    | Mumbai     |            1 |
+|          13 | Nikhil Gaikwad | Pune       |            1 |
+|          14 | Snehal Pawar   | Nashik     |            1 |
+|          15 | Tejas Shinde   | Kolhapur   |            1 |
+|          16 | Riya Joshi     | Pune       |            1 |
+|          17 | Kunal Patil    | Mumbai     |            1 |
+|          18 | Aarti Deshmukh | Nashik     |            1 |
+|          19 | Mayur More     | Pune       |            1 |
+|          20 | Swati Jadhav   | Nagpur     |            1 |
+|          21 | Pratik Pawar   | Mumbai     |            1 |
+|          22 | Komal Shinde   | Pune       |            1 |
+|          23 | Sachin Patil   | Nashik     |            1 |
+|          24 | Mansi Joshi    | Pune       |            1 |
+|          25 | Omkar More     | Mumbai     |            1 |
+|          26 | Isha Pawar     | Nagpur     |            1 |
+|          27 | Aditya Shinde  | Pune       |            1 |
+|          28 | Meera Patil    | Nashik     |            1 |
++-------------+----------------+------------+--------------+
+27 rows in set (0.00 sec)
+
+
+2.Sum
+mysql> select
+    -> c.customer_ID,c.customer_Name,c.City,
+    -> Sum(o.Amount) as Total_Amount
+    -> from customer as c
+    -> Inner Join orders as o
+    -> on c.customer_ID = o.customer_ID
+    -> GROUP BY
+    -> c.customer_ID,c.customer_Name;
++-------------+----------------+------------+--------------+
+| customer_ID | customer_Name  | City       | Total_Amount |
++-------------+----------------+------------+--------------+
+|           1 | Rahul Patil    | Pune       |     56600.00 |
+|           2 | Priya Sharma   | Mumbai     |     27500.00 |
+|           3 | Amit Joshi     | Nashik     |      4800.00 |
+|           5 | Rohan Kulkarni | Pune       |      2500.00 |
+|           6 | Neha Deshmukh  | Nashik     |     18000.00 |
+|           7 | Akash Pawar    | Mumbai     |      3000.00 |
+|           8 | Pooja Shinde   | Aurangabad |      7000.00 |
+|           9 | Sagar Jadhav   | Pune       |     22000.00 |
+|          10 | Kavita Patil   | Nashik     |      3000.00 |
+|          11 | Vikas Chavan   | Nagpur     |     28000.00 |
+|          12 | Anjali More    | Mumbai     |      2000.00 |
+|          13 | Nikhil Gaikwad | Pune       |     60000.00 |
+|          14 | Snehal Pawar   | Nashik     |     36000.00 |
+|          15 | Tejas Shinde   | Kolhapur   |      8000.00 |
+|          16 | Riya Joshi     | Pune       |     24000.00 |
+|          17 | Kunal Patil    | Mumbai     |      2400.00 |
+|          18 | Aarti Deshmukh | Nashik     |      5000.00 |
+|          19 | Mayur More     | Pune       |      1500.00 |
+|          20 | Swati Jadhav   | Nagpur     |      1800.00 |
+|          21 | Pratik Pawar   | Mumbai     |     30000.00 |
+|          22 | Komal Shinde   | Pune       |      4500.00 |
+|          23 | Sachin Patil   | Nashik     |     58000.00 |
+|          24 | Mansi Joshi    | Pune       |      7500.00 |
+|          25 | Omkar More     | Mumbai     |     19000.00 |
+|          26 | Isha Pawar     | Nagpur     |     46000.00 |
+|          27 | Aditya Shinde  | Pune       |     27000.00 |
+|          28 | Meera Patil    | Nashik     |     62000.00 |
++-------------+----------------+------------+--------------+
+27 rows in set (0.01 sec)
+
+
+10.HAVING
+mysql> select
+    -> c.customer_ID,c.customer_Name,
+    -> sum(o.Amount) as Total_Amount
+    -> from customer as c
+    -> Inner Join orders as o
+    -> on c.customer_ID = o.customer_ID
+    -> GROUP BY
+    -> c.customer_ID,c.customer_Name
+    -> Having sum(o.Amount) > 50000.00;
++-------------+----------------+--------------+
+| customer_ID | customer_Name  | Total_Amount |
++-------------+----------------+--------------+
+|           1 | Rahul Patil    |     56600.00 |
+|          13 | Nikhil Gaikwad |     60000.00 |
+|          23 | Sachin Patil   |     58000.00 |
+|          28 | Meera Patil    |     62000.00 |
++-------------+----------------+--------------+
+4 rows in set (0.00 sec)
+
+
+
+mysql> select
+    -> c.customer_ID,c.customer_Name,c.City,
+    -> sum(o.Amount) as Total_Spending
+    -> from customer as c
+    -> Inner Join orders as o
+    -> on c.customer_ID = o.customer_ID
+    -> where city='Pune'
+    -> GROUP BY
+    -> c.customer_ID,c.customer_Name,c.City
+    -> Having Sum(o.Amount) > 20000.00
+    -> ORDER BY Total_Spending DESC;
++-------------+----------------+------+----------------+
+| customer_ID | customer_Name  | City | Total_Spending |
++-------------+----------------+------+----------------+
+|          13 | Nikhil Gaikwad | Pune |       60000.00 |
+|           1 | Rahul Patil    | Pune |       56600.00 |
+|          27 | Aditya Shinde  | Pune |       27000.00 |
+|          16 | Riya Joshi     | Pune |       24000.00 |
+|           9 | Sagar Jadhav   | Pune |       22000.00 |
++-------------+----------------+------+----------------+
+5 rows in set (0.00 sec)
+
+------------------------------------------------------------------------------------------------------------------
+
+2. RIGHT JOIN :
+mysql> select
+    -> c.customer_ID,c.customer_Name,c.City,
+    -> o.Order_ID,o.Product_Name,o.Amount
+    -> from customer as c
+    -> RIGHT JOIN orders as o
+    -> on c.customer_ID = o.customer_ID;
++-------------+----------------+------------+----------+--------------+----------+
+| customer_ID | customer_Name  | City       | Order_ID | Product_Name | Amount   |
++-------------+----------------+------------+----------+--------------+----------+
+|           1 | Rahul Patil    | Pune       |      101 | Laptop       | 55000.00 |
+|           2 | Priya Sharma   | Mumbai     |      102 | Mobile       | 25000.00 |
+|           3 | Amit Joshi     | Nashik     |      103 | Headphones   |  4000.00 |
+|           1 | Rahul Patil    | Pune       |      104 | Mouse        |  1600.00 |
+|           5 | Rohan Kulkarni | Pune       |      105 | Keyboard     |  2500.00 |
+|           6 | Neha Deshmukh  | Nashik     |      106 | Monitor      | 18000.00 |
+|           7 | Akash Pawar    | Mumbai     |      107 | Laptop Bag   |  3000.00 |
+|           8 | Pooja Shinde   | Aurangabad |      108 | Smart Watch  |  7000.00 |
+|           9 | Sagar Jadhav   | Pune       |      109 | Tablet       | 22000.00 |
+|          10 | Kavita Patil   | Nashik     |      110 | Power Bank   |  3000.00 |
+|           2 | Priya Sharma   | Mumbai     |      111 | Keyboard     |  2500.00 |
+|           3 | Amit Joshi     | Nashik     |      112 | Mouse        |   800.00 |
+|          11 | Vikas Chavan   | Nagpur     |      113 | Mobile       | 28000.00 |
+|          12 | Anjali More    | Mumbai     |      114 | Headphones   |  2000.00 |
+|          13 | Nikhil Gaikwad | Pune       |      115 | Laptop       | 60000.00 |
+|          14 | Snehal Pawar   | Nashik     |      116 | Monitor      | 36000.00 |
+|          15 | Tejas Shinde   | Kolhapur   |      117 | Smart Watch  |  8000.00 |
+|          16 | Riya Joshi     | Pune       |      118 | Tablet       | 24000.00 |
+|          17 | Kunal Patil    | Mumbai     |      119 | Mouse        |  2400.00 |
+|          18 | Aarti Deshmukh | Nashik     |      120 | Keyboard     |  5000.00 |
+|          19 | Mayur More     | Pune       |      121 | Laptop Bag   |  1500.00 |
+|          20 | Swati Jadhav   | Nagpur     |      122 | Power Bank   |  1800.00 |
+|          21 | Pratik Pawar   | Mumbai     |      123 | Mobile       | 30000.00 |
+|          22 | Komal Shinde   | Pune       |      124 | Headphones   |  4500.00 |
+|          23 | Sachin Patil   | Nashik     |      125 | Laptop       | 58000.00 |
+|          24 | Mansi Joshi    | Pune       |      126 | Smart Watch  |  7500.00 |
+|          25 | Omkar More     | Mumbai     |      127 | Monitor      | 19000.00 |
+|          26 | Isha Pawar     | Nagpur     |      128 | Tablet       | 46000.00 |
+|          27 | Aditya Shinde  | Pune       |      129 | Mobile       | 27000.00 |
+|          28 | Meera Patil    | Nashik     |      130 | Laptop       | 62000.00 |
++-------------+----------------+------------+----------+--------------+----------+
+
+------------------------------------------------------------------------------------------------------------------
+
+3.LEFT JOIN :
+mysql> select
+    -> c.customer_ID,c.customer_Name,c.City,
+    -> o.Order_ID,o.Product_Name,o.Amount
+    -> from customer as c
+    -> LEFT JOIN orders as o
+    -> on c.customer_ID = o.customer_ID;
++-------------+----------------+------------+----------+--------------+----------+
+| customer_ID | customer_Name  | City       | Order_ID | Product_Name | Amount   |
++-------------+----------------+------------+----------+--------------+----------+
+|           1 | Rahul Patil    | Pune       |      101 | Laptop       | 55000.00 |
+|           1 | Rahul Patil    | Pune       |      104 | Mouse        |  1600.00 |
+|           2 | Priya Sharma   | Mumbai     |      102 | Mobile       | 25000.00 |
+|           2 | Priya Sharma   | Mumbai     |      111 | Keyboard     |  2500.00 |
+|           3 | Amit Joshi     | Nashik     |      103 | Headphones   |  4000.00 |
+|           3 | Amit Joshi     | Nashik     |      112 | Mouse        |   800.00 |
+|           4 | Sneha More     | Nagpur     |     NULL | NULL         |     NULL |
+|           5 | Rohan Kulkarni | Pune       |      105 | Keyboard     |  2500.00 |
+|           6 | Neha Deshmukh  | Nashik     |      106 | Monitor      | 18000.00 |
+|           7 | Akash Pawar    | Mumbai     |      107 | Laptop Bag   |  3000.00 |
+|           8 | Pooja Shinde   | Aurangabad |      108 | Smart Watch  |  7000.00 |
+|           9 | Sagar Jadhav   | Pune       |      109 | Tablet       | 22000.00 |
+|          10 | Kavita Patil   | Nashik     |      110 | Power Bank   |  3000.00 |
+|          11 | Vikas Chavan   | Nagpur     |      113 | Mobile       | 28000.00 |
+|          12 | Anjali More    | Mumbai     |      114 | Headphones   |  2000.00 |
+|          13 | Nikhil Gaikwad | Pune       |      115 | Laptop       | 60000.00 |
+|          14 | Snehal Pawar   | Nashik     |      116 | Monitor      | 36000.00 |
+|          15 | Tejas Shinde   | Kolhapur   |      117 | Smart Watch  |  8000.00 |
+|          16 | Riya Joshi     | Pune       |      118 | Tablet       | 24000.00 |
+|          17 | Kunal Patil    | Mumbai     |      119 | Mouse        |  2400.00 |
+|          18 | Aarti Deshmukh | Nashik     |      120 | Keyboard     |  5000.00 |
+|          19 | Mayur More     | Pune       |      121 | Laptop Bag   |  1500.00 |
+|          20 | Swati Jadhav   | Nagpur     |      122 | Power Bank   |  1800.00 |
+|          21 | Pratik Pawar   | Mumbai     |      123 | Mobile       | 30000.00 |
+|          22 | Komal Shinde   | Pune       |      124 | Headphones   |  4500.00 |
+|          23 | Sachin Patil   | Nashik     |      125 | Laptop       | 58000.00 |
+|          24 | Mansi Joshi    | Pune       |      126 | Smart Watch  |  7500.00 |
+|          25 | Omkar More     | Mumbai     |      127 | Monitor      | 19000.00 |
+|          26 | Isha Pawar     | Nagpur     |      128 | Tablet       | 46000.00 |
+|          27 | Aditya Shinde  | Pune       |      129 | Mobile       | 27000.00 |
+|          28 | Meera Patil    | Nashik     |      130 | Laptop       | 62000.00 |
+|          29 | Yash Deshmukh  | Mumbai     |     NULL | NULL         |     NULL |
+|          30 | Simran More    | Pune       |     NULL | NULL         |     NULL |
++-------------+----------------+------------+----------+--------------+----------+
+33 rows in set (0.00 sec)
+
+-----------------------------------------------------------------------------------------------------------------
+
+4.FULL OUTER JOIN
+mysql> select
+    -> c.customer_ID,c.customer_Name,c.City,
+    -> o.Order_ID,o.Product_Name,o.Amount
+    -> from customer as c
+    -> RIGHT JOIN orders as o
+    -> on c.customer_ID = o.customer_ID
+    -> UNION
+    -> select
+    -> c.customer_ID,c.customer_Name,c.City,
+    -> o.Order_ID,o.Product_Name,o.Amount
+    -> from customer as c
+    -> LEFT JOIN orders as o
+    -> on c.customer_ID = o.customer_ID;
++-------------+----------------+------------+----------+--------------+----------+
+| customer_ID | customer_Name  | City       | Order_ID | Product_Name | Amount   |
++-------------+----------------+------------+----------+--------------+----------+
+|           1 | Rahul Patil    | Pune       |      101 | Laptop       | 55000.00 |
+|           2 | Priya Sharma   | Mumbai     |      102 | Mobile       | 25000.00 |
+|           3 | Amit Joshi     | Nashik     |      103 | Headphones   |  4000.00 |
+|           1 | Rahul Patil    | Pune       |      104 | Mouse        |  1600.00 |
+|           5 | Rohan Kulkarni | Pune       |      105 | Keyboard     |  2500.00 |
+|           6 | Neha Deshmukh  | Nashik     |      106 | Monitor      | 18000.00 |
+|           7 | Akash Pawar    | Mumbai     |      107 | Laptop Bag   |  3000.00 |
+|           8 | Pooja Shinde   | Aurangabad |      108 | Smart Watch  |  7000.00 |
+|           9 | Sagar Jadhav   | Pune       |      109 | Tablet       | 22000.00 |
+|          10 | Kavita Patil   | Nashik     |      110 | Power Bank   |  3000.00 |
+|           2 | Priya Sharma   | Mumbai     |      111 | Keyboard     |  2500.00 |
+|           3 | Amit Joshi     | Nashik     |      112 | Mouse        |   800.00 |
+|          11 | Vikas Chavan   | Nagpur     |      113 | Mobile       | 28000.00 |
+|          12 | Anjali More    | Mumbai     |      114 | Headphones   |  2000.00 |
+|          13 | Nikhil Gaikwad | Pune       |      115 | Laptop       | 60000.00 |
+|          14 | Snehal Pawar   | Nashik     |      116 | Monitor      | 36000.00 |
+|          15 | Tejas Shinde   | Kolhapur   |      117 | Smart Watch  |  8000.00 |
+|          16 | Riya Joshi     | Pune       |      118 | Tablet       | 24000.00 |
+|          17 | Kunal Patil    | Mumbai     |      119 | Mouse        |  2400.00 |
+|          18 | Aarti Deshmukh | Nashik     |      120 | Keyboard     |  5000.00 |
+|          19 | Mayur More     | Pune       |      121 | Laptop Bag   |  1500.00 |
+|          20 | Swati Jadhav   | Nagpur     |      122 | Power Bank   |  1800.00 |
+|          21 | Pratik Pawar   | Mumbai     |      123 | Mobile       | 30000.00 |
+|          22 | Komal Shinde   | Pune       |      124 | Headphones   |  4500.00 |
+|          23 | Sachin Patil   | Nashik     |      125 | Laptop       | 58000.00 |
+|          24 | Mansi Joshi    | Pune       |      126 | Smart Watch  |  7500.00 |
+|          25 | Omkar More     | Mumbai     |      127 | Monitor      | 19000.00 |
+|          26 | Isha Pawar     | Nagpur     |      128 | Tablet       | 46000.00 |
+|          27 | Aditya Shinde  | Pune       |      129 | Mobile       | 27000.00 |
+|          28 | Meera Patil    | Nashik     |      130 | Laptop       | 62000.00 |
+|           4 | Sneha More     | Nagpur     |     NULL | NULL         |     NULL |
+|          29 | Yash Deshmukh  | Mumbai     |     NULL | NULL         |     NULL |
+|          30 | Simran More    | Pune       |     NULL | NULL         |     NULL |
++-------------+----------------+------------+----------+--------------+----------+
+33 rows in set (0.01 sec)
+

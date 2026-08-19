@@ -697,8 +697,12 @@ SELECT employee.e_name, department.d_name
 FROM employee
 RIGHT JOIN department
 ON employee.d_id = department.d_id;
+<<<<<<< HEAD
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+=======
+---------------------------------------------------
+>>>>>>> 6735329d61795217c1e15565f70f0edb37b31358
 Most important JOIN + Aggregate structure
 SELECT 
 r.restaurant_name,
@@ -707,6 +711,7 @@ FROM restaurants AS r
 JOIN orders AS o
 ON r.restaurant_id = o.restaurant_id
 GROUP BY r.restaurant_id, r.restaurant_name;
+<<<<<<< HEAD
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Using MAX() — simple interview answer
 SELECT MAX(salary) AS second_highest_salary
@@ -869,3 +874,5 @@ INSERT, UPDATE, DELETE → DML
 SELECT → DQL
 GRANT, REVOKE → DCL
 COMMIT, ROLLBACK, SAVEPOINT → TCL
+=======
+>>>>>>> 6735329d61795217c1e15565f70f0edb37b31358
