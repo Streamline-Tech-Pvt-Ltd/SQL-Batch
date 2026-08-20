@@ -505,7 +505,7 @@ LIMIT 3 OFFSET 2;
 Meaning:
 Skip the first 2 rows
 Return the next 3 rows
-_______________________________________________________________________________________________________________________________
+_____________________________________________________________________________________________________________________________________________________________________________________________________
 7. WHERE Clause
 Used to filter records based on a condition.
 
@@ -516,7 +516,7 @@ WHERE condition;
 Example:
 SELECT * FROM employee
 WHERE salary > 30000;
-_______________________________________________________________________________________________________________________________
+____________________________________________________________________________________________________________________________________________________________________________________________
 8. BETWEEN Operator
 Used to select values within a range, including both boundary values.
 
@@ -529,7 +529,7 @@ SELECT * FROM employee
 WHERE salary BETWEEN 30000 AND 50000;
 
 This includes 30000 and 50000.
-_______________________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________________________________________________________________________________
 9. IN Operator
 Used to match a column with multiple possible values.
 
@@ -539,7 +539,7 @@ WHERE city IN ('Pune', 'Nashik', 'Mumbai');
 NOT IN
 SELECT * FROM employee
 WHERE city NOT IN ('Pune', 'Nashik');
-_______________________________________________________________________________________________________________________________
+_____________________________________________________________________________________________________________________________________________________________________________________
 10. LIKE Operator
 Used for pattern matching with text.
 
@@ -559,7 +559,7 @@ SELECT * FROM employee
 WHERE name LIKE 'P_llavi';
 
 _ represents one character.
-_______________________________________________________________________________________________________________________________
+__________________________________________________________________________________________________________________________________________________________________________________________
 11. UPDATE Statement
 Used to modify existing records.
 
@@ -579,7 +579,7 @@ UPDATE employee
 SET salary = 40000;
 
 This updates the salary of all employees.
-_______________________________________________________________________________________________________________________________
+__________________________________________________________________________________________________________________________________________________________________________________________
 12. DELETE Statement
 Used to delete existing records.
 
@@ -697,12 +697,7 @@ SELECT employee.e_name, department.d_name
 FROM employee
 RIGHT JOIN department
 ON employee.d_id = department.d_id;
-<<<<<<< HEAD
-
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-=======
 ---------------------------------------------------
->>>>>>> 6735329d61795217c1e15565f70f0edb37b31358
 Most important JOIN + Aggregate structure
 SELECT 
 r.restaurant_name,
@@ -711,7 +706,16 @@ FROM restaurants AS r
 JOIN orders AS o
 ON r.restaurant_id = o.restaurant_id
 GROUP BY r.restaurant_id, r.restaurant_name;
-<<<<<<< HEAD
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Most important JOIN + Aggregate structure
+SELECT 
+r.restaurant_name,
+AGGREGATE_FUNCTION(o.column)
+FROM restaurants AS r
+JOIN orders AS o
+ON r.restaurant_id = o.restaurant_id
+GROUP BY r.restaurant_id, r.restaurant_name;
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Using MAX() — simple interview answer
 SELECT MAX(salary) AS second_highest_salary
@@ -783,96 +787,229 @@ ________________________________________________________________________________
 #################### SQL Commands  #######################
 
 SQL commands are mainly divided into 5 categories:
-
+DDL → Structure | DML → Data | DQL → Retrieve | DCL → Permissions | TCL → Transactions
+---------------------------------------------------------------------------------------------------------------------------------
 1. DDL — Data Definition Language
-Used to create and change database structure.
+Meaning
+DDL is used to create, modify, and delete the structure of database objects such as tables, databases, views, and indexes.
 
-Command	        Use
-CREATE	       Create database/table/view/index
-ALTER	       Modify table structure
-DROP	       Delete table/database
-TRUNCATE   	   Remove all rows
+Main DDL Commands
+| Command    | Purpose                                     |
+| ---------- | ------------------------------------------- |
+| `CREATE`   | Creates a database/table/object             |
+| `ALTER`    | Changes the structure of an existing object |
+| `DROP`     | Permanently deletes an object               |
+| `TRUNCATE` | Removes all rows from a table               |
+---------------------------------------------------------------------------------------------------------
+ 1 ] CREATE
+Create a table:
 
-----------------------------------------------------
+CREATE TABLE student (
+    id INT,
+    name VARCHAR(50),
+    age INT
+);
+--------------------------------------------------------------------------------------------------------
+2 ] ALTER
+
+Add a column:
+
+ALTER TABLE employe
+ADD COLUMN emp_data INT;
+--------------------------------------------------------------------------------------------------------
+3 ]Drop a column:
+
+ALTER TABLE employe
+DROP COLUMN emp_data;
+
+Your original example used DROP COLUMN cast; make sure cast is actually the column name you want to remove.
+
+DROP
+Delete the complete table:
+DROP TABLE student;
+
+⚠️ This removes the table structure and its data.
+---------------------------------------------------------------------------------------------------------
+4 ] TRUNCATE
+
+Remove all rows but keep the table:
+
+TRUNCATE TABLE student;
+
+----------------------------------------------------------------------------------------------------------
+DROP vs TRUNCATE
+DROP      → Table + data removed
+TRUNCATE  → Data removed, table remains
+----------------------------------------------------------------------------------------------------------
 2. DML — Data Manipulation Language
-Used to modify data inside tables.
+Meaning : DML is used to add, modify, and delete data inside a table.
 
-Command	        Use
-INSERT     	Add data
-UPDATE	    Modify data
-DELETE  	Remove data
-INSERT      INTO student VALUES (1, 'Pallavi', 20);
+| Command  | Purpose                   |
+| -------- | ------------------------- |
+| `INSERT` | Adds new records          |
+| `UPDATE` | Modifies existing records |
+| `DELETE` | Removes records           |
 
+1 ] INSERT
+INSERT INTO student
+VALUES (1, 'Pallavi', 20);
 
+Or specify columns:
+
+INSERT INTO student (id, name, age)
+VALUES (1, 'Pallavi', 20);
+
+2 ] UPDATE
 UPDATE student
 SET age = 21
 WHERE id = 1;
 
+⚠️ Always be careful with UPDATE without WHERE, because it can update every row.
 
+3 ] DELETE
 DELETE FROM student
 WHERE id = 1;
------------------------------------------------------
+
+⚠️ DELETE with a WHERE condition removes selected rows. Without WHERE, it can remove all rows.
+----------------------------------------------------------------------------------------------------------------------
 3. DQL — Data Query Language
-Used to retrieve data.
+Meaning : DQL is used to retrieve or read data from tables.
 
-Command	    Use
-SELECT  	Fetch data
-
+Main Command
+SELECT
+Example
 SELECT * FROM student;
+
+Get specific columns:
+
+SELECT name, age
+FROM student;
+
+Use a condition:
+
 SELECT name, age
 FROM student
 WHERE age > 18;
 
-Common SELECT clauses:
-WHERE
-GROUP BY
-HAVING
-ORDER BY
-LIMIT
-OFFSET
-DISTINCT
------------------------------------------------------
+Conditions 
+
+| Clause     | Purpose                  |
+| ---------- | ------------------------ |
+| `WHERE`    | Filter rows              |
+| `GROUP BY` | Group rows               |
+| `HAVING`   | Filter groups            |
+| `ORDER BY` | Sort results             |
+| `LIMIT`    | Restrict number of rows  |
+| `OFFSET`   | Skip rows                |
+| `DISTINCT` | Remove duplicate results |
+
+Example:
+SELECT dept_id, AVG(salary)
+FROM employe
+GROUP BY dept_id;
+
+-----------------------------------------------------------------------------------------------------------------
 4. DCL — Data Control Language
-Used to control user permissions.
+Meaning
+DCL is used to control user permissions and access to database objects.
 
-Command	        Use
-GRANT	    Give permissions
-REVOKE	    Remove permissions
+Main Commands
 
+| Command  | Purpose             |
+| -------- | ------------------- |
+| `GRANT`  | Gives permissions   |
+| `REVOKE` | Removes permissions |
 
-GRANT SELECT ON student TO user1;
+1 ] GRANT
+Give SELECT permission:
 
-REVOKE SELECT ON student FROM user1;
-----------------------------------------------------
+GRANT SELECT
+ON practice.employe
+TO 'pallavi'@'localhost';
+
+This allows the user to read the table.
+
+Multiple permissions
+GRANT SELECT, INSERT, UPDATE
+ON practice.employe
+TO 'pallavi'@'localhost';
+
+2 ]REVOKE
+Remove SELECT permission:
+REVOKE SELECT
+ON practice.employe
+FROM 'pallavi'@'localhost';
+Easy way to remember
+GRANT  → Give permission
+REVOKE → Remove permission
+
+----------------------------------------------------------------------------------------------------------------------------------------------
 5. TCL — Transaction Control Language
-Used to manage transactions.
+Meaning
+TCL is used to manage transactions in a database.
+A transaction is a group of SQL operations that should be treated as one unit of work.
 
-Command     	Use
-COMMIT	     Permanently save changes
-ROLLBACK	    Undo changes
-SAVEPOINT   	Create a point to rollback to
+Main TCL Commands
+| Command             | Purpose                                    |
+| ------------------- | ------------------------------------------ |
+| `START TRANSACTION` | Starts a transaction                       |
+| `COMMIT`            | Permanently saves changes                  |
+| `ROLLBACK`          | Undoes uncommitted changes                 |
+| `SAVEPOINT`         | Creates a point to which you can roll back |
+|__________________________________________________________________|
+* START TRANSACTION
 START TRANSACTION;
 
-
-UPDATE employee
+* Now perform a change:
+UPDATE employe
 SET salary = 50000
 WHERE emp_id = 1;
+
+* COMMIT
 COMMIT;
 
+* The change is saved.
+ROLLBACK
+--------------------------------------------------------
+Example:
+START TRANSACTION;
 
-⭐ Interview Shortcut
+UPDATE employe
+SET salary = 50000
+WHERE emp_id = 1;
 
-DDL → Structure
-DML → Data modification
-DQL → Data retrieval
-DCL → Permissions
-TCL → Transactions
+ROLLBACK;
+The update is undone if it has not already been committed.
 
-Remember:
-CREATE, ALTER, DROP, TRUNCATE → DDL
-INSERT, UPDATE, DELETE → DML
-SELECT → DQL
-GRANT, REVOKE → DCL
-COMMIT, ROLLBACK, SAVEPOINT → TCL
-=======
->>>>>>> 6735329d61795217c1e15565f70f0edb37b31358
+SAVEPOINT
+START TRANSACTION;
+
+UPDATE employe
+SET salary = 50000
+WHERE emp_id = 1;
+
+SAVEPOINT sp1;
+
+UPDATE employe
+SET salary = 60000
+WHERE emp_id = 2;
+
+ROLLBACK TO sp1;
+
+COMMIT;
+
+Here:
+UPDATE employee 1 → kept
+SAVEPOINT sp1
+UPDATE employee 2 → undone
+ROLLBACK TO sp1
+COMMIT
+------------------------------------------------------------------------------------------------------------------
+| Category | Full Form                    | Commands                                               | Main Purpose  |
+| -------- | ---------------------------- | ------------------------------------------------------ | ------------- |
+| **DDL**  | Data Definition Language     | `CREATE`, `ALTER`, `DROP`, `TRUNCATE`                  | Structure     |
+| **DML**  | Data Manipulation Language   | `INSERT`, `UPDATE`, `DELETE`                           | Modify data   |
+| **DQL**  | Data Query Language          | `SELECT`                                               | Retrieve data |
+| **DCL**  | Data Control Language        | `GRANT`, `REVOKE`                                      | Permissions   |
+| **TCL**  | Transaction Control Language | `START TRANSACTION`, `COMMIT`, `ROLLBACK`, `SAVEPOINT` | Transactions  |
+|_________________________________________________________________________________________________________________ |
