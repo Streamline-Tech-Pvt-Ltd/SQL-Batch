@@ -536,5 +536,143 @@ EX: select employee.emp_id,employee.emp_name,employee.salary,employee.d_id
     Right Join department
     on department.d_id = employee.d_id;
 
+________________________________________________________________________________________________________________________________
+
+# VIEW : A VIEW is a virtual table created from one or more existing tables.
+It does not normally store the actual data separately. Instead, it stores a SQL query, and whenever we use the view, SQL gets the required data from the original table.
+
+Syntax :
+CREATE VIEW view_name AS
+SELECT column1, column2
+FROM table_name;
+
+EX: CREATE VIEW Pune_Interns AS
+SELECT ID, Name, Domain
+FROM Interns
+WHERE City = 'Pune';
+
+__________________________________________________________________________________________________________________________
+
+# INDEX 
+An INDEX is a database object that helps SQL find data faster.
+"An INDEX is a database object or data structure that improves the speed of data retrieval. It is mainly useful for 
+frequently searched or joined columns, but indexes require additional storage and can slow down INSERT, UPDATE, and 
+DELETE operations."
+
+For EX: Think about a book.
+If you want to find the topic "SQL JOIN" in a 500-page book:
+Without an index → you may need to check many pages one by one.
+With an index → you can directly find the page number.
+
+*SQL INDEX works in a similar way.
+INDEX = A structure that helps the database find rows quickly.
+
+Syntax: CREATE INDEX index_name
+ON table_name(column_name);
+
+EX:CREATE INDEX idx_intern_name
+ON Interns(Name);
+
+Now searches using name can be faster:
+SELECT *
+FROM Interns
+WHERE name = 'Urmila';
+
+* Remove an index in MySQL:
+DROP INDEX idx_interns_name ON Interns;
+
+
+# Easy way to remember:
+VIEW → Makes queries/data access easier
+INDEX → Makes data searching faster
+
+__________________________________________________________________________________________________________________________
+
+#Rename :
+RENAME is used to change the name of a database object, such as a table. In MySQL, table renaming is commonly done 
+using RENAME TABLE.
+
+1. Rename a Table
+Syntax : RENAME TABLE old_table_name
+TO new_table_name;
+
+2.Rename using ALTER TABLE
+Syntax : ALTER TABLE old_table_name
+RENAME TO new_table_name;
+
+3. Rename a Column
+Syntax: ALTER TABLE table_name
+RENAME COLUMN old_column_name
+TO new_column_name;
+
+__________________________________________________________________________________________________________________________
+
+# ALTER 
+It is used to change the structure of an existing table without deleting the table.
+
+ALTER = Change the structure of an existing database object.
+
+Syntax: ALTER TABLE table_name
+        operation;
+
+EX: ALTER TABLE Interns
+ADD Gender VARCHAR(10);
+
+__________________________________________________________________________________________________________________________
+
+# DROP
+It is used to completely remove a database object from the database.
+
+1.Drop table:
+Syntax: DROP TABLE table_name;
+EX: DROP TABLE Interns;
+
+* When you drop a table the table structure and its data are removed
+
+
+2.Drop Database:
+Syntax: DROP DATABASE database_name;
+EX: DROP DATABASE InternshipDB;
+
+* Very dangerous command because the database and its contents are removed.
+
+3.Drop View:
+Syntax: DROP VIEW Pune_Interns;
+
+4.Drop index:
+Syntax :DROP INDEX idx_city
+ON Interns;
+
+
+# DROP & DELETE Difference
+| DELETE            | DROP                 |
+| ----------------- | -------------------- |
+| Removes rows      | Removes entire table |
+| Table remains     | Table is removed     |
+| Structure remains | Structure is removed |
+| Can use `WHERE`   | No `WHERE`           |
+| DML command       | DDL command          |
+
+
+Easy trick:
+DELETE → Data
+DROP → Everything
+
+__________________________________________________________________________________________________________________________
+
+# TRUNCATE 
+TRUNCATE is a DDL (Data Definition Language) command used to remove all rows from a table at once.
+TRUNCATE removes all data, but keeps the table structure.
+
+Syntax: TRUNCATE TABLE table_name;
+EX: TRUNCATE TABLE Interns;
+
+* Easy
+
+ALTER     → Change structure
+RENAME    → Change name
+TRUNCATE  → Remove all rows
+DELETE    → Remove selected rows
+DROP      → Remove complete table
 
 
