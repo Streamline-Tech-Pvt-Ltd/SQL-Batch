@@ -636,8 +636,10 @@ EX: DROP DATABASE InternshipDB;
 
 * Very dangerous command because the database and its contents are removed.
 
+
 3.Drop View:
 Syntax: DROP VIEW Pune_Interns;
+
 
 4.Drop index:
 Syntax :DROP INDEX idx_city
@@ -674,5 +676,95 @@ RENAME    → Change name
 TRUNCATE  → Remove all rows
 DELETE    → Remove selected rows
 DROP      → Remove complete table
+
+
+__________________________________________________________________________________________________________________________
+
+# TCL - Transaction Control Language
+
+| Command                 | Purpose                                   |
+| ----------------------- | ----------------------------------------- |
+| `COMMIT`                | Permanently saves changes                 |
+| `ROLLBACK`              | Undoes changes                            |
+| `SAVEPOINT`             | Creates a point to which we can roll back |
+| `ROLLBACK TO SAVEPOINT` | Goes back to a particular savepoint       |
+| `SET TRANSACTION`       | Sets transaction properties               |
+
+
+1. COMMIT
+COMMIT is used to permanently save the changes made during a transaction.
+
+Syntax: COMMIT;
+
+Example : 
+Suppose we have:
+CREATE TABLE Student (
+    id INT,
+    name VARCHAR(50),
+    marks INT
+);
+
+Insert a record:
+INSERT INTO Student VALUES (1, 'Urmila', 85);
+
+At this point, the change is part of the current transaction.
+Now :
+COMMIT;
+
+The insertion is permanently saved.
+
+
+2. ROLLBACK
+ROLLBACK is used to undo changes made during the current transaction.
+
+Syntax : ROLLBACK;
+
+Example:
+INSERT INTO Student VALUES (2, 'Rahul', 75);
+ROLLBACK;
+
+The insertion of Rahul is undone.
+So:
+SELECT * FROM Student;
+will not show Rahul if that insertion was still part of the active transaction.
+
+
+3. SAVEPOINT
+A SAVEPOINT creates a temporary point inside a transaction.
+It is useful when you don't want to undo the entire transaction.
+
+Syntax: SAVEPOINT savepoint_name;
+
+Example :
+INSERT INTO Student VALUES (1, 'Urmila', 85);y
+
+SAVEPOINT sp1;
+
+INSERT INTO Student VALUES (2, 'Rahul', 75);
+
+SAVEPOINT sp2;
+
+INSERT INTO Student VALUES (3, 'Priya', 90);
+
+Now there are three inserted records.
+
+We can go back to sp2:
+ROLLBACK TO sp2;
+
+The changes made after sp2 are undone.
+So the insertion of Priya is undone, while the earlier changes remain.
+
+
+
+| Category | Full Form                    | Commands                                               | Main Purpose  |
+| -------- | ---------------------------- | ------------------------------------------------------ | ------------- |
+| **DDL**  | Data Definition Language     | `CREATE`, `ALTER`, `DROP`, `TRUNCATE`                  | Structure     |
+| **DML**  | Data Manipulation Language   | `INSERT`, `UPDATE`, `DELETE`                           | Modify data   |
+| **DQL**  | Data Query Language          | `SELECT`                                               | Retrieve data |
+| **DCL**  | Data Control Language        | `GRANT`, `REVOKE`                                      | Permissions   |
+| **TCL**  | Transaction Control Language | `START TRANSACTION`, `COMMIT`, `ROLLBACK`, `SAVEPOINT` | Transactions  |
+|_________________________________________________________________________________________________________________ |
+
+
 
 

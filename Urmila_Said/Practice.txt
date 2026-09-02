@@ -1191,3 +1191,48 @@ mysql> select
 +-------------+----------------+------------+----------+--------------+----------+
 33 rows in set (0.01 sec)
 
+____________________________________________________________________________________________________________
+
+
+
+# Rollback
+mysql> start transaction;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> UPDATE Interns
+    -> SET City = 'Delhi'
+    -> WHERE ID = 3;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE interns
+    -> SET City = 'Delhi'
+    -> WHERE ID = 3;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 1  Changed: 0  Warnings: 0
+
+mysql> select * from interns;
++----+-------------+-----------------+------------+--------+------------+
+| ID | Intern_Name | Email           | Phone      | City   | Company_ID |
++----+-------------+-----------------+------------+--------+------------+
+|  1 | Shivani     | Sh@gmail.com    | 9876543210 | Nashik |        101 |
+|  2 | Mayuri      | sneha@gmail.com | 9876543211 | Nashik |        102 |
+|  3 | Rahul       | rahul@gmail.com | 9876543212 | Delhi  |        101 |
+|  4 | Priya       | priya@gmail.com | 9876543213 | Pune   |        103 |
+|  5 | Neha        | neha@gmail.com  | 9876543214 | Nashik |       NULL |
++----+-------------+-----------------+------------+--------+------------+
+5 rows in set (0.00 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> select * from interns;
++----+-------------+-----------------+------------+--------+------------+
+| ID | Intern_Name | Email           | Phone      | City   | Company_ID |
++----+-------------+-----------------+------------+--------+------------+
+|  1 | Shivani     | Sh@gmail.com    | 9876543210 | Nashik |        101 |
+|  2 | Mayuri      | sneha@gmail.com | 9876543211 | Nashik |        102 |
+|  3 | Rahul       | rahul@gmail.com | 9876543212 | Mumbai |        101 |
+|  4 | Priya       | priya@gmail.com | 9876543213 | Pune   |        103 |
+|  5 | Neha        | neha@gmail.com  | 9876543214 | Nashik |       NULL |
++----+-------------+-----------------+------------+--------+------------+

@@ -519,5 +519,158 @@ Ans: INNER JOIN returns only matching records, so unmatched records are excluded
 50.What happens if there is no matching record in LEFT JOIN?
 Ans: LEFT JOIN keeps the unmatched left-side record and returns NULL for columns from the right table.
 
+51.What is a VIEW in SQL?
+Ans: A VIEW is a virtual table created from the result of a SQL query.
+It does not normally store the actual data separately. It displays data from one or more underlying tables.
 
+52.Why do we use VIEW?.
+Ans: Main uses of VIEW:
+To simplify complex queries
+To improve data security
+To hide unnecessary columns
+To reuse frequently used queries
+To provide a customized view of data
+
+53. How do you create a VIEW?
+Syntax: 
+CREATE VIEW view_name AS
+SELECT column1, column2
+FROM table_name
+WHERE condition;
+
+54. How do you retrieve data from a VIEW?
+Ans : A VIEW can be used like a table.
+SELECT * FROM high_salary;
+
+55. Can we use a WHERE clause in a VIEW?
+Ans: Yes
+EX : CREATE VIEW pune_employees AS
+SELECT emp_id, emp_name, city
+FROM employees
+WHERE city = 'Pune';
+
+56. Can a VIEW be created using multiple tables?
+Ans : Yes. We can use JOIN.
+
+
+57. Can we perform INSERT, UPDATE, and DELETE on a VIEW?
+Ans : Sometimes, yes.
+A simple VIEW may be updatable.
+However, a complex VIEW containing things such as:
+JOIN
+GROUP BY
+DISTINCT
+Aggregate functions
+may not be directly updatable, depending on the DBMS.,
+
+58.How do you delete a VIEW?
+Ans: Use DROP VIEW.
+his removes the VIEW, not the original table.
+
+59. What is the difference between a TABLE and a VIEW?
+Ans :
+| TABLE                         | VIEW                                     |
+| ----------------------------- | ---------------------------------------- |
+| Stores actual data            | Normally stores the query definition     |
+| Physical table                | Virtual table                            |
+| Created using `CREATE TABLE`  | Created using `CREATE VIEW`              |
+| Data is directly stored       | Data comes from underlying tables        |
+| Requires storage for its data | Usually requires less additional storage |
+
+
+60. What is an INDEX in SQL?
+Ans: An INDEX is a database object used to speed up data retrieval from a table.
+It works similarly to an index in a book: instead of searching the entire table, 
+the database can use the index to find the required rows faster.
+
+
+61. Why do we use INDEX?
+Ans: Indexes are mainly used to:
+Improve SELECT query performance
+Search data faster
+Speed up WHERE conditions
+Improve JOIN performance
+Improve searching and sorting in suitable queries
+
+62. How do you create an INDEX?
+Syntax: CREATE INDEX index_name
+ON table_name(column_name);
+
+63. How do you create an INDEX on multiple columns?
+Ans: This is called a composite index or multi-column index.
+Syntax: 
+CREATE INDEX idx_emp_dept_salary
+ON employees(dept_id, salary);
+
+64. Does INDEX improve INSERT performance?
+Ans: No. Usually the opposite.
+When you insert, update, or delete data, the database may also need to maintain the indexes.
+Therefore:
+Indexes generally improve read performance but can add overhead to INSERT, UPDATE, and DELETE operations.
+
+65. How do you delete an INDEX?
+Syntax: DROP INDEX idx_emp_name
+ON employees;
+
+66. What is RENAME in SQL?
+Ans: RENAME is used to change the name of a database object, such as a table. The exact syntax depends on the DBMS.
+
+67. What is ALTER in SQL?
+Ans: ALTER is used to modify the structure of an existing table.
+We can use it to:
+Add a column
+Modify a column
+Rename a column
+Drop a column
+Add or remove constraints
+
+68. What is DROP in SQL?
+Ans: DROP is used to remove a database object completely.
+Syntax: DROP TABLE employees;
+Important: DROP TABLE removes the table structure as well as its stored data.
+
+69. What is TRUNCATE in SQL?
+Ans: TRUNCATE is used to remove all rows from a table while keeping the table structure.
+Syntax: TRUNCATE TABLE employees;
+After this:
+All rows are removed.
+Table structure remains.
+Columns remain.
+The table can still be used for new data.
+
+
+70.Which is faster: DELETE or TRUNCATE?
+Ans: Generally, TRUNCATE is faster when removing all rows, because it is designed for removing all table 
+rows efficiently.
+However, the exact implementation and performance depend on the database system.
+
+72. What are DDL commands?
+Ans: DDL = Data Definition Language
+DDL commands are used to define or modify database structures.
+
+
+# Very Important Interview Scenario
+
+1. I have 10,000 records in a table. I want to remove only employees whose salary is below 30,000. Which
+   command will you use?"
+Ans: Use DELETE, because we need a condition.
+
+2. "I want to remove all records but keep the table."
+Ans: Use TRUNCATE.
+
+3. "I don't need the table anymore."
+Ans: Use DROP.
+
+4. "I want to change the table structure.".
+Ans: Use ALTER.
+
+5. "I want to change the table name."
+Ans: Use the DBMS-specific RENAME syntax, or ALTER TABLE ... RENAME TO ... where supported.
+
+# Quick Revision Trick
+RENAME → Name change
+ALTER → Structure change
+TRUNCATE → All data removed, structure stays
+DROP → Object completely removed
+DELETE → Selected/all rows removed using a condition if needed
 
