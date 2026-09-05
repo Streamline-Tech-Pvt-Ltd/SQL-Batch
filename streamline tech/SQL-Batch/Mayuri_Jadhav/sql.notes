@@ -1,0 +1,1345 @@
+# 📚 Complete SQL Notes
+
+## 📌 What is SQL?
+
+**SQL (Structured Query Language)** is a language used to communicate with and manage relational databases.
+
+SQL is used to:
+
+* Create databases and tables
+* Insert data
+* Retrieve data
+* Update data
+* Delete data
+* Apply conditions
+* Combine tables using JOINs
+* Create Views and Indexes
+* Control user permissions
+* Manage transactions
+
+---
+
+# 📑 Table of Contents
+
+1. [SQL Command Types](#1-sql-command-types)
+2. [DDL - Data Definition Language](#2-ddl---data-definition-language)
+3. [DML - Data Manipulation Language](#3-dml---data-manipulation-language)
+4. [DQL - Data Query Language](#4-dql---data-query-language)
+5. [SQL Constraints](#5-sql-constraints)
+6. [SQL Clauses](#6-sql-clauses)
+7. [SQL Operators](#7-sql-operators)
+8. [Aggregate Functions](#8-aggregate-functions)
+9. [SQL JOINs](#9-sql-joins)
+10. [SQL Index](#10-sql-index)
+11. [SQL View](#11-sql-view)
+12. [DCL - Data Control Language](#12-dcl---data-control-language)
+13. [TCL - Transaction Control Language](#13-tcl---transaction-control-language)
+14. [Complete SQL Example](#14-complete-sql-example)
+
+---
+
+# 1. SQL Command Types
+
+SQL commands are mainly divided into **5 types**.
+
+| Type | Full Form                    | Purpose                    | Commands                              |
+| ---- | ---------------------------- | -------------------------- | ------------------------------------- |
+| DDL  | Data Definition Language     | Defines database structure | CREATE, ALTER, DROP, TRUNCATE, RENAME |
+| DML  | Data Manipulation Language   | Manipulates data           | INSERT, UPDATE, DELETE                |
+| DQL  | Data Query Language          | Retrieves data             | SELECT                                |
+| DCL  | Data Control Language        | Controls permissions       | GRANT, REVOKE                         |
+| TCL  | Transaction Control Language | Manages transactions       | COMMIT, ROLLBACK, SAVEPOINT           |
+
+---
+
+# 2. DDL - Data Definition Language
+
+DDL is used to **create and modify the structure of database objects**.
+
+## CREATE
+
+Used to create a database or table.
+
+### Create Database
+
+```sql
+CREATE DATABASE company_db;
+```
+
+### Select Database
+
+```sql
+USE company_db;
+```
+
+### Create Table
+
+```sql
+CREATE TABLE employees (
+    employee_id INT,
+    employee_name VARCHAR(50),
+    salary DECIMAL(10,2)
+);
+```
+
+---
+
+## ALTER
+
+Used to modify an existing table.
+
+### Add Column
+
+```sql
+ALTER TABLE employees
+ADD department VARCHAR(50);
+```
+
+### Modify Column
+
+```sql
+ALTER TABLE employees
+MODIFY salary DECIMAL(12,2);
+```
+
+### Drop Column
+
+```sql
+ALTER TABLE employees
+DROP COLUMN department;
+```
+
+### Rename Column
+
+```sql
+ALTER TABLE employees
+RENAME COLUMN employee_name TO name;
+```
+
+---
+
+## DROP
+
+Used to permanently delete a database or table.
+
+```sql
+DROP TABLE employees;
+```
+
+```sql
+DROP DATABASE company_db;
+```
+
+> ⚠️ **DROP deletes both table structure and data permanently.**
+
+---
+
+## TRUNCATE
+
+Used to delete all records from a table.
+
+```sql
+TRUNCATE TABLE employees;
+```
+
+> The table structure remains.
+
+---
+
+## RENAME
+
+Used to rename a table.
+
+```sql
+RENAME TABLE employees TO employee_details;
+```
+
+---
+
+# 3. DML - Data Manipulation Language
+
+DML is used to **insert, update, and delete data**.
+
+## INSERT
+
+Used to add records into a table.
+
+```sql
+INSERT INTO employees
+(employee_id, employee_name, salary)
+VALUES
+(1, 'Mayuri', 50000);
+```
+
+### Insert Multiple Records
+
+```sql
+INSERT INTO employees VALUES
+(2, 'Rahul', 40000),
+(3, 'Sneha', 45000),
+(4, 'Amit', 60000);
+```
+
+---
+
+## UPDATE
+
+Used to modify existing records.
+
+```sql
+UPDATE employees
+SET salary = 55000
+WHERE employee_id = 1;
+```
+
+> ⚠️ Always use `WHERE` when updating a specific record.
+
+---
+
+## DELETE
+
+Used to delete records.
+
+```sql
+DELETE FROM employees
+WHERE employee_id = 4;
+```
+
+### Delete All Records
+
+```sql
+DELETE FROM employees;
+```
+
+---
+
+# 4. DQL - Data Query Language
+
+DQL is used to **retrieve data from a database**.
+
+## SELECT
+
+### Select All Columns
+
+```sql
+SELECT * FROM employees;
+```
+
+### Select Specific Columns
+
+```sql
+SELECT employee_name, salary
+FROM employees;
+```
+
+---
+
+# 5. SQL Constraints
+
+## What are Constraints?
+
+**Constraints are rules applied to table columns to control the type and validity of data stored in a table.**
+
+Constraints help maintain:
+
+* Data Accuracy
+* Data Consistency
+* Data Integrity
+
+---
+
+## Types of Constraints
+
+1. NOT NULL
+2. UNIQUE
+3. PRIMARY KEY
+4. FOREIGN KEY
+5. CHECK
+6. DEFAULT
+
+---
+
+## 1. NOT NULL
+
+Does not allow `NULL` values.
+
+```sql
+CREATE TABLE employees (
+    employee_id INT,
+    employee_name VARCHAR(50) NOT NULL
+);
+```
+
+---
+
+## 2. UNIQUE
+
+Does not allow duplicate values.
+
+```sql
+CREATE TABLE students (
+    student_id INT,
+    email VARCHAR(100) UNIQUE
+);
+```
+
+Example:
+
+```sql
+INSERT INTO students VALUES (1, 'mayuri@gmail.com');
+```
+
+Duplicate values are not allowed:
+
+```sql
+INSERT INTO students VALUES (2, 'mayuri@gmail.com');
+```
+
+---
+
+## 3. PRIMARY KEY
+
+A Primary Key uniquely identifies every record in a table.
+
+### Rules
+
+* Must be unique
+* Cannot contain NULL values
+* Only one Primary Key can exist in a table
+* Can contain one or multiple columns
+
+```sql
+CREATE TABLE employees (
+    employee_id INT PRIMARY KEY,
+    employee_name VARCHAR(50)
+);
+```
+
+---
+
+## 4. FOREIGN KEY
+
+A Foreign Key creates a relationship between two tables.
+
+### Department Table
+
+```sql
+CREATE TABLE departments (
+    department_id INT PRIMARY KEY,
+    department_name VARCHAR(50)
+);
+```
+
+### Employee Table
+
+```sql
+CREATE TABLE employees (
+    employee_id INT PRIMARY KEY,
+    employee_name VARCHAR(50),
+    department_id INT,
+
+    FOREIGN KEY (department_id)
+    REFERENCES departments(department_id)
+);
+```
+
+Relationship:
+
+```text
+Departments
+department_id
+      |
+      |
+      ↓
+Employees
+department_id
+```
+
+---
+
+## 5. CHECK
+
+Used to apply a condition to a column.
+
+```sql
+CREATE TABLE employees (
+    employee_id INT PRIMARY KEY,
+    employee_name VARCHAR(50),
+    age INT CHECK (age >= 18)
+);
+```
+
+---
+
+## 6. DEFAULT
+
+Used to provide a default value when no value is specified.
+
+```sql
+CREATE TABLE employees (
+    employee_id INT PRIMARY KEY,
+    employee_name VARCHAR(50),
+    city VARCHAR(50) DEFAULT 'Pune'
+);
+```
+
+```sql
+INSERT INTO employees (employee_id, employee_name)
+VALUES (1, 'Mayuri');
+```
+
+The city will automatically be:
+
+```text
+Pune
+```
+
+---
+
+## Complete Constraints Example
+
+```sql
+CREATE TABLE employees (
+    employee_id INT PRIMARY KEY,
+    employee_name VARCHAR(50) NOT NULL,
+    email VARCHAR(100) UNIQUE,
+    age INT CHECK (age >= 18),
+    city VARCHAR(50) DEFAULT 'Pune',
+    department_id INT
+);
+```
+
+---
+
+# 6. SQL Clauses
+
+## What is a Clause?
+
+A **SQL clause is a part of a SQL query used to filter, group, sort, or limit data.**
+
+## Important SQL Clauses
+
+* SELECT
+* FROM
+* WHERE
+* DISTINCT
+* AND
+* OR
+* NOT
+* LIKE
+* IN
+* BETWEEN
+* ORDER BY
+* GROUP BY
+* HAVING
+* LIMIT
+* OFFSET
+
+---
+
+## SELECT
+
+Used to retrieve data.
+
+```sql
+SELECT * FROM employees;
+```
+
+```sql
+SELECT employee_name, salary
+FROM employees;
+```
+
+---
+
+## FROM
+
+Specifies the table from which data is retrieved.
+
+```sql
+SELECT *
+FROM employees;
+```
+
+---
+
+## WHERE
+
+Used to filter records based on a condition.
+
+```sql
+SELECT *
+FROM employees
+WHERE salary > 40000;
+```
+
+---
+
+## DISTINCT
+
+Used to remove duplicate values.
+
+```sql
+SELECT DISTINCT city
+FROM employees;
+```
+
+---
+
+## AND
+
+All conditions must be true.
+
+```sql
+SELECT *
+FROM employees
+WHERE salary > 40000
+AND city = 'Pune';
+```
+
+---
+
+## OR
+
+At least one condition must be true.
+
+```sql
+SELECT *
+FROM employees
+WHERE city = 'Pune'
+OR city = 'Mumbai';
+```
+
+---
+
+## NOT
+
+Used to exclude a condition.
+
+```sql
+SELECT *
+FROM employees
+WHERE NOT city = 'Pune';
+```
+
+---
+
+## LIKE
+
+Used for pattern matching.
+
+### Starts With
+
+```sql
+SELECT *
+FROM employees
+WHERE employee_name LIKE 'M%';
+```
+
+### Ends With
+
+```sql
+SELECT *
+FROM employees
+WHERE employee_name LIKE '%a';
+```
+
+### Contains
+
+```sql
+SELECT *
+FROM employees
+WHERE employee_name LIKE '%yu%';
+```
+
+---
+
+## IN
+
+Used to match multiple values.
+
+```sql
+SELECT *
+FROM employees
+WHERE city IN ('Pune', 'Mumbai', 'Nashik');
+```
+
+---
+
+## BETWEEN
+
+Used to select values within a range.
+
+```sql
+SELECT *
+FROM employees
+WHERE salary BETWEEN 30000 AND 60000;
+```
+
+---
+
+## ORDER BY
+
+Used to sort data.
+
+### Ascending Order
+
+```sql
+SELECT *
+FROM employees
+ORDER BY salary ASC;
+```
+
+### Descending Order
+
+```sql
+SELECT *
+FROM employees
+ORDER BY salary DESC;
+```
+
+---
+
+## GROUP BY
+
+Used to group rows having the same values.
+
+```sql
+SELECT city, COUNT(*) AS total_employees
+FROM employees
+GROUP BY city;
+```
+
+---
+
+## HAVING
+
+Used to filter grouped data.
+
+```sql
+SELECT city, COUNT(*) AS total_employees
+FROM employees
+GROUP BY city
+HAVING COUNT(*) > 2;
+```
+
+### WHERE vs HAVING
+
+| WHERE                    | HAVING                       |
+| ------------------------ | ---------------------------- |
+| Filters rows             | Filters groups               |
+| Used before GROUP BY     | Used after GROUP BY          |
+| Works before aggregation | Works with aggregate results |
+
+---
+
+## LIMIT
+
+Used to limit the number of records returned.
+
+```sql
+SELECT *
+FROM employees
+LIMIT 5;
+```
+
+---
+
+## OFFSET
+
+Used to skip records.
+
+```sql
+SELECT *
+FROM employees
+LIMIT 5 OFFSET 2;
+```
+
+This skips the first **2 records** and returns the next **5 records**.
+
+---
+
+# 7. SQL Operators
+
+## Arithmetic Operators
+
+| Operator | Meaning        |
+| -------- | -------------- |
+| +        | Addition       |
+| -        | Subtraction    |
+| *        | Multiplication |
+| /        | Division       |
+| %        | Modulus        |
+
+Example:
+
+```sql
+SELECT 10 + 5;
+```
+
+---
+
+## Comparison Operators
+
+| Operator | Meaning                  |
+| -------- | ------------------------ |
+| =        | Equal to                 |
+| >        | Greater than             |
+| <        | Less than                |
+| >=       | Greater than or equal to |
+| <=       | Less than or equal to    |
+| <>       | Not equal to             |
+
+Example:
+
+```sql
+SELECT *
+FROM employees
+WHERE salary >= 50000;
+```
+
+---
+
+## Logical Operators
+
+* AND
+* OR
+* NOT
+
+Example:
+
+```sql
+SELECT *
+FROM employees
+WHERE salary > 40000
+AND city = 'Pune';
+```
+
+---
+
+# 8. Aggregate Functions
+
+Aggregate functions perform calculations on multiple rows.
+
+## COUNT()
+
+```sql
+SELECT COUNT(*)
+FROM employees;
+```
+
+## SUM()
+
+```sql
+SELECT SUM(salary)
+FROM employees;
+```
+
+## AVG()
+
+```sql
+SELECT AVG(salary)
+FROM employees;
+```
+
+## MAX()
+
+```sql
+SELECT MAX(salary)
+FROM employees;
+```
+
+## MIN()
+
+```sql
+SELECT MIN(salary)
+FROM employees;
+```
+
+---
+
+# 9. SQL JOINs
+
+## What is JOIN?
+
+A **JOIN is used to combine data from two or more tables based on a related column.**
+
+---
+
+## Example Tables
+
+### Employees Table
+
+| employee_id | employee_name | department_id |
+| ----------- | ------------- | ------------- |
+| 1           | Mayuri        | 101           |
+| 2           | Rahul         | 102           |
+| 3           | Sneha         | 103           |
+
+### Departments Table
+
+| department_id | department_name |
+| ------------- | --------------- |
+| 101           | IT              |
+| 102           | HR              |
+| 104           | Finance         |
+
+---
+
+## Types of JOINs
+
+1. INNER JOIN
+2. LEFT JOIN
+3. RIGHT JOIN
+4. CROSS JOIN
+5. SELF JOIN
+
+---
+
+## 1. INNER JOIN
+
+Returns only matching records from both tables.
+
+### Syntax
+
+```sql
+SELECT columns
+FROM table1
+INNER JOIN table2
+ON table1.column = table2.column;
+```
+
+### Example
+
+```sql
+SELECT
+    employees.employee_name,
+    departments.department_name
+FROM employees
+INNER JOIN departments
+ON employees.department_id = departments.department_id;
+```
+
+---
+
+## 2. LEFT JOIN
+
+Returns:
+
+* All records from the left table
+* Matching records from the right table
+
+```sql
+SELECT
+    employees.employee_name,
+    departments.department_name
+FROM employees
+LEFT JOIN departments
+ON employees.department_id = departments.department_id;
+```
+
+If no matching record exists, the right side returns `NULL`.
+
+---
+
+## 3. RIGHT JOIN
+
+Returns:
+
+* All records from the right table
+* Matching records from the left table
+
+```sql
+SELECT
+    employees.employee_name,
+    departments.department_name
+FROM employees
+RIGHT JOIN departments
+ON employees.department_id = departments.department_id;
+```
+
+---
+
+## 4. CROSS JOIN
+
+Returns every possible combination of records.
+
+```sql
+SELECT *
+FROM employees
+CROSS JOIN departments;
+```
+
+If there are:
+
+```text
+3 Employees
+4 Departments
+```
+
+The result will contain:
+
+```text
+3 × 4 = 12 Records
+```
+
+---
+
+## 5. SELF JOIN
+
+A table joins with itself.
+
+Example: Employee and Manager.
+
+```sql
+CREATE TABLE employee_data (
+    employee_id INT PRIMARY KEY,
+    employee_name VARCHAR(50),
+    manager_id INT
+);
+```
+
+```sql
+SELECT
+    e.employee_name AS Employee,
+    m.employee_name AS Manager
+FROM employee_data e
+LEFT JOIN employee_data m
+ON e.manager_id = m.employee_id;
+```
+
+---
+
+## JOIN Summary
+
+| JOIN Type  | Returns                                   |
+| ---------- | ----------------------------------------- |
+| INNER JOIN | Matching records from both tables         |
+| LEFT JOIN  | All left records + matching right records |
+| RIGHT JOIN | All right records + matching left records |
+| CROSS JOIN | Every possible combination                |
+| SELF JOIN  | A table joined with itself                |
+
+---
+
+# 10. SQL Index
+
+## What is an Index?
+
+An **Index is used to improve the speed of data retrieval from a table.**
+
+### Create Index
+
+```sql
+CREATE INDEX idx_employee_name
+ON employees(employee_name);
+```
+
+Example query:
+
+```sql
+SELECT *
+FROM employees
+WHERE employee_name = 'Mayuri';
+```
+
+---
+
+## Types of Index
+
+### 1. Single Column Index
+
+```sql
+CREATE INDEX idx_name
+ON employees(employee_name);
+```
+
+### 2. Unique Index
+
+Does not allow duplicate values.
+
+```sql
+CREATE UNIQUE INDEX idx_email
+ON employees(email);
+```
+
+### 3. Composite Index
+
+Created using multiple columns.
+
+```sql
+CREATE INDEX idx_name_city
+ON employees(employee_name, city);
+```
+
+---
+
+## Drop Index
+
+```sql
+DROP INDEX idx_name
+ON employees;
+```
+
+---
+
+## Advantages
+
+* Faster searching
+* Improves SELECT query performance
+* Useful for large tables
+
+## Disadvantages
+
+* Uses additional storage
+* INSERT operations may become slower
+* UPDATE operations may become slower
+* DELETE operations may become slower
+
+---
+
+# 11. SQL View
+
+## What is a View?
+
+A **View is a virtual table created using a SQL query.**
+
+A View presents data based on a query and helps simplify complex queries.
+
+---
+
+## Create View
+
+```sql
+CREATE VIEW employee_view AS
+SELECT employee_name, salary
+FROM employees;
+```
+
+---
+
+## View Data
+
+```sql
+SELECT *
+FROM employee_view;
+```
+
+---
+
+## View with Condition
+
+```sql
+CREATE VIEW high_salary_employees AS
+SELECT employee_name, salary
+FROM employees
+WHERE salary > 50000;
+```
+
+---
+
+## Update or Replace View
+
+```sql
+CREATE OR REPLACE VIEW high_salary_employees AS
+SELECT employee_name, salary, city
+FROM employees
+WHERE salary > 50000;
+```
+
+---
+
+## Drop View
+
+```sql
+DROP VIEW high_salary_employees;
+```
+
+---
+
+## Advantages of View
+
+* Improves security
+* Simplifies complex queries
+* Hides unnecessary columns
+* Reuses complex SQL queries
+
+---
+
+# 12. DCL - Data Control Language
+
+DCL is used to control user access and permissions.
+
+## GRANT
+
+Used to give permissions.
+
+```sql
+GRANT SELECT
+ON employees
+TO 'username';
+```
+
+---
+
+## REVOKE
+
+Used to remove permissions.
+
+```sql
+REVOKE SELECT
+ON employees
+FROM 'username';
+```
+
+---
+
+# 13. TCL - Transaction Control Language
+
+A **transaction is a group of SQL operations performed together.**
+
+Main TCL Commands:
+
+1. COMMIT
+2. ROLLBACK
+3. SAVEPOINT
+
+---
+
+## COMMIT
+
+Saves changes permanently.
+
+```sql
+UPDATE employees
+SET salary = 60000
+WHERE employee_id = 1;
+
+COMMIT;
+```
+
+---
+
+## ROLLBACK
+
+Undoes changes before `COMMIT`.
+
+```sql
+DELETE FROM employees
+WHERE employee_id = 1;
+
+ROLLBACK;
+```
+
+---
+
+## SAVEPOINT
+
+Creates a point inside a transaction.
+
+```sql
+UPDATE employees
+SET salary = 60000
+WHERE employee_id = 1;
+
+SAVEPOINT sp1;
+
+DELETE FROM employees
+WHERE employee_id = 2;
+```
+
+Rollback to Savepoint:
+
+```sql
+ROLLBACK TO sp1;
+```
+
+Save all changes:
+
+```sql
+COMMIT;
+```
+
+---
+
+# 14. Complete SQL Example
+
+## Create Database
+
+```sql
+CREATE DATABASE company_db;
+
+USE company_db;
+```
+
+---
+
+## Create Departments Table
+
+```sql
+CREATE TABLE departments (
+    department_id INT PRIMARY KEY,
+    department_name VARCHAR(50) NOT NULL
+);
+```
+
+Insert Department Data:
+
+```sql
+INSERT INTO departments VALUES
+(101, 'IT'),
+(102, 'HR'),
+(103, 'Finance');
+```
+
+---
+
+## Create Employees Table
+
+```sql
+CREATE TABLE employees (
+    employee_id INT PRIMARY KEY,
+    employee_name VARCHAR(50) NOT NULL,
+    email VARCHAR(100) UNIQUE,
+    age INT CHECK (age >= 18),
+    salary DECIMAL(10,2),
+    city VARCHAR(50) DEFAULT 'Pune',
+    department_id INT,
+
+    FOREIGN KEY (department_id)
+    REFERENCES departments(department_id)
+);
+```
+
+---
+
+## Insert Employee Data
+
+```sql
+INSERT INTO employees
+(employee_id, employee_name, email, age, salary, department_id)
+VALUES
+(1, 'Mayuri', 'mayuri@gmail.com', 22, 50000, 101),
+(2, 'Rahul', 'rahul@gmail.com', 25, 45000, 102),
+(3, 'Sneha', 'sneha@gmail.com', 24, 60000, 101);
+```
+
+---
+
+# Practice Queries
+
+## JOIN Practice
+
+```sql
+SELECT
+    e.employee_name,
+    e.salary,
+    d.department_name
+FROM employees e
+INNER JOIN departments d
+ON e.department_id = d.department_id;
+```
+
+---
+
+## GROUP BY Practice
+
+```sql
+SELECT
+    department_id,
+    AVG(salary) AS average_salary
+FROM employees
+GROUP BY department_id;
+```
+
+---
+
+## HAVING Practice
+
+```sql
+SELECT
+    department_id,
+    AVG(salary) AS average_salary
+FROM employees
+GROUP BY department_id
+HAVING AVG(salary) > 45000;
+```
+
+---
+
+## VIEW Practice
+
+```sql
+CREATE VIEW employee_salary_view AS
+SELECT
+    employee_name,
+    salary
+FROM employees;
+```
+
+---
+
+## INDEX Practice
+
+```sql
+CREATE INDEX idx_salary
+ON employees(salary);
+```
+
+---
+
+# 🗺️ SQL Learning Roadmap
+
+```text
+SQL
+│
+├── DDL
+│   ├── CREATE
+│   ├── ALTER
+│   ├── DROP
+│   ├── TRUNCATE
+│   └── RENAME
+│
+├── DML
+│   ├── INSERT
+│   ├── UPDATE
+│   └── DELETE
+│
+├── DQL
+│   └── SELECT
+│
+├── DCL
+│   ├── GRANT
+│   └── REVOKE
+│
+├── TCL
+│   ├── COMMIT
+│   ├── ROLLBACK
+│   └── SAVEPOINT
+│
+├── Constraints
+│   ├── NOT NULL
+│   ├── UNIQUE
+│   ├── PRIMARY KEY
+│   ├── FOREIGN KEY
+│   ├── CHECK
+│   └── DEFAULT
+│
+├── Clauses
+│   ├── WHERE
+│   ├── GROUP BY
+│   ├── HAVING
+│   ├── ORDER BY
+│   ├── LIMIT
+│   └── OFFSET
+│
+├── JOINs
+│   ├── INNER JOIN
+│   ├── LEFT JOIN
+│   ├── RIGHT JOIN
+│   ├── CROSS JOIN
+│   └── SELF JOIN
+│
+├── INDEX
+│
+└── VIEW
