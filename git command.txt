@@ -1,0 +1,61 @@
+Microsoft Windows [Version 10.0.26200.8875]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\mayur\OneDrive\Desktop\streamline tech>git status
+On branch master
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+  (commit or discard the untracked or modified content in submodules)
+        deleted:    ../DataAnalysis/hello.py
+        deleted:    ../day 1/Mayuri Jadhav/index.html
+        deleted:    ../day 1/interns
+        modified:   interns (new commits, modified content)
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        ../ApplicationForm.pdf
+        ../BE.pdf
+        ../Screenshot (12).png
+        ../python/
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+C:\Users\mayur\OneDrive\Desktop\streamline tech>cd interns
+
+C:\Users\mayur\OneDrive\Desktop\streamline tech\interns>git status
+On branch main
+Your branch and 'origin/main' have diverged,
+and have 1 and 4 different commits each, respectively.
+  (use "git pull" if you want to integrate the remote branch with yours)
+
+No commands done.
+Next command to do (1 remaining command):
+   pick 6f377ff # done
+  (use "git rebase --edit-todo" to view and edit)
+
+All conflicts fixed but you are still merging.
+  (use "git commit" to conclude merge)
+
+Changes to be committed:
+        new file:   Shilpa_Shit/Images/NMC excel dashboard.png
+        modified:   Shivani Malusare/index.html
+
+
+C:\Users\mayur\OneDrive\Desktop\streamline tech\interns>git add .
+
+C:\Users\mayur\OneDrive\Desktop\streamline tech\interns>git commit -m "task done"
+[main a4ed78d] task done
+
+C:\Users\mayur\OneDrive\Desktop\streamline tech\interns>git push origin main
+Enumerating objects: 15, done.
+Counting objects: 100% (14/14), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (11/11), done.
+Writing objects: 100% (11/11), 828.79 KiB | 18.02 MiB/s, done.
+Total 11 (delta 2), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (2/2), completed with 2 local objects.
+To https://github.com/Streamline-Tech-Pvt-Ltd/interns.git
+   52d0349..a4ed78d  main -> main
+
+C:\Users\mayur\OneDrive\Desktop\streamline tech\interns>
