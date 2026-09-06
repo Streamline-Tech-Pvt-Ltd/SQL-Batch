@@ -1,0 +1,1207 @@
+1. Introduction to SQL
+What is SQL?
+
+SQL stands for Structured Query Language.
+
+SQL is a standard language used to communicate with and manage relational databases.
+
+Using SQL, we can:
+
+Create databases
+Create tables
+Insert data
+Retrieve data
+Update data
+Delete data
+Filter data
+Sort data
+Group data
+Join multiple tables
+Create views
+Create indexes
+Manage transactions
+Manage user permissions
+Real-Life Example
+
+Suppose a college has thousands of students.
+
+The college wants to store:
+
+Student ID
+Student Name
+Course
+City
+Age
+Fees
+Marks
+
+Instead of maintaining this information manually, we can store it in a database.
+
+Example table:
+
+id	name	course	city	age	fees	marks
+1	Rahul	SQL	Pune	22	25000	85
+2	Priya	Python	Nashik	21	30000	90
+3	Amit	Java	Mumbai	23	28000	78
+
+We can then use SQL to ask questions such as:
+
+SELECT *
+FROM student
+WHERE marks > 80;
+
+This returns students who scored more than 80 marks.
+
+2. What is a Database?
+
+A database is an organized collection of data that allows information to be stored, accessed, managed, and updated efficiently.
+
+Example
+
+A college database may contain:
+
+college
+│
+├── student
+├── course
+├── teacher
+├── fees
+└── department
+
+Each table stores a particular type of information.
+
+3. What is DBMS?
+
+DBMS = Database Management System
+
+A DBMS is software used to create, store, retrieve, update, and manage data in databases.
+
+Examples
+MySQL
+Microsoft Access
+SQLite
+MongoDB
+Main Functions of DBMS
+Data storage
+Data retrieval
+Data modification
+Data security
+Backup and recovery
+User management
+Data integrity
+4. What is RDBMS?
+
+RDBMS = Relational Database Management System
+
+An RDBMS stores data in tables and allows relationships between tables.
+
+Examples:
+
+MySQL
+Oracle
+PostgreSQL
+SQL Server
+Example
+
+We have two tables:
+
+Student
+student_id	name	course_id
+1	Rahul	101
+2	Priya	102
+Course
+course_id	course_name
+101	SQL
+102	Python
+
+Here course_id connects both tables.
+
+This relationship allows us to use JOIN.
+
+5. SQL Command Categories
+
+SQL commands are commonly divided into five major categories:
+
+SQL
+│
+├── DDL
+├── DML
+├── DQL
+├── DCL
+└── TCL
+Category	Full Form	Commands
+DDL	Data Definition Language	CREATE, ALTER, DROP, TRUNCATE
+DML	Data Manipulation Language	INSERT, UPDATE, DELETE
+DQL	Data Query Language	SELECT
+DCL	Data Control Language	GRANT, REVOKE
+TCL	Transaction Control Language	COMMIT, ROLLBACK, SAVEPOINT
+6. DDL — Data Definition Language
+
+DDL is used to define and modify the structure of database objects.
+
+Main commands:
+
+CREATE
+ALTER
+DROP
+TRUNCATE
+CREATE
+
+The CREATE command is used to create database objects such as databases and tables.
+
+Create Database
+CREATE DATABASE college;
+Select Database
+USE college;
+Create Table
+CREATE TABLE student (
+    id INT,
+    name VARCHAR(50),
+    course VARCHAR(50),
+    marks INT
+);
+Explanation
+id       → Student ID
+name     → Student name
+course   → Course name
+marks    → Student marks
+7. ALTER
+
+ALTER is used to modify an existing table structure.
+
+Add Column
+ALTER TABLE student
+ADD city VARCHAR(50);
+Modify Column
+ALTER TABLE student
+MODIFY name VARCHAR(100);
+Rename Column
+ALTER TABLE student
+RENAME COLUMN name TO student_name;
+Drop Column
+ALTER TABLE student
+DROP COLUMN city;
+8. DROP
+
+DROP permanently removes a database object.
+
+Drop Table
+DROP TABLE student;
+
+After this:
+
+student table
+      ↓
+   deleted
+
+Both the table structure and its data are removed.
+
+Drop Database
+DROP DATABASE college;
+9. TRUNCATE
+
+TRUNCATE removes all records from a table while keeping the table structure.
+
+TRUNCATE TABLE student;
+
+Before:
+
+id	name
+1	Rahul
+2	Priya
+3	Amit
+
+After:
+
+id	name
+empty	empty
+
+The table still exists.
+
+10. DML — Data Manipulation Language
+
+DML is used to manipulate data stored inside tables.
+
+Main commands:
+
+INSERT
+UPDATE
+DELETE
+INSERT
+
+Used to add new records.
+
+INSERT INTO student
+VALUES (1, 'Rahul', 'SQL', 85);
+Insert Specific Columns
+INSERT INTO student
+(id, name, course, marks)
+VALUES
+(2, 'Priya', 'Python', 90);
+11. UPDATE
+
+Used to modify existing data.
+
+UPDATE student
+SET marks = 95
+WHERE id = 2;
+Before
+id	name	marks
+2	Priya	90
+After
+id	name	marks
+2	Priya	95
+Important
+
+Always be careful with:
+
+UPDATE student
+SET marks = 95;
+
+Without WHERE, this can update every row.
+
+12. DELETE
+
+Used to remove records from a table.
+
+DELETE FROM student
+WHERE id = 2;
+
+Only the record with id = 2 is deleted.
+
+Delete All Rows
+DELETE FROM student;
+13. DQL — Data Query Language
+
+DQL is used to retrieve data.
+
+The main command is:
+
+SELECT
+Select All Columns
+SELECT *
+FROM student;
+Select Specific Columns
+SELECT name, marks
+FROM student;
+14. SQL Constraints
+
+Constraints are rules applied to columns to maintain data accuracy, consistency, and integrity.
+
+Main constraints:
+
+PRIMARY KEY
+FOREIGN KEY
+NOT NULL
+UNIQUE
+DEFAULT
+CHECK
+PRIMARY KEY
+
+A primary key uniquely identifies every record in a table.
+
+CREATE TABLE student (
+    id INT PRIMARY KEY,
+    name VARCHAR(50)
+);
+Properties
+Unique
+Cannot contain NULL
+Identifies each row
+A table normally has one primary key constraint
+FOREIGN KEY
+
+A foreign key creates a relationship between two tables.
+
+Parent Table
+CREATE TABLE course (
+    course_id INT PRIMARY KEY,
+    course_name VARCHAR(50)
+);
+Child Table
+CREATE TABLE student (
+    id INT PRIMARY KEY,
+    name VARCHAR(50),
+    course_id INT,
+    FOREIGN KEY (course_id)
+    REFERENCES course(course_id)
+);
+
+Here:
+
+course.course_id
+       ↑
+       │
+student.course_id
+NOT NULL
+
+Prevents a column from containing NULL values.
+
+CREATE TABLE student (
+    id INT,
+    name VARCHAR(50) NOT NULL
+);
+
+name must have a value.
+
+UNIQUE
+
+Prevents duplicate values.
+
+email VARCHAR(100) UNIQUE
+
+Example:
+
+abc@gmail.com  ✓
+xyz@gmail.com  ✓
+abc@gmail.com  ✗
+DEFAULT
+
+Provides a default value when no value is supplied.
+
+city VARCHAR(50) DEFAULT 'Pune'
+
+If city is not provided, MySQL can use:
+
+Pune
+CHECK
+
+Ensures that values satisfy a condition.
+
+age INT CHECK (age >= 18)
+
+A value such as:
+
+age = 15
+
+would violate the constraint.
+
+15. SQL Operators
+
+Operators are symbols or keywords used to perform operations and comparisons.
+
+Arithmetic Operators
++
+-
+*
+/
+%
+
+Example:
+
+SELECT fees + 5000
+FROM student;
+Comparison Operators
+=
+>
+<
+>=
+<=
+<>
+
+Example:
+
+SELECT *
+FROM student
+WHERE marks >= 80;
+Logical Operators
+AND
+OR
+NOT
+
+Example:
+
+SELECT *
+FROM student
+WHERE marks > 80
+AND city = 'Pune';
+16. SQL Clauses
+
+Clauses are used to filter, sort, group, and limit query results.
+
+Important clauses:
+
+WHERE
+ORDER BY
+GROUP BY
+HAVING
+LIMIT
+DISTINCT
+WHERE
+
+Filters records based on a condition.
+
+SELECT *
+FROM student
+WHERE marks > 80;
+ORDER BY
+
+Sorts records.
+
+Ascending
+SELECT *
+FROM student
+ORDER BY marks ASC;
+Descending
+SELECT *
+FROM student
+ORDER BY marks DESC;
+DISTINCT
+
+Returns unique values.
+
+SELECT DISTINCT city
+FROM student;
+
+If the table contains:
+
+Pune
+Pune
+Nashik
+Mumbai
+Mumbai
+
+Result:
+
+Pune
+Nashik
+Mumbai
+LIMIT
+
+Limits the number of records returned.
+
+SELECT *
+FROM student
+LIMIT 5;
+17. IN Operator
+
+Used when checking multiple possible values.
+
+SELECT *
+FROM student
+WHERE city IN ('Pune', 'Nashik', 'Mumbai');
+
+Instead of:
+
+WHERE city = 'Pune'
+OR city = 'Nashik'
+OR city = 'Mumbai';
+18. BETWEEN Operator
+
+Used to check a value within a range.
+
+SELECT *
+FROM student
+WHERE marks BETWEEN 60 AND 90;
+19. LIKE Operator
+
+Used for pattern matching.
+
+Starts with A
+SELECT *
+FROM student
+WHERE name LIKE 'A%';
+Ends with a
+SELECT *
+FROM student
+WHERE name LIKE '%a';
+Contains "it"
+SELECT *
+FROM student
+WHERE name LIKE '%it%';
+One-character wildcard
+SELECT *
+FROM student
+WHERE name LIKE 'A_it';
+
+_ represents one character.
+
+20. NULL
+
+NULL means the value is missing, unknown, or not available.
+
+Find NULL values
+SELECT *
+FROM student
+WHERE city IS NULL;
+Find non-NULL values
+SELECT *
+FROM student
+WHERE city IS NOT NULL;
+
+Do not use:
+
+WHERE city = NULL;
+
+Use:
+
+WHERE city IS NULL;
+21. Aggregate Functions
+
+Aggregate functions perform calculations on multiple rows.
+
+Main functions:
+
+COUNT()
+SUM()
+AVG()
+MAX()
+MIN()
+COUNT()
+SELECT COUNT(*)
+FROM student;
+
+Returns the number of rows.
+
+SUM()
+SELECT SUM(fees)
+FROM student;
+
+Returns total fees.
+
+AVG()
+SELECT AVG(marks)
+FROM student;
+
+Returns average marks.
+
+MAX()
+SELECT MAX(marks)
+FROM student;
+
+Returns highest marks.
+
+MIN()
+SELECT MIN(marks)
+FROM student;
+
+Returns lowest marks.
+
+22. GROUP BY
+
+GROUP BY groups rows having the same value.
+
+Example:
+
+SELECT city, COUNT(*)
+FROM student
+GROUP BY city;
+
+Result:
+
+city	count
+Pune	2
+Nashik	2
+Mumbai	1
+23. HAVING
+
+HAVING filters groups created by GROUP BY.
+
+SELECT city, COUNT(*)
+FROM student
+GROUP BY city
+HAVING COUNT(*) > 1;
+Difference
+WHERE
+ ↓
+Filters individual rows
+
+HAVING
+ ↓
+Filters grouped results
+24. JOINS
+
+A JOIN combines related data from two or more tables.
+
+Suppose:
+
+Student
+id	name	course_id
+1	Rahul	101
+2	Priya	102
+Course
+course_id	course_name
+101	SQL
+102	Python
+
+We can combine them using:
+
+SELECT student.name, course.course_name
+FROM student
+INNER JOIN course
+ON student.course_id = course.course_id;
+
+Result:
+
+name	course_name
+Rahul	SQL
+Priya	Python
+25. INNER JOIN
+
+Returns only matching records from both tables.
+
+SELECT *
+FROM student
+INNER JOIN course
+ON student.course_id = course.course_id;
+Simple Meaning
+Table A ∩ Table B
+
+Only matching data.
+
+26. LEFT JOIN
+
+Returns:
+
+All records from left table
+Matching records from right table
+SELECT *
+FROM student
+LEFT JOIN course
+ON student.course_id = course.course_id;
+
+If no matching course exists, the course columns can contain NULL.
+
+27. RIGHT JOIN
+
+Returns:
+
+All records from right table
+Matching records from left table
+SELECT *
+FROM student
+RIGHT JOIN course
+ON student.course_id = course.course_id;
+28. FULL OUTER JOIN
+
+Returns all records from both tables, matching where possible.
+
+Conceptually:
+
+All LEFT records
++
+All RIGHT records
+
+MySQL does not directly support FULL OUTER JOIN syntax, so it can be simulated with UNION using left and right joins.
+
+29. CROSS JOIN
+
+Returns the Cartesian product of two tables.
+
+SELECT *
+FROM student
+CROSS JOIN course;
+
+If:
+
+student = 5 rows
+course = 3 rows
+
+Result:
+
+5 × 3 = 15 rows
+30. SELF JOIN
+
+A table is joined with itself.
+
+Useful for hierarchical relationships such as:
+
+Employee
+   ↓
+Manager
+
+Example:
+
+SELECT
+    e.name AS employee,
+    m.name AS manager
+FROM employee e
+LEFT JOIN employee m
+ON e.manager_id = m.id;
+31. Subquery
+
+A subquery is a query inside another query.
+
+Example:
+
+SELECT name, marks
+FROM student
+WHERE marks >
+(
+    SELECT AVG(marks)
+    FROM student
+);
+How it works
+
+First:
+
+SELECT AVG(marks)
+FROM student;
+
+Suppose result is:
+
+83
+
+Then:
+
+SELECT name, marks
+FROM student
+WHERE marks > 83;
+32. VIEW
+
+A View is a virtual table based on a SQL query.
+
+Create View
+CREATE VIEW student_view AS
+SELECT id, name, course, marks
+FROM student;
+Use View
+SELECT *
+FROM student_view;
+Delete View
+DROP VIEW student_view;
+Why use Views?
+Simplify complex queries
+Improve security
+Hide unnecessary columns
+Reuse frequently needed queries
+33. INDEX
+
+An Index is a database structure that helps improve data retrieval performance.
+
+Example:
+
+CREATE INDEX idx_student_name
+ON student(name);
+
+Now searches involving the indexed column can potentially be faster.
+
+View indexes
+SHOW INDEX FROM student;
+Delete index
+DROP INDEX idx_student_name
+ON student;
+Important
+
+Indexes improve read/search performance, but they require storage and can add overhead when inserting, updating, or deleting data.
+
+34. DCL
+
+DCL = Data Control Language
+
+DCL controls user permissions.
+
+Main commands:
+
+GRANT
+REVOKE
+GRANT
+
+Gives permission.
+
+GRANT SELECT
+ON streamlinetech.student
+TO 'shivani'@'localhost';
+REVOKE
+
+Removes permission.
+
+REVOKE SELECT
+ON streamlinetech.student
+FROM 'shivani'@'localhost';
+35. TCL
+
+TCL = Transaction Control Language
+
+TCL manages transactions.
+
+Main commands:
+
+COMMIT
+ROLLBACK
+SAVEPOINT
+COMMIT
+
+Permanently saves changes.
+
+COMMIT;
+ROLLBACK
+
+Undoes uncommitted changes.
+
+ROLLBACK;
+SAVEPOINT
+
+Creates a checkpoint.
+
+SAVEPOINT s1;
+ROLLBACK TO SAVEPOINT
+
+Returns to a specific savepoint.
+
+ROLLBACK TO SAVEPOINT s1;
+36. Transaction
+
+A transaction is a logical unit of work containing one or more database operations.
+
+Example: Bank transfer
+
+Account A
+   ↓
+- ₹1000
+
+Account B
+   ↓
++ ₹1000
+
+Both operations should be handled consistently.
+
+ACID Properties
+Atomicity
+
+All operations succeed or the transaction is rolled back.
+
+Consistency
+
+The database moves from one valid state to another valid state.
+
+Isolation
+
+Concurrent transactions are controlled so their intermediate states do not improperly interfere.
+
+Durability
+
+Once committed, changes persist.
+
+37. SQL Keys
+Primary Key
+
+Uniquely identifies a row.
+
+id INT PRIMARY KEY
+Foreign Key
+
+Creates a relationship between tables.
+
+FOREIGN KEY (course_id)
+REFERENCES course(course_id)
+Candidate Key
+
+A candidate key is a minimal column or set of columns that can uniquely identify a row and can therefore be chosen as the primary key.
+
+Alternate Key
+
+A candidate key that was not selected as the primary key.
+
+Composite Key
+
+A key made from two or more columns.
+
+PRIMARY KEY (student_id, course_id);
+38. String Functions
+UPPER()
+SELECT UPPER(name)
+FROM student;
+
+Converts text to uppercase.
+
+LOWER()
+SELECT LOWER(name)
+FROM student;
+
+Converts text to lowercase.
+
+LENGTH()
+SELECT LENGTH(name)
+FROM student;
+
+Returns string length.
+
+CONCAT()
+SELECT CONCAT(name, ' - ', course)
+FROM student;
+
+Combines strings.
+
+39. Date Functions
+Current Date
+SELECT CURDATE();
+Current Date and Time
+SELECT NOW();
+Year
+SELECT YEAR(dob)
+FROM student;
+Month
+SELECT MONTH(dob)
+FROM student;
+40. CASE Statement
+
+CASE is used to implement conditional logic.
+
+SELECT name, marks,
+CASE
+    WHEN marks >= 80 THEN 'Excellent'
+    WHEN marks >= 60 THEN 'Good'
+    WHEN marks >= 40 THEN 'Pass'
+    ELSE 'Fail'
+END AS result
+FROM student;
+
+Example:
+
+Marks = 85
+   ↓
+marks >= 80
+   ↓
+Excellent
+41. Stored Procedure
+
+A Stored Procedure is a named collection of SQL statements stored in the database.
+
+Example:
+
+DELIMITER //
+
+CREATE PROCEDURE get_students()
+BEGIN
+    SELECT *
+    FROM student;
+END //
+
+DELIMITER ;
+
+Execute:
+
+CALL get_students();
+Advantages
+Reusable
+Centralized logic
+Can reduce repeated SQL
+Useful for application/database operations
+42. Trigger
+
+A Trigger automatically executes when a specified database event occurs.
+
+Example:
+
+CREATE TRIGGER before_student_insert
+BEFORE INSERT ON student
+FOR EACH ROW
+SET NEW.name = UPPER(NEW.name);
+
+This trigger converts the new student's name to uppercase before insertion.
+
+43. Normalization
+
+Normalization is the process of organizing data to reduce unnecessary redundancy and improve data integrity.
+
+Common Normal Forms
+1NF
+2NF
+3NF
+BCNF
+1NF
+Atomic values
+No repeating groups
+2NF
+Must be in 1NF
+No partial dependency on part of a composite key
+3NF
+Must be in 2NF
+No transitive dependency
+44. DELETE vs TRUNCATE vs DROP
+Feature	DELETE	TRUNCATE	DROP
+Removes rows	Yes	All rows	Table itself
+WHERE	Yes	No	No
+Structure remains	Yes	Yes	No
+Command category	DML	DDL	DDL
+Can target selected rows	Yes	No	No
+45. WHERE vs HAVING
+WHERE	HAVING
+Filters rows	Filters groups
+Used before grouping	Used after grouping
+Commonly used with SELECT/UPDATE/DELETE	Commonly used with GROUP BY
+Cannot normally use aggregate result directly as a row filter	Designed for group-level conditions
+
+Example:
+
+WHERE marks > 80
+
+versus:
+
+HAVING AVG(marks) > 80
+46. GRANT vs REVOKE
+GRANT
+  ↓
+Give permission
+
+REVOKE
+  ↓
+Remove permission
+47. COMMIT vs ROLLBACK
+COMMIT
+  ↓
+Save transaction changes
+
+ROLLBACK
+  ↓
+Undo uncommitted transaction changes
+48. SQL Query Execution Order
+
+A SQL query is normally written as:
+
+SELECT
+FROM
+WHERE
+GROUP BY
+HAVING
+ORDER BY
+LIMIT;
+
+The logical processing order is commonly understood as:
+
+FROM
+ ↓
+WHERE
+ ↓
+GROUP BY
+ ↓
+HAVING
+ ↓
+SELECT
+ ↓
+ORDER BY
+ ↓
+LIMIT
+
+Understanding this is very important for interviews.
+
+49. Complete Practice Database
+
+Use this database for practicing most SQL concepts.
+
+CREATE DATABASE streamlinetech;
+
+USE streamlinetech;
+
+CREATE TABLE student (
+    id INT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    course VARCHAR(50),
+    city VARCHAR(50),
+    age INT,
+    fees DECIMAL(10,2),
+    marks INT
+);
+Insert Data
+INSERT INTO student
+VALUES
+(1, 'Rahul', 'SQL', 'Pune', 22, 25000, 85),
+(2, 'Priya', 'Python', 'Nashik', 21, 30000, 90),
+(3, 'Amit', 'Java', 'Mumbai', 23, 28000, 78),
+(4, 'Sneha', 'SQL', 'Pune', 22, 25000, 88),
+(5, 'Rohit', 'Python', 'Nashik', 24, 30000, 72);
+Basic Queries
+SELECT * FROM student;
+SELECT name, course
+FROM student;
+SELECT *
+FROM student
+WHERE marks > 80;
+SELECT *
+FROM student
+ORDER BY marks DESC;
+SELECT DISTINCT city
+FROM student;
+SELECT COUNT(*)
+FROM student;
+SELECT AVG(marks)
+FROM student;
+SELECT MAX(marks)
+FROM student;
+SELECT MIN(marks)
+FROM student;
+SELECT SUM(fees)
+FROM student;
+SELECT city, COUNT(*)
+FROM student
+GROUP BY city;
+50. Important Interview Questions
+What is SQL?
+
+SQL is a language used to interact with relational databases.
+
+What is a database?
+
+A database is an organized collection of data.
+
+What is a primary key?
+
+A primary key uniquely identifies each record in a table.
+
+What is a foreign key?
+
+A foreign key is used to establish and enforce relationships between tables.
+
+What is a JOIN?
+
+A JOIN combines related rows from multiple tables.
+
+What is a View?
+
+A View is a virtual table based on a SQL query.
+
+What is an Index?
+
+An Index is a database structure used to improve data retrieval performance.
+
+What is a transaction?
+
+A transaction is a logical unit of database work.
+
+What is DCL?
+
+DCL controls database user permissions.
+
+What is TCL?
+
+TCL manages transactions.
+
+What is normalization?
+
+Normalization organizes relational data to reduce unnecessary redundancy and improve integrity.
+
+📁 Recommended GitHub Repository
+SQL-Complete-Course/
+│
+├── README.md
+│
+├── 01-SQL-Introduction.md
+├── 02-DBMS-RDBMS.md
+├── 03-Database-and-Tables.md
+├── 04-SQL-Data-Types.md
+├── 05-DDL-Commands.md
+├── 06-DML-Commands.md
+├── 07-DQL-Commands.md
+├── 08-SQL-Constraints.md
+├── 09-SQL-Operators.md
+├── 10-SQL-Clauses.md
+├── 11-Aggregate-Functions.md
+├── 12-String-Functions.md
+├── 13-Date-Functions.md
+├── 14-SQL-Joins.md
+├── 15-Subqueries.md
+├── 16-Views.md
+├── 17-Indexes.md
+├── 18-SQL-Keys.md
+├── 19-DCL.md
+├── 20-TCL.md
+├── 21-Transactions.md
+├── 22-ACID-Properties.md
+├── 23-Normalization.md
+├── 24-Stored-Procedures.md
+├── 25-Triggers.md
+├── 26-Case-Statement.md
+├── 27-Practice-Queries.md
+└── 28-SQL-Interview-Questions.md
+
