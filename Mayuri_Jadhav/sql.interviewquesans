@@ -1,0 +1,1349 @@
+# SQL Important Interview Questions & Answers
+
+## 1. What is SQL?
+
+**SQL (Structured Query Language)** is used to store, retrieve, update, and manage data in a relational database.
+
+---
+
+## 2. What is a Database?
+
+A database is an organized collection of data.
+
+**Examples:**
+
+* Employee Database
+* Student Database
+* Customer Database
+
+---
+
+## 3. What is DBMS?
+
+**DBMS (Database Management System)** is software used to create and manage databases.
+
+**Examples:** MySQL, Oracle.
+
+---
+
+## 4. What is RDBMS?
+
+**RDBMS (Relational Database Management System)** stores data in tables that are related to each other.
+
+**Examples:** MySQL, PostgreSQL, Oracle.
+
+---
+
+## 5. What is a Table?
+
+A table stores data in the form of **rows and columns**.
+
+---
+
+## 6. What is a Row?
+
+A row represents a single record in a table.
+
+---
+
+## 7. What is a Column?
+
+A column represents an attribute of data.
+
+**Example:**
+
+* Name
+* Salary
+* Email
+* Department
+
+---
+
+# SQL Commands
+
+## 8. What are the types of SQL Commands?
+
+| Type | Full Form                    |
+| ---- | ---------------------------- |
+| DDL  | Data Definition Language     |
+| DML  | Data Manipulation Language   |
+| DQL  | Data Query Language          |
+| DCL  | Data Control Language        |
+| TCL  | Transaction Control Language |
+
+---
+
+## 9. What is DDL?
+
+DDL is used to define or change the structure of a database.
+
+**Commands:**
+
+```sql
+CREATE
+ALTER
+DROP
+TRUNCATE
+```
+
+---
+
+## 10. What is DML?
+
+DML is used to manipulate data in a table.
+
+**Commands:**
+
+```sql
+INSERT
+UPDATE
+DELETE
+```
+
+---
+
+## 11. What is DQL?
+
+DQL is used to retrieve data from a database.
+
+**Command:**
+
+```sql
+SELECT
+```
+
+---
+
+## 12. What is DCL?
+
+DCL is used to control database access and permissions.
+
+**Commands:**
+
+```sql
+GRANT
+REVOKE
+```
+
+---
+
+## 13. What is TCL?
+
+TCL is used to manage database transactions.
+
+**Commands:**
+
+```sql
+COMMIT
+ROLLBACK
+SAVEPOINT
+```
+
+---
+
+# SQL Constraints
+
+## 14. What is a Constraint?
+
+Constraints are rules applied to columns to control the type of data that can be stored.
+
+---
+
+## 15. What are the types of Constraints?
+
+* NOT NULL
+* UNIQUE
+* PRIMARY KEY
+* FOREIGN KEY
+* CHECK
+* DEFAULT
+
+---
+
+## 16. What is PRIMARY KEY?
+
+A Primary Key uniquely identifies each row in a table.
+
+**Rules:**
+
+* Cannot contain NULL values.
+* Cannot contain duplicate values.
+
+---
+
+## 17. What is FOREIGN KEY?
+
+A Foreign Key creates a relationship between two tables.
+
+---
+
+## 18. Difference Between PRIMARY KEY and FOREIGN KEY
+
+| Primary Key               | Foreign Key                   |
+| ------------------------- | ----------------------------- |
+| Uniquely identifies rows  | Connects two tables           |
+| Cannot contain NULL       | Can contain NULL              |
+| One Primary Key per table | Multiple Foreign Keys allowed |
+
+---
+
+## 19. What is UNIQUE Constraint?
+
+The UNIQUE constraint prevents duplicate values in a column.
+
+---
+
+## 20. Difference Between PRIMARY KEY and UNIQUE
+
+| Primary Key         | UNIQUE                              |
+| ------------------- | ----------------------------------- |
+| Cannot contain NULL | NULL may be allowed                 |
+| Only one per table  | Multiple UNIQUE constraints allowed |
+| Always unique       | Values must be unique               |
+
+---
+
+## 21. What is NOT NULL?
+
+NOT NULL prevents a column from storing NULL values.
+
+---
+
+## 22. What is DEFAULT?
+
+DEFAULT assigns a default value when no value is provided.
+
+### Example
+
+```sql
+status VARCHAR(20) DEFAULT 'Active'
+```
+
+---
+
+## 23. What is CHECK Constraint?
+
+CHECK restricts values based on a condition.
+
+### Example
+
+```sql
+age INT CHECK (age >= 18)
+```
+
+---
+
+# SQL Clauses
+
+## 24. What is WHERE Clause?
+
+WHERE is used to filter records based on a condition.
+
+```sql
+SELECT *
+FROM employee
+WHERE salary > 30000;
+```
+
+---
+
+## 25. What is ORDER BY?
+
+ORDER BY is used to sort data.
+
+```sql
+SELECT *
+FROM employee
+ORDER BY salary DESC;
+```
+
+---
+
+## 26. What is GROUP BY?
+
+GROUP BY is used to group rows with the same values.
+
+```sql
+SELECT department, COUNT(*)
+FROM employee
+GROUP BY department;
+```
+
+---
+
+## 27. What is HAVING?
+
+HAVING is used to filter grouped data.
+
+```sql
+SELECT department, COUNT(*)
+FROM employee
+GROUP BY department
+HAVING COUNT(*) > 5;
+```
+
+---
+
+## 28. Difference Between WHERE and HAVING
+
+| WHERE                       | HAVING                |
+| --------------------------- | --------------------- |
+| Filters rows                | Filters groups        |
+| Used before GROUP BY        | Used after GROUP BY   |
+| Works on individual records | Works on grouped data |
+
+---
+
+## 29. What is DISTINCT?
+
+DISTINCT is used to remove duplicate values.
+
+```sql
+SELECT DISTINCT department
+FROM employee;
+```
+
+---
+
+## 30. What is LIMIT?
+
+LIMIT is used to limit the number of records returned.
+
+```sql
+SELECT *
+FROM employee
+LIMIT 5;
+```
+
+---
+
+# SQL Joins
+
+## 31. What is JOIN?
+
+JOIN is used to combine data from two or more tables based on a related column.
+
+---
+
+## 32. What are the Types of JOIN?
+
+* INNER JOIN
+* LEFT JOIN
+* RIGHT JOIN
+* CROSS JOIN
+
+---
+
+## 33. What is INNER JOIN?
+
+INNER JOIN returns only matching records from both tables.
+
+```sql
+SELECT e.name, d.department_name
+FROM employee e
+INNER JOIN department d
+ON e.department_id = d.department_id;
+```
+
+---
+
+## 34. What is LEFT JOIN?
+
+LEFT JOIN returns all records from the left table and matching records from the right table.
+
+---
+
+## 35. What is RIGHT JOIN?
+
+RIGHT JOIN returns all records from the right table and matching records from the left table.
+
+---
+
+## 36. Difference Between INNER JOIN and LEFT JOIN
+
+| INNER JOIN                    | LEFT JOIN                      |
+| ----------------------------- | ------------------------------ |
+| Returns matching records      | Returns all left table records |
+| Unmatched records are removed | Unmatched values become NULL   |
+
+---
+
+# SQL Keys
+
+## 37. What is a Candidate Key?
+
+A Candidate Key is a column or combination of columns that can uniquely identify a row.
+
+---
+
+## 38. What is a Super Key?
+
+A Super Key is a column or combination of columns that uniquely identifies a row.
+
+It may contain additional columns.
+
+---
+
+## 39. What is a Composite Key?
+
+A Composite Key is a key created using two or more columns.
+
+### Example
+
+```sql
+PRIMARY KEY (student_id, course_id)
+```
+
+---
+
+# SQL Functions
+
+## 40. What is an Aggregate Function?
+
+An Aggregate Function performs calculations on multiple rows and returns a single result.
+
+---
+
+## 41. Name Some Aggregate Functions
+
+```sql
+COUNT()
+SUM()
+AVG()
+MIN()
+MAX()
+```
+
+---
+
+## 42. Difference Between COUNT(*) and COUNT(column)
+
+| COUNT(*)                | COUNT(column)               |
+| ----------------------- | --------------------------- |
+| Counts all rows         | Does not count NULL values  |
+| Includes rows with NULL | Counts only non-NULL values |
+
+---
+
+# NULL Values
+
+## 43. What is NULL?
+
+NULL means the value is missing, unknown, or not available.
+
+---
+
+## 44. How Do You Check NULL Values?
+
+```sql
+SELECT *
+FROM employee
+WHERE salary IS NULL;
+```
+
+---
+
+## 45. Difference Between NULL and 0
+
+| NULL                     | 0                    |
+| ------------------------ | -------------------- |
+| Unknown or missing value | Actual numeric value |
+| No value                 | Value is zero        |
+
+---
+
+# DELETE vs TRUNCATE vs DROP
+
+## 46. Difference Between DELETE, TRUNCATE and DROP
+
+| DELETE                | TRUNCATE             | DROP                       |
+| --------------------- | -------------------- | -------------------------- |
+| Deletes selected rows | Deletes all rows     | Deletes complete table     |
+| WHERE can be used     | WHERE cannot be used | Table structure is deleted |
+| Table remains         | Table remains        | Table is removed           |
+
+---
+
+# Index and View
+
+## 47. What is an Index?
+
+An Index improves the speed of data retrieval.
+
+---
+
+## 48. What is a View?
+
+A View is a virtual table created using an SQL query.
+
+---
+
+## 49. Why Do We Use Views?
+
+* Simplify complex queries.
+* Improve security.
+* Hide unnecessary columns.
+* Reuse frequently used queries.
+
+---
+
+# Subquery
+
+## 50. What is a Subquery?
+
+A Subquery is a query inside another SQL query.
+
+### Example
+
+```sql
+SELECT *
+FROM employee
+WHERE salary > (
+    SELECT AVG(salary)
+    FROM employee
+);
+```
+
+---
+
+# Transactions
+
+## 51. What is a Transaction?
+
+A Transaction is a group of SQL operations treated as a single unit.
+
+---
+
+## 52. What is COMMIT?
+
+COMMIT permanently saves changes in the database.
+
+```sql
+COMMIT;
+```
+
+---
+
+## 53. What is ROLLBACK?
+
+ROLLBACK cancels changes that have not been committed.
+
+```sql
+ROLLBACK;
+```
+
+---
+
+## 54. What is SAVEPOINT?
+
+SAVEPOINT creates a point inside a transaction to which you can roll back.
+
+```sql
+SAVEPOINT sp1;
+```
+
+---
+
+# ACID Properties
+
+## 55. What are ACID Properties?
+
+### Atomicity
+
+A transaction is either completed fully or not completed at all.
+
+### Consistency
+
+Data remains valid before and after a transaction.
+
+### Isolation
+
+Transactions work independently.
+
+### Durability
+
+Committed data remains permanently saved.
+
+---
+
+# Important SQL Interview Queries
+
+## 56. Find the Second Highest Salary
+
+```sql
+SELECT MAX(salary)
+FROM employee
+WHERE salary < (
+    SELECT MAX(salary)
+    FROM employee
+);
+```
+
+---
+
+## 57. Find Duplicate Records
+
+```sql
+SELECT name, COUNT(*)
+FROM employee
+GROUP BY name
+HAVING COUNT(*) > 1;
+```
+
+---
+
+## 58. Find Employees with Salary Greater Than Average Salary
+
+```sql
+SELECT *
+FROM employee
+WHERE salary > (
+    SELECT AVG(salary)
+    FROM employee
+);
+```
+
+---
+
+## 59. Find the Highest Salary
+
+```sql
+SELECT MAX(salary)
+FROM employee;
+```
+
+---
+
+## 60. Find the Lowest Salary
+
+```sql
+SELECT MIN(salary)
+FROM employee;
+```
+
+---
+
+## 61. Count Total Employees
+
+```sql
+SELECT COUNT(*)
+FROM employee;
+```
+
+---
+
+## 62. Find Employees Whose Name Starts with 'A'
+
+```sql
+SELECT *
+FROM employee
+WHERE name LIKE 'A%';
+```
+
+---
+
+## 63. Find Employees Whose Name Ends with 'a'
+
+```sql
+SELECT *
+FROM employee
+WHERE name LIKE '%a';
+```
+
+---
+
+## 64. Find Employees Whose Salary is Between 30000 and 50000
+
+```sql
+SELECT *
+FROM employee
+WHERE salary BETWEEN 30000 AND 50000;
+```
+
+---
+
+## 65. Find Employees from Multiple Departments
+
+```sql
+SELECT *
+FROM employee
+WHERE department IN ('HR', 'IT');
+```
+
+---
+
+## 66. Find the Top 5 Highest Salaries
+
+```sql
+SELECT *
+FROM employee
+ORDER BY salary DESC
+LIMIT 5;
+```
+
+---
+
+## 67. Find Employees with NULL Values
+
+```sql
+SELECT *
+FROM employee
+WHERE email IS NULL;
+```
+
+---
+
+## 68. What is LIKE?
+
+LIKE is used for pattern matching.
+
+```sql
+SELECT *
+FROM employee
+WHERE name LIKE 'A%';
+```
+
+---
+
+## 69. What is IN?
+
+IN checks whether a value exists in a specified list.
+
+```sql
+SELECT *
+FROM employee
+WHERE department IN ('HR', 'IT');
+```
+
+---
+
+## 70. What is BETWEEN?
+
+BETWEEN selects values within a specified range.
+
+```sql
+SELECT *
+FROM employee
+WHERE salary BETWEEN 30000 AND 50000;
+
+
+# More Important SQL Interview Questions & Answers
+
+## 71. What is the difference between SQL and MySQL?
+
+| SQL                 | MySQL                        |
+| ------------------- | ---------------------------- |
+| SQL is a language   | MySQL is a database software |
+| Used to manage data | Uses SQL to manage data      |
+| Standard language   | RDBMS                        |
+
+---
+
+## 72. What is the difference between DBMS and RDBMS?
+
+| DBMS                            | RDBMS                         |
+| ------------------------------- | ----------------------------- |
+| Stores data                     | Stores data in related tables |
+| Relationships are not necessary | Tables can have relationships |
+| Less structured                 | More structured               |
+
+---
+
+## 73. What is UNION?
+
+UNION combines the results of two or more SELECT queries and removes duplicate records.
+
+```sql
+SELECT name FROM employee
+UNION
+SELECT name FROM customer;
+```
+
+---
+
+## 74. What is UNION ALL?
+
+UNION ALL combines results of two or more SELECT queries and includes duplicate records.
+
+```sql
+SELECT name FROM employee
+UNION ALL
+SELECT name FROM customer;
+```
+
+---
+
+## 75. Difference Between UNION and UNION ALL
+
+| UNION                  | UNION ALL           |
+| ---------------------- | ------------------- |
+| Removes duplicates     | Keeps duplicates    |
+| Slower                 | Faster              |
+| Returns unique records | Returns all records |
+
+---
+
+## 76. What is CHAR?
+
+CHAR stores fixed-length text.
+
+**Example:**
+
+```sql
+gender CHAR(1)
+```
+
+---
+
+## 77. What is VARCHAR?
+
+VARCHAR stores variable-length text.
+
+**Example:**
+
+```sql
+name VARCHAR(100)
+```
+
+---
+
+## 78. Difference Between CHAR and VARCHAR
+
+| CHAR                       | VARCHAR                       |
+| -------------------------- | ----------------------------- |
+| Fixed length               | Variable length               |
+| Uses fixed storage         | Uses storage based on data    |
+| Faster for fixed-size data | Better for variable-size data |
+
+---
+
+## 79. What is an Alias in SQL?
+
+Alias gives a temporary name to a table or column.
+
+```sql
+SELECT name AS employee_name
+FROM employee;
+```
+
+---
+
+## 80. What is the AS Keyword?
+
+AS is used to create an alias for a column or table.
+
+```sql
+SELECT name AS employee_name
+FROM employee;
+```
+
+---
+
+## 81. What is a Schema?
+
+A schema is the logical structure that organizes database objects such as tables and views.
+
+---
+
+## 82. What is Data Integrity?
+
+Data Integrity means maintaining accurate, valid, and consistent data.
+
+---
+
+## 83. What is Referential Integrity?
+
+Referential Integrity ensures that relationships between tables remain valid.
+
+It is mainly maintained using a **Foreign Key**.
+
+---
+
+## 84. What is Normalization?
+
+Normalization is the process of organizing data to reduce redundancy and improve data consistency.
+
+---
+
+## 85. What are Normal Forms?
+
+Common normal forms are:
+
+* 1NF
+* 2NF
+* 3NF
+* BCNF
+
+---
+
+## 86. What is 1NF?
+
+A table is in **First Normal Form (1NF)** when:
+
+* Each column contains atomic values.
+* No repeating groups exist.
+
+---
+
+## 87. What is 2NF?
+
+A table is in **Second Normal Form (2NF)** when:
+
+* It is already in 1NF.
+* There is no partial dependency.
+
+---
+
+## 88. What is 3NF?
+
+A table is in **Third Normal Form (3NF)** when:
+
+* It is already in 2NF.
+* There is no transitive dependency.
+
+---
+
+## 89. What is Denormalization?
+
+Denormalization is the process of adding redundant data to improve query performance.
+
+---
+
+## 90. What is Data Redundancy?
+
+Data Redundancy means storing the same data multiple times unnecessarily.
+
+---
+
+# SQL Advanced Concepts
+
+## 91. What is a Stored Procedure?
+
+A Stored Procedure is a saved set of SQL statements that can be executed when needed.
+
+---
+
+## 92. What is a Trigger?
+
+A Trigger is automatically executed when a specific database event occurs.
+
+**Example Events:**
+
+* INSERT
+* UPDATE
+* DELETE
+
+---
+
+## 93. What is a Cursor?
+
+A Cursor is used to process query results one row at a time.
+
+---
+
+## 94. What is a Self Join?
+
+A Self Join joins a table with itself.
+
+```sql
+SELECT e.name, m.name AS manager
+FROM employee e
+JOIN employee m
+ON e.manager_id = m.id;
+```
+
+---
+
+## 95. What is CROSS JOIN?
+
+CROSS JOIN returns every possible combination of rows from two tables.
+
+---
+
+## 96. What is FULL OUTER JOIN?
+
+FULL OUTER JOIN returns:
+
+* Matching records
+* Unmatched records from the left table
+* Unmatched records from the right table
+
+> Note: MySQL does not directly support FULL OUTER JOIN.
+
+---
+
+## 97. What is COALESCE()?
+
+COALESCE() returns the first non-NULL value.
+
+```sql
+SELECT COALESCE(phone, 'Not Available')
+FROM employee;
+```
+
+---
+
+## 98. What is IFNULL() in MySQL?
+
+IFNULL() replaces a NULL value with another value.
+
+```sql
+SELECT IFNULL(phone, 'Not Available')
+FROM employee;
+```
+
+---
+
+## 99. What is CASE Statement?
+
+CASE works like an IF-ELSE condition in SQL.
+
+```sql
+SELECT name,
+CASE
+    WHEN salary >= 50000 THEN 'High'
+    ELSE 'Low'
+END AS salary_category
+FROM employee;
+```
+
+---
+
+## 100. What is OFFSET?
+
+OFFSET is used to skip a specified number of rows.
+
+```sql
+SELECT *
+FROM employee
+LIMIT 5 OFFSET 10;
+```
+
+---
+
+# Most Important SQL Query Questions
+
+## 101. Find the Third Highest Salary
+
+```sql
+SELECT DISTINCT salary
+FROM employee
+ORDER BY salary DESC
+LIMIT 1 OFFSET 2;
+```
+
+---
+
+## 102. Find the Nth Highest Salary
+
+```sql
+SELECT DISTINCT salary
+FROM employee
+ORDER BY salary DESC
+LIMIT 1 OFFSET N-1;
+```
+
+---
+
+## 103. Find Duplicate Values
+
+```sql
+SELECT name, COUNT(*)
+FROM employee
+GROUP BY name
+HAVING COUNT(*) > 1;
+```
+
+---
+
+## 104. Delete Duplicate Records
+
+```sql
+DELETE e1
+FROM employee e1
+JOIN employee e2
+ON e1.name = e2.name
+AND e1.id > e2.id;
+```
+
+---
+
+## 105. Find Employees with the Same Salary
+
+```sql
+SELECT salary
+FROM employee
+GROUP BY salary
+HAVING COUNT(*) > 1;
+```
+
+---
+
+## 106. Find the Department with the Highest Average Salary
+
+```sql
+SELECT department, AVG(salary) AS avg_salary
+FROM employee
+GROUP BY department
+ORDER BY avg_salary DESC
+LIMIT 1;
+```
+
+---
+
+## 107. Find Employees Who Do Not Have a Department
+
+```sql
+SELECT *
+FROM employee
+WHERE department_id IS NULL;
+```
+
+---
+
+## 108. Find Employees Who Have a Manager
+
+```sql
+SELECT *
+FROM employee
+WHERE manager_id IS NOT NULL;
+```
+
+---
+
+## 109. Find Total Salary Department-Wise
+
+```sql
+SELECT department, SUM(salary) AS total_salary
+FROM employee
+GROUP BY department;
+```
+
+---
+
+## 110. Find Average Salary Department-Wise
+
+```sql
+SELECT department, AVG(salary) AS average_salary
+FROM employee
+GROUP BY department;
+```
+
+---
+
+## 111. Find the Number of Employees in Each Department
+
+```sql
+SELECT department, COUNT(*) AS total_employees
+FROM employee
+GROUP BY department;
+```
+
+---
+
+## 112. Find Employees with Salary Greater Than 50000
+
+```sql
+SELECT *
+FROM employee
+WHERE salary > 50000;
+```
+
+---
+
+## 113. Find the Highest Salary in Each Department
+
+```sql
+SELECT department, MAX(salary) AS highest_salary
+FROM employee
+GROUP BY department;
+```
+
+---
+
+## 114. Find the Lowest Salary in Each Department
+
+```sql
+SELECT department, MIN(salary) AS lowest_salary
+FROM employee
+GROUP BY department;
+```
+
+---
+
+## 115. Find Employees Whose Salary Is Equal to the Highest Salary
+
+```sql
+SELECT *
+FROM employee
+WHERE salary = (
+    SELECT MAX(salary)
+    FROM employee
+);
+```
+
+---
+
+## 116. Find Employees Whose Salary Is Equal to the Second Highest Salary
+
+```sql
+SELECT *
+FROM employee
+WHERE salary = (
+    SELECT MAX(salary)
+    FROM employee
+    WHERE salary < (
+        SELECT MAX(salary)
+        FROM employee
+    )
+);
+```
+
+---
+
+## 117. Find the Total Number of Departments
+
+```sql
+SELECT COUNT(DISTINCT department)
+FROM employee;
+```
+
+---
+
+## 118. Find Employees Hired in a Specific Year
+
+```sql
+SELECT *
+FROM employee
+WHERE YEAR(hire_date) = 2025;
+```
+
+---
+
+## 119. Find Employees Hired in the Last 30 Days
+
+```sql
+SELECT *
+FROM employee
+WHERE hire_date >= CURDATE() - INTERVAL 30 DAY;
+```
+
+---
+
+## 120. Find the First 5 Records
+
+```sql
+SELECT *
+FROM employee
+LIMIT 5;
+```
+
+---
+
+# Window Functions
+
+## 121. What is a Window Function?
+
+A Window Function performs calculations across related rows without grouping them into one row.
+
+---
+
+## 122. What is ROW_NUMBER()?
+
+ROW_NUMBER() gives a unique sequential number to each row.
+
+```sql
+SELECT name,
+ROW_NUMBER() OVER (ORDER BY salary DESC) AS row_num
+FROM employee;
+```
+
+---
+
+## 123. What is RANK()?
+
+RANK() gives the same rank to equal values and skips the next rank.
+
+```sql
+SELECT name, salary,
+RANK() OVER (ORDER BY salary DESC) AS ranking
+FROM employee;
+```
+
+---
+
+## 124. What is DENSE_RANK()?
+
+DENSE_RANK() gives the same rank to equal values but does not skip the next rank.
+
+```sql
+SELECT name, salary,
+DENSE_RANK() OVER (ORDER BY salary DESC) AS ranking
+FROM employee;
+```
+
+---
+
+## 125. Difference Between RANK() and DENSE_RANK()
+
+| RANK()               | DENSE_RANK()        |
+| -------------------- | ------------------- |
+| Skips rank after tie | Does not skip rank  |
+| Example: 1, 2, 2, 4  | Example: 1, 2, 2, 3 |
+
+---
+
+# Very Important Data Analyst SQL Questions
+
+## 126. What is the Difference Between INNER JOIN and OUTER JOIN?
+
+| INNER JOIN               | OUTER JOIN                              |
+| ------------------------ | --------------------------------------- |
+| Returns matching records | Can return unmatched records            |
+| Only common data         | Includes left/right/both unmatched data |
+
+---
+
+## 127. What is the Difference Between GROUP BY and ORDER BY?
+
+| GROUP BY                            | ORDER BY                            |
+| ----------------------------------- | ----------------------------------- |
+| Groups similar values               | Sorts data                          |
+| Often used with aggregate functions | Used for ascending/descending order |
+
+---
+
+## 128. Can We Use Aggregate Functions with WHERE?
+
+Generally, aggregate functions cannot be directly used in the WHERE clause.
+
+Use **HAVING** instead.
+
+---
+
+## 129. What is the Order of SQL Query Execution?
+
+1. FROM
+2. JOIN
+3. WHERE
+4. GROUP BY
+5. HAVING
+6. SELECT
+7. DISTINCT
+8. ORDER BY
+9. LIMIT
+
+---
+
+## 130. What is a Common Table Expression (CTE)?
+
+A CTE is a temporary named result set used inside a query.
+
+```sql
+WITH high_salary AS (
+    SELECT *
+    FROM employee
+    WHERE salary > 50000
+)
+SELECT *
+FROM high_salary;
